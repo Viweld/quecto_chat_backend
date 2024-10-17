@@ -24,8 +24,7 @@ const _publicEndpoints = [
 ];
 
 /// Список приватных эндпоинтов:
-const _privateEndpoints = [
-];
+const _privateEndpoints = [];
 
 /// Проверяет наличие и валидность токенов в запросах
 Handler _verifyTokenHandler(Handler handler) {
