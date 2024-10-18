@@ -16,11 +16,11 @@ final class DotenvParameters implements EnvParameters {
   String get dbName => _env['AWS_DB_NAME'] ?? '';
 
   @override
-  String get dbPassword => _env['AWS_DB_USERNAME'] ?? '';
+  String get dbUsername => _env['AWS_DB_USERNAME'] ?? '';
 
   @override
-  String get dbSslCertFilePath => _env['AWS_DB_PASSWORD'] ?? '';
+  String get dbPassword => _env['AWS_DB_PASSWORD'] ?? '';
 
   @override
-  String get dbUsername => _env['AWS_DB_SSL_CERTIFICATE_PATH'] ?? '';
+  String get dbSslCertFilePath => _env['AWS_DB_SSL_CERTIFICATE_PATH'] ?? '';
 }
