@@ -10,6 +10,7 @@ dependencies:
   dart_frog: ^1.1.0
   collection: ^1.19.0
   postgres: ^3.4.0
+  dotenv: ^4.2.0
 
   # для работы с JWT-токенами
   dart_jsonwebtoken: ^2.14.1

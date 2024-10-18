@@ -4,6 +4,7 @@ import 'package:postgres/postgres.dart';
 
 import '../../domain/entities/user.dart';
 import '../../domain/interfaces/data_base.dart';
+import '../../domain/interfaces/env_parameters.dart';
 
 part 'mapper.dart';
 
@@ -12,32 +13,29 @@ part 'keys.dart';
 part 'migration.dart';
 
 final class PostgresDataBase implements DataBase {
-  PostgresDataBase();
+  PostgresDataBase(EnvParameters env) : _env = env;
 
-  static const _dbHost =
-      'qdbinstanceid.cniiu0gsasdv.eu-north-1.rds.amazonaws.com';
-  static const _dbName = 'qdbname';
-  static const _dbUsername = 'qdbusername';
-  static const _dbPassword = 'xHB6pPc4NYn6Jzf';
-  static const _sslCertFilePath = 'assets/certificates/eu-north-1-bundle.pem';
+  final EnvParameters _env;
 
   late Connection _connection;
 
+  // инициализация соединения с БД и создание/миграция таблиц
+  // ---------------------------------------------------------------------------
   @override
   Future<void> initialize() async {
     // Создание SecurityContext
     final securityContext = SecurityContext.defaultContext
-      ..setTrustedCertificates(_sslCertFilePath);
+      ..setTrustedCertificates(_env.dbSslCertFilePath);
 
     _connection = await Connection.open(
       Endpoint(
-        host: _dbHost,
+        host: _env.dbHost,
         // endpoint базы данных
-        database: _dbName,
+        database: _env.dbName,
         // Имя базы данных
-        username: _dbUsername,
+        username: _env.dbUsername,
         // Имя пользователя
-        password: _dbPassword,
+        password: _env.dbPassword,
         // Пароль
         isUnixSocket: false, // Укажите это, если не используете Unix socket
       ),
