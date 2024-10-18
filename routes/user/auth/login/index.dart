@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:quecto_chat_backend/data/repositories/user_repository_impl.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/domain/use_cases/user/authenticate_user.dart';

@@ -1,15 +1,14 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:dotenv/dotenv.dart';
 import 'package:quecto_chat_backend/data/data_base/postgres_data_base.dart';
 import 'package:quecto_chat_backend/domain/interfaces/data_base.dart';
 import 'package:quecto_chat_backend/domain/interfaces/env_parameters.dart';
-import 'package:quecto_chat_backend/parameters/dotenv_parameters.dart';
+import 'package:quecto_chat_backend/parameters/env_parameters_impl.dart';
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
-  // готовим параметры конфигурации
-  final envParameters = DotenvParameters();
+  // готовим параметры окружения
+  final envParameters = EnvParametersImpl();
   handler.use(provider<EnvParameters>((_) => envParameters));
 
   // готовим базу данных
