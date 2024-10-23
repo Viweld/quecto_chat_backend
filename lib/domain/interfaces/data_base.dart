@@ -1,4 +1,6 @@
-import '../entities/user.dart';
+import '../entities/paginated.dart';
+import '../entities/user/user.dart';
+import '../entities/user/user_sort_type.dart';
 
 abstract interface class DataBase {
   /// Инициализация БД
@@ -14,5 +16,10 @@ abstract interface class DataBase {
   Future<User> getUser(int userId);
 
   /// Получить список всех пользователей из БД
-  Future<List<User>> getAllUsers();
+  Future<Paginated<User>> getUsers({
+    String? search,
+    UserSortType? orderBy,
+    int? limit,
+    int? offset,
+  });
 }

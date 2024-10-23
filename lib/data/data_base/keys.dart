@@ -1,9 +1,10 @@
 part of 'postgres_data_base.dart';
 
 class _Keys {
+  static const _fCommonPrimaryKey = 'id';
+
   // Ключи таблицы и полей данных пользователей:
   static const _tUsers = 'users';
-  static const _fUser$id = 'id';
   static const _fUser$fullName = 'fullName';
   static const _fUser$createdAt = 'createdAt';
   static const _fUser$email = 'email';

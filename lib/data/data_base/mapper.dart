@@ -1,15 +1,16 @@
 part of 'postgres_data_base.dart';
 
 /// Маппер данных
-class _Mapper {
+final class _Mapper {
+  const _Mapper._();
   // ПОЛЬЗОВАТЕЛЬ:
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------------------------
   /// Парсинг данных пользователя из БД на модель User
-  User _parseUser(Map<String, Object?> src) {
+  static User _parseUser(Map<String, Object?> src) {
     return User(
-      id: src[_Keys._fUser$id] as String,
+      id: src[_Keys._fCommonPrimaryKey] as String,
       fullName: src[_Keys._fUser$fullName] as String,
       createdAt: DateTime.parse('${src[_Keys._fUser$createdAt]}'),
       email: src[_Keys._fUser$email] as String,
@@ -18,8 +19,7 @@ class _Mapper {
   }
 
   /// Маппинг данных пользователя из User на структуру для БД
-  Map<String, Object?> _mapUser(User src) => {
-        _Keys._fUser$id: src.id,
+  static Map<String, Object?> _mapUser(User src) => {
         _Keys._fUser$fullName: src.fullName,
         _Keys._fUser$createdAt: '${src.createdAt}',
         _Keys._fUser$email: src.email,

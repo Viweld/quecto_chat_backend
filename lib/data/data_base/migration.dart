@@ -8,12 +8,11 @@ class _Migration {
       await connection
           // таблица о пользователе
           .execute('CREATE TABLE IF NOT EXISTS ${_Keys._tUsers} ('
-              '${_Keys._tUsers} INTEGER PRIMARY KEY, '
-              '${_Keys._fUser$id} INTEGER NOT NULL, '
-              '${_Keys._fUser$fullName} TEXT, '
-              '${_Keys._fUser$createdAt} TEXT, '
+              '${_Keys._fCommonPrimaryKey} SERIAL PRIMARY KEY, '
+              '${_Keys._fUser$fullName} TEXT NOT NULL, '
+              '${_Keys._fUser$createdAt} TEXT NOT NULL, '
               '${_Keys._fUser$email} TEXT NOT NULL, '
-              '${_Keys._fUser$password} TEXT NULL'
+              '${_Keys._fUser$password} TEXT NOT NULL'
               ');');
     } on Object {
       rethrow;

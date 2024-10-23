@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user/user.dart';
 import '../../domain/interfaces/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {

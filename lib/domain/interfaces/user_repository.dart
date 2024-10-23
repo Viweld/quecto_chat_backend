@@ -1,4 +1,4 @@
-import '../entities/user.dart';
+import '../entities/user/user.dart';
 
 /// Интерфейс сервиса работы с токенами
 abstract interface class UserRepository {
