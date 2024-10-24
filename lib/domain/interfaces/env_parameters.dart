@@ -1,5 +1,5 @@
 abstract interface class EnvParameters {
-  // Конфигурация базы данных:
+  // DATABASE CONFIGURATIONS:
   // ---------------------------------------------------------------------------
   String get dbHost;
 

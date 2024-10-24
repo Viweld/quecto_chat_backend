@@ -1,11 +1,11 @@
-/// Интерфейс сервиса работы с токенами
+/// Interface for token service
 abstract interface class TokenService {
-  /// Генерация access-токена на основе ID пользователя
+  /// Generates an access token based on the user ID
   String generateAccessToken(String userId);
 
-  /// Генерация refresh-токена на основе ID пользователя
+  /// Generates a refresh token based on the user ID
   String generateRefreshToken(String userId);
 
-  /// Валидация токена. В случае успешной валидации возвращает ID пользователя
+  /// Validates the token. If validation is successful, returns the user ID
   String validateToken(String token);
 }

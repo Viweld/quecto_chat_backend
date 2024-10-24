@@ -2,20 +2,21 @@ import '../entities/paginated.dart';
 import '../entities/user/user.dart';
 import '../entities/user/user_sort_type.dart';
 
+/// Interface for database
 abstract interface class DataBase {
-  /// Инициализация БД
+  /// Initialize the database
   Future<void> initialize();
 
-  /// Сохранить пользователя в БД
+  /// Save a user to the database
   Future<void> addUser(User user);
 
-  /// Обновить даные пользователя в БД
+  /// Update user data in the database
   Future<void> updateUser(User user);
 
-  /// Получить данные пользователя из БД
+  /// Get user data from the database
   Future<User> getUser(int userId);
 
-  /// Получить список всех пользователей из БД
+  /// Get a list of all users from the database
   Future<Paginated<User>> getUsers({
     String? search,
     UserSortType? orderBy,

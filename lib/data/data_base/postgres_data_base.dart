@@ -23,24 +23,24 @@ final class PostgresDataBase implements DataBase {
   late Connection _connection;
 
   // ---------------------------------------------------------------------------
-  /// инициализация соединения с БД и создание/миграция таблиц
+  /// initializing the connection to the database and creating/migrating tables
   @override
   Future<void> initialize() async {
-    // Создание SecurityContext
+    // creating SecurityContext
     final securityContext = SecurityContext.defaultContext
       ..setTrustedCertificates(_env.dbSslCertFilePath);
 
     _connection = await Connection.open(
       Endpoint(
-        // endpoint базы данных
+        // endpoint of the database
         host: _env.dbHost,
-        // Имя базы данных
+        // database name
         database: _env.dbName,
-        // Имя пользователя
+        // username
         username: _env.dbUsername,
-        // Пароль
+        // password
         password: _env.dbPassword,
-        // Укажите это, если не используете Unix socket
+        // Specify this if you are not using Unix socket.
         isUnixSocket: false,
       ),
       settings: ConnectionSettings(
@@ -54,14 +54,14 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<void> addUser(User user) async {
-    // Проверка на существование пользователя с таким же email
+    // Check for existence of user with same email
     final existingUser = await _connection.execute(
       'SELECT id FROM public."${_Keys._tUsers}" '
       'WHERE email = ${user.email}',
     );
 
     if (existingUser.isNotEmpty) {
-      throw Exception('Пользователь с таким email уже существует');
+      throw Exception('A user with this email already exists');
     }
 
     await _connection.insert(

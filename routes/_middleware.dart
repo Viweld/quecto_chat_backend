@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/data/repositories/user_repository_impl.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
+import 'package:quecto_chat_backend/domain/interfaces/data_base.dart';
 import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/services/jwt_service.dart';
 
@@ -91,14 +92,17 @@ Future<Response> _continueProcessing(
 //     .use(B())
 //     .use(A());
 Handler _dependencyInjection(Handler handler) {
-  return handler.use(userRepositoryProvider());
+  return handler.use(_userRepositoryProvider());
 }
 
 // -----------------------------------------------------------------------------
-final UserRepository _userRepository = UserRepositoryImpl();
+late final UserRepository _userRepository;
 
 /// Провайдер для UserRepository
-Middleware userRepositoryProvider() {
-  return provider<UserRepository>((_) => _userRepository);
+Middleware _userRepositoryProvider() {
+  return provider<UserRepository>((context) {
+    final dataBase = context.read<DataBase>();
+    return _userRepository = UserRepositoryImpl(dataBase: dataBase);
+  });
 }
 // -----------------------------------------------------------------------------

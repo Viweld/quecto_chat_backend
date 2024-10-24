@@ -1,27 +1,43 @@
 import 'package:collection/collection.dart';
 
+import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user/user.dart';
+import '../../domain/entities/user/user_sort_type.dart';
+import '../../domain/interfaces/data_base.dart';
 import '../../domain/interfaces/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl() {
-    print('СОЗДАЛСЯ РЕПОЗИТОРИЙ ПОЛЬЗОВАТЕЛЯ');
+  const UserRepositoryImpl({required this.dataBase});
 
-    users = <User>[
-      User(
-        id: '1',
-        email: 'john@example.com',
-        password: 'password123',
-        fullName: 'we',
-        createdAt: DateTime.now(),
-      ),
-    ];
-  }
-
-  late List<User> users;
+  final DataBase dataBase;
 
   @override
-  Future<User?> findUserByEmail(String email) async {
-    return users.firstWhereOrNull((user) => user.email == email);
+  Future<void> addUser(User user) {
+    // TODO: implement addUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User> getUser(int userId) {
+    // TODO: implement getUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateUser(User user) {
+    // TODO: implement updateUser
+    throw UnimplementedError();
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<Paginated<User>> getUsers({
+    String? search,
+    UserSortType? orderBy,
+    int? limit,
+    int? offset,
+  }) {
+    // TODO: implement getUsers
+    throw UnimplementedError();
   }
 }

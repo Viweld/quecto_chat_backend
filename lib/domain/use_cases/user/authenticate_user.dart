@@ -8,7 +8,7 @@ class AuthenticateUser {
   final TokenService _tokenService;
 
   Future<Map<String, String>> call(String email, String password) async {
-    // Проверка учетных данных
+    // Verifying credentials
     final user = await _userRepository.findUserByEmail(email);
     if (user == null || user.password != password) {
       throw Exception('Invalid email or password');
