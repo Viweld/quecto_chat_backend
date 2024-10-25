@@ -1,6 +1,8 @@
 import 'package:postgres/postgres.dart';
 
 extension PostgresExtension on Connection {
+  // ---------------------------------------------------------------------------
+  /// Most common query to database with postgres package
   Future<List<Map<String, Object?>>> query({
     required String tableKey,
     List<String>? columns,
@@ -9,68 +11,40 @@ extension PostgresExtension on Connection {
     int? limit,
     int? offset,
   }) async {
-    final query = StringBuffer()..write('SELECT ');
+    final query = StringBuffer();
     if (columns != null && columns.isNotEmpty) {
-      _writeColumns(query, columns);
+      query.write('SELECT ${columns.join(', ')}');
     } else {
-      query.write('* ');
-    }
-    query
-      ..write('FROM ')
-      ..write(tableKey);
-    _writeClause(query, ' WHERE ', where);
-    _writeClause(query, ' ORDER BY ', orderBy);
-    if (limit != null || offset != null) {
-      _writeClause(query, ' LIMIT ', (limit ?? -1).toString());
-    }
-    if (offset != null) {
-      _writeClause(query, ' OFFSET ', offset.toString());
+      query.write('SELECT *');
     }
 
-    // Выполнение запроса
+    query.write(' FROM $tableKey');
+    if (where != null) query.write(' WHERE $where');
+    if (orderBy != null) query.write(' ORDER BY $orderBy');
+    if (limit != null) query.write(' LIMIT $limit');
+    if (offset != null) query.write(' OFFSET $offset');
+
+    // executes an SQL query
     final result = await execute(query.toString());
 
-    // Преобразование результата в список карт
+    // transform result to list of maps
     return result.map((row) => row.toColumnMap()).toList();
   }
 
+  // ---------------------------------------------------------------------------
+  /// Query to insert data into database with postgres package as a transactional process
   Future<void> insert({
     required String tableName,
     required Map<String, Object?> data,
   }) async {
-    try {
-      // Начало транзакции
-      await runTx((session) async {
-        // Выполнение SQL-запроса с параметрами внутри транзакции
-        await session.execute(
-          'INSERT INTO public."$tableName"(${data.keys.join(', ')}) '
-          'VALUES (${data.keys.map((k) => '@$k').join(', ')})',
-          parameters: data,
-        );
-      });
-
-      print('Пользователь успешно сохранен в транзакции!');
-    } catch (e) {
-      print('Ошибка при сохранении пользователя в транзакции: $e');
-    }
+    // open the transaction
+    await runTx((session) async {
+      // executes an SQL query with parameters
+      await session.execute(
+        'INSERT INTO public."$tableName"(${data.keys.join(', ')}) '
+        'VALUES (${data.keys.map((k) => '@$k').join(', ')})',
+        parameters: data,
+      );
+    });
   }
-}
-
-void _writeClause(StringBuffer stringBuffer, String name, String? clause) {
-  if (clause != null) {
-    stringBuffer
-      ..write(name)
-      ..write(clause);
-  }
-}
-
-void _writeColumns(StringBuffer stringBuffer, List<String> columns) {
-  final n = columns.length;
-
-  for (var i = 0; i < n; i++) {
-    final column = columns[i];
-    if (i > 0) stringBuffer.write(', ');
-    stringBuffer.write(column);
-  }
-  stringBuffer.write(' ');
 }

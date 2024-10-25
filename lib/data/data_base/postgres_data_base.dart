@@ -5,6 +5,7 @@ import 'package:postgres/postgres.dart';
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user/user.dart';
 import '../../domain/entities/user/user_sort_type.dart';
+import '../../domain/exceptions/app_exceptions.dart';
 import '../../domain/extensions/postgres_extension.dart';
 import '../../domain/interfaces/data_base.dart';
 import '../../domain/interfaces/env_parameters.dart';
@@ -60,14 +61,37 @@ final class PostgresDataBase implements DataBase {
       'WHERE email = ${user.email}',
     );
 
-    if (existingUser.isNotEmpty) {
-      throw Exception('A user with this email already exists');
-    }
+    if (existingUser.isNotEmpty) throw const EmailAlreadyUsed();
 
     await _connection.insert(
       tableName: _Keys._tUsers,
       data: _Mapper._mapUser(user),
     );
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<User> getUserById(String userId) {
+    // TODO(Vadim): #unimplemented getUserById
+    throw UnimplementedError();
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<User?> getUserByEmail(String email) async {
+    final result = await _connection.query(
+      tableKey: _Keys._tUsers,
+      where: 'email = $email',
+    );
+
+    return result.isEmpty ? null : _Mapper._parseUser(result.first);
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<void> updateUser(User user) {
+    // TODO(Vadim): #unimplemented updateUser
+    throw UnimplementedError();
   }
 
   // ---------------------------------------------------------------------------
@@ -81,63 +105,43 @@ final class PostgresDataBase implements DataBase {
     final orderQuerySample = _getOrderQuerySample(orderBy);
     final searchQuerySample = _getSearchByUsersNameQuerySample(search);
 
-    try {
-      // Выполнение запроса с пагинацией, сортировкой и фильтрацией по имени
-      final result = await _connection.query(
-        tableKey: _Keys._tUsers,
-        where: searchQuerySample,
-        orderBy: orderQuerySample,
-        limit: limit,
-        offset: offset,
-      );
+    final result = await _connection.query(
+      tableKey: _Keys._tUsers,
+      where: searchQuerySample,
+      orderBy: orderQuerySample,
+      limit: limit,
+      offset: offset,
+    );
 
-      return Paginated<User>(
-        result: result.map(_Mapper._parseUser),
-        limit: limit,
-        offset: offset,
-      );
-    } on Object catch (e) {
-      print('Ошибка при выполнении запроса: $e');
-      throw Exception('Ошибка при получении списка пользователей');
-    }
+    return Paginated<User>(
+      result: result.map(_Mapper._parseUser),
+      limit: limit,
+      offset: offset,
+    );
   }
 
+  // HELPER METHODS:
   // ---------------------------------------------------------------------------
-  @override
-  Future<User> getUser(int userId) {
-    // TODO: implement getUser
-    throw UnimplementedError();
-  }
-
-  // ---------------------------------------------------------------------------
-  @override
-  Future<void> updateUser(User user) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
-
-  // ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ:
-  // ---------------------------------------------------------------------------
-  /// Возвращает фрагмент запроса, отвечающий за сортировку извлекаемых данных
+  /// Returns the query fragment responsible for sorting retrieved data
   String? _getOrderQuerySample(UserSortType? orderBy) => switch (orderBy) {
-        // Сортировка по имени пользователя в алфавитном порядке (A -> Z).
+        // Sorts by username in alphabetical order (A -> Z).
         UserSortType.fullNameAsc => '${_Keys._fUser$fullName} ASC',
 
-        // Сортировка по имени пользователя в обратном алфавитном порядке (Z -> A).
+        // Sorts by username in reverse alphabetical order (Z -> A).
         UserSortType.fullNameDesc => '${_Keys._fUser$fullName} DESC',
 
-        // Сортировка по дате создания в порядке возрастания (старые записи сначала).
+        // Sorts by creation date in ascending order (older records first).
         UserSortType.createdAtAsc => '${_Keys._fUser$createdAt} ASC',
 
-        // Сортировка по дате создания в порядке убывания (новые записи сначала).
+        // Sorts by creation date in descending order (newer records first).
         UserSortType.createdAtDesc => '${_Keys._fUser$createdAt} DESC',
         _ => null,
       };
 
   // ---------------------------------------------------------------------------
-  /// Возвращает фрагмент запроса, отвечающий за поиск по fullName
+  /// Returns the query fragment responsible for searching by fullName
   String? _getSearchByUsersNameQuerySample(String? search) =>
       (search == null || search.isEmpty)
           ? null
-          : '${_Keys._fUser$fullName} ILIKE $search';
+          : '${_Keys._fUser$fullName} ILIKE \'%$search%\'';
 }

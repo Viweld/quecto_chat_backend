@@ -5,7 +5,7 @@ import 'package:dart_frog/dart_frog.dart';
 class ResponseHelper {
   const ResponseHelper._();
 
-  /// Успешное выполнение запроса с возвратом ответных данных
+  /// Successful execution of the request with return of response data
   static Future<Response> success({
     required dynamic body,
   }) async {
@@ -15,7 +15,7 @@ class ResponseHelper {
     );
   }
 
-  /// Успешное выполнение запроса без ответных данных:
+  /// Successful execution of a request without response data:
   static Future<Response> successEmpty({String? detail}) async {
     return detail == null
         ? Response.json(statusCode: HttpStatus.ok)
@@ -25,12 +25,12 @@ class ResponseHelper {
           );
   }
 
-  /// Не поддерживаемый метод для данного запроса:
+  /// Method not allowed:
   static Future<Response> methodNotAllowed() async {
     return Response.json(statusCode: HttpStatus.methodNotAllowed);
   }
 
-  /// Отсутствует авторизация:
+  /// Unauthorized:
   static Future<Response> unAuthorized({String? detail}) async {
     return detail == null
         ? Response.json(statusCode: HttpStatus.unauthorized)
@@ -40,7 +40,7 @@ class ResponseHelper {
           );
   }
 
-  /// Неправильный запрос:
+  /// Bad request:
   static Future<Response> badRequest({String? detail}) async {
     return detail == null
         ? Response.json(statusCode: HttpStatus.badRequest)
@@ -50,7 +50,7 @@ class ResponseHelper {
           );
   }
 
-  /// Ответ с произвольным статусом и текстом ошибки без ответных данных:
+  /// Response with arbitrary status and error text without response data:
   static Future<Response> abortWithStatus({
     required int status,
     String? detail,
@@ -63,8 +63,18 @@ class ResponseHelper {
           );
   }
 
-  /// Эндпоинт отсутствует:
+  /// Endpoint not found:
   static Future<Response> notFound() async {
     return Response.json(statusCode: HttpStatus.notFound);
+  }
+
+  /// Internal server error:
+  static Future<Response> internalServerError({String? detail}) async {
+    return detail == null
+        ? Response.json(statusCode: HttpStatus.internalServerError)
+        : Response.json(
+            statusCode: HttpStatus.internalServerError,
+            body: {'detail': detail},
+          );
   }
 }

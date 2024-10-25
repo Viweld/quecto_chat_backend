@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user/user.dart';
 import '../../domain/entities/user/user_sort_type.dart';
@@ -11,23 +9,21 @@ class UserRepositoryImpl implements UserRepository {
 
   final DataBase dataBase;
 
+  // ---------------------------------------------------------------------------
   @override
-  Future<void> addUser(User user) {
-    // TODO: implement addUser
-    throw UnimplementedError();
-  }
+  Future<void> addUser(User user) => dataBase.addUser(user);
 
+  // ---------------------------------------------------------------------------
   @override
-  Future<User> getUser(int userId) {
-    // TODO: implement getUser
-    throw UnimplementedError();
-  }
+  Future<User> getUserById(String userId) => dataBase.getUserById(userId);
 
+  // ---------------------------------------------------------------------------
   @override
-  Future<void> updateUser(User user) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
+  Future<User?> getUserByEmail(String email) => dataBase.getUserByEmail(email);
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<void> updateUser(User user) => dataBase.updateUser(user);
 
   // ---------------------------------------------------------------------------
   @override
@@ -36,8 +32,11 @@ class UserRepositoryImpl implements UserRepository {
     UserSortType? orderBy,
     int? limit,
     int? offset,
-  }) {
-    // TODO: implement getUsers
-    throw UnimplementedError();
-  }
+  }) =>
+      dataBase.getUsers(
+        search: search,
+        orderBy: orderBy,
+        limit: limit,
+        offset: offset,
+      );
 }

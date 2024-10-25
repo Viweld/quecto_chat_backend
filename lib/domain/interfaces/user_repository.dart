@@ -11,7 +11,10 @@ abstract interface class UserRepository {
   Future<void> updateUser(User user);
 
   /// Get user data by ID
-  Future<User> getUser(int userId);
+  Future<User> getUserById(String userId);
+
+  /// Get user data by E-mail
+  Future<User?> getUserByEmail(String email);
 
   /// Get a list of users
   Future<Paginated<User>> getUsers({

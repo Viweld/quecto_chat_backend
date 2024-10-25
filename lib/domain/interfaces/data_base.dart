@@ -10,11 +10,14 @@ abstract interface class DataBase {
   /// Save a user to the database
   Future<void> addUser(User user);
 
+  /// Get user data from the database using ID
+  Future<User> getUserById(String userId);
+
+  /// Get user data from the database using E-mail
+  Future<User?> getUserByEmail(String email);
+
   /// Update user data in the database
   Future<void> updateUser(User user);
-
-  /// Get user data from the database
-  Future<User> getUser(int userId);
 
   /// Get a list of all users from the database
   Future<Paginated<User>> getUsers({

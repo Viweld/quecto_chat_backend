@@ -1,3 +1,5 @@
+import '../../entities/user/user_login_credentials.dart';
+import '../../exceptions/app_exceptions.dart';
 import '../../interfaces/token_service.dart';
 import '../../interfaces/user_repository.dart';
 
@@ -7,14 +9,14 @@ class AuthenticateUser {
   final UserRepository _userRepository;
   final TokenService _tokenService;
 
-  Future<Map<String, String>> call(String email, String password) async {
-    // Verifying credentials
-    final user = await _userRepository.findUserByEmail(email);
-    if (user == null || user.password != password) {
-      throw Exception('Invalid email or password');
+  Future<Map<String, String>> call(UserLoginCredentials credentials) async {
+    // verifying credentials
+    final user = await _userRepository.getUserByEmail(credentials.email);
+    if (user == null || user.password != credentials.password) {
+      throw const WrongEmailOrPassword();
     }
 
-    // Генерация access и refresh токенов
+    // generate access and refresh tokens
     final accessToken = _tokenService.generateAccessToken(user.id);
     final refreshToken = _tokenService.generateRefreshToken(user.id);
 
