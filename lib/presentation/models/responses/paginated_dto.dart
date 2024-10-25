@@ -23,14 +23,16 @@ final class PaginatedDto<T> {
   @JsonKey(name: 'offset')
   final int? offset;
 
-  /// Метод для десериализации
+  // ---------------------------------------------------------------------------
+  /// Deserialization
   factory PaginatedDto.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
   ) =>
       _$PaginatedDtoFromJson(json, fromJsonT);
 
-  /// Метод для сериализации
+  // ---------------------------------------------------------------------------
+  /// Serialization
   Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
       _$PaginatedDtoToJson(this, toJsonT);
 }

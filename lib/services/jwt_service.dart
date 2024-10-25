@@ -38,7 +38,8 @@ class JwtService implements TokenService {
     try {
       // Verifying a token using a secret key
       final jwt = JWT.verify(token, SecretKey(_secretKey));
-      return jwt.payload['sub'] as String; // Return userId from token
+      final jwtPayload = jwt.payload as Map<String, Object>;
+      return '${jwtPayload['sub']}'; // Return userId from token
     } catch (e) {
       throw Exception('Invalid token: $e');
     }

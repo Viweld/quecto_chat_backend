@@ -1,14 +1,14 @@
-/// Типы сортировки для пользователей.
+/// Sorting types for users.
 enum UserSortType {
-  /// Сортировка по имени пользователя в алфавитном порядке (A -> Z).
+  /// Sort by user's name in alphabetical order (A -> Z).
   fullNameAsc,
 
-  /// Сортировка по имени пользователя в обратном алфавитном порядке (Z -> A).
+  /// Sort by user's name in reverse alphabetical order (Z -> A).
   fullNameDesc,
 
-  /// Сортировка по дате создания в порядке возрастания (старые записи сначала).
+  /// Sort by creation date in ascending order (older records first).
   createdAtAsc,
 
-  /// Сортировка по дате создания в порядке убывания (новые записи сначала).
+  /// Sort by creation date in descending order (newer records first).
   createdAtDesc,
 }

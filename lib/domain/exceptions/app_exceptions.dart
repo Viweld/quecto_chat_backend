@@ -3,6 +3,7 @@ sealed class CoreExceptions implements Exception {}
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+/// The most common exceptions when processing incoming requests:
 sealed class RequestBodyExceptions implements CoreExceptions {}
 
 /// Missing request body
@@ -34,6 +35,7 @@ final class InvalidRequestBodyValues implements RequestBodyExceptions {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+/// The most common exceptions when processing user use-cases:
 sealed class UserExceptions implements CoreExceptions {}
 
 /// Email already used

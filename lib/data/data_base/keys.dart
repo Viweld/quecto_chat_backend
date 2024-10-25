@@ -3,7 +3,7 @@ part of 'postgres_data_base.dart';
 class _Keys {
   static const _fCommonPrimaryKey = 'id';
 
-  // Ключи таблицы и полей данных пользователей:
+  // Table keys and user data fields:
   static const _tUsers = 'users';
   static const _fUser$fullName = 'fullName';
   static const _fUser$createdAt = 'createdAt';
@@ -12,7 +12,7 @@ class _Keys {
   //static const _fUser$photoUrl = 'photoUrl';
   //static const _fUser$chattingWith = 'chattingWith';
 
-  // Ключи таблицы и полей данных сообщений:
+  // Table keys and message data fields:
   // static const _tMessages = 'messages';
   // static const _fMessage$fromId = 'fromId';
   // static const _fMessage$toId = 'toId';

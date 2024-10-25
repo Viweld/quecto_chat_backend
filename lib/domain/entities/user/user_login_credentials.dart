@@ -4,7 +4,9 @@ base class UserLoginCredentials {
     required this.password,
   });
 
+  /// User e-mail
   final String email;
 
+  /// Account password
   final String password;
 }

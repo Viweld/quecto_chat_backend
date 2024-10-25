@@ -2,11 +2,11 @@ part of 'postgres_data_base.dart';
 
 class _Migration {
   // ---------------------------------------------------------------------------
-  // при создании БД
+  // when creating a database
   static Future<void> _onConnectionCreate(Connection connection) async {
     try {
       await connection
-          // таблица о пользователе
+          // table about user
           .execute('CREATE TABLE IF NOT EXISTS ${_Keys._tUsers} ('
               '${_Keys._fCommonPrimaryKey} SERIAL PRIMARY KEY, '
               '${_Keys._fUser$fullName} TEXT NOT NULL, '

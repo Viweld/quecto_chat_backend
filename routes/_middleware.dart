@@ -17,49 +17,49 @@ Handler middleware(Handler handler) {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-/// ПРОВЕРКА ТОКЕНА:
-/// Список публичных эндпоинтов:
+/// TOKEN VERIFICATION:
+/// List of public endpoints:
 const _publicEndpoints = [
   'user/auth/login',
   'user/auth/token/refresh',
 ];
 
-/// Список приватных эндпоинтов:
+/// List of private endpoints:
 const _privateEndpoints = [];
 
-/// Проверяет наличие и валидность токенов в запросах
+/// Checks for token presence and validity in requests
 Handler _verifyTokenHandler(Handler handler) {
   return (context) async {
-    // 1. Проверяем эндпоинт:
+    // 1. Checking the endpoint:
     final url = context.request.url.toString();
-    // 1.1. Если запрос - публичный, выполняем его:
+    // 1.1. If the request is public, process it:
     final isFreeAccess = _publicEndpoints.contains(url);
     if (isFreeAccess) return _continueProcessing(handler, context);
-    // 1.2. Если запрос - приватный, то отвечам 404
+    // 1.2. If the request is private, respond with 404
     final isPrivateAccess = _privateEndpoints.contains(url);
     if (!isPrivateAccess) return ResponseHelper.notFound();
 
-    // 2. Проверяем наличие токена в хэдерах:
+    // 2. Check for a token in headers:
     final authHeader = context.request.headers['Authorization'];
     final token = _getTokenFromAuthHeader(authHeader);
     if (token == null) {
       return ResponseHelper.unAuthorized(detail: 'No token provided');
     }
 
-    // 3. Проверяем вадидность токена:
+    // 3. Check for token validity:
     try {
       final jwtService = JwtService();
       final userId = jwtService.validateToken(token);
       final updatedContext = context.provide<String>(() => userId);
       return await _continueProcessing(handler, updatedContext);
-    } catch (e) {
-      // Если токен невалиден или возникла ошибка валидации
+    } on Object {
+      // If the token is invalid or an error occurred during validation
       return ResponseHelper.unAuthorized(detail: 'Invalid or expired token');
     }
   };
 }
 
-/// Возвращает токен из хэдера, либо null если это не удается сделать или данный хэдер пуст
+/// Returns the token from the header, or null if it can't be retrieved or the header is empty
 String? _getTokenFromAuthHeader(String? authHeader) {
   if (authHeader == null) return null;
   if (authHeader.contains('Bearer ')) return null;
@@ -68,7 +68,7 @@ String? _getTokenFromAuthHeader(String? authHeader) {
   return token;
 }
 
-/// Продолжает выполнение поступившего запроса
+/// Continues the execution of the incoming request
 Future<Response> _continueProcessing(
   Handler handler,
   RequestContext context,
@@ -85,9 +85,9 @@ Future<Response> _continueProcessing(
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-/// ПРОБРОС ЗАВИСИМОСТЕЙ:
-// Взаимосвязанные зависимости должны быть расположены снизу вверх.
-// Если B зависит от A, тогда:
+/// DEPENDENCY INJECTION:
+// Interdependent dependencies should be placed bottom to top.
+// If B depends on A, then:
 //   handler
 //     .use(B())
 //     .use(A());
@@ -98,7 +98,7 @@ Handler _dependencyInjection(Handler handler) {
 // -----------------------------------------------------------------------------
 late final UserRepository _userRepository;
 
-/// Провайдер для UserRepository
+/// Provider for UserRepository
 Middleware _userRepositoryProvider() {
   return provider<UserRepository>((context) {
     final dataBase = context.read<DataBase>();
