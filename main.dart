@@ -7,11 +7,11 @@ import 'package:quecto_chat_backend/domain/interfaces/env_parameters.dart';
 import 'package:quecto_chat_backend/parameters/env_parameters_impl.dart';
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
-  // готовим параметры окружения
+  // environment properties preparation
   final envParameters = EnvParametersImpl();
   handler.use(provider<EnvParameters>((_) => envParameters));
 
-  // готовим базу данных
+  // database preparation
   final dataBase = await _prepareDataBase(envParameters);
   handler.use(provider<DataBase>((_) => dataBase));
 
@@ -21,7 +21,7 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-/// Готовит базу данных
+/// Prepare of database
 Future<DataBase> _prepareDataBase(EnvParameters envParameters) async {
   final dataBase = PostgresDataBase(envParameters);
   await dataBase.initialize();

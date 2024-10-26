@@ -26,7 +26,7 @@ FutureOr<Response> _post(RequestContext context) async {
     final newAccessToken = jwtService.generateAccessToken(userId);
 
     return ResponseHelper.success(body: {'access': newAccessToken});
-  } catch (e) {
+  } on Object {
     return ResponseHelper.unAuthorized(detail: 'Invalid refresh token');
   }
 }

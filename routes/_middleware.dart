@@ -75,10 +75,8 @@ Future<Response> _continueProcessing(
 ) async {
   try {
     return await handler(context);
-  } catch (error) {
-    return ResponseHelper.badRequest(
-      detail: 'Bad Request ($error)',
-    );
+  } on Object catch (e) {
+    return ResponseHelper.badRequest(detail: '$e');
   }
 }
 
