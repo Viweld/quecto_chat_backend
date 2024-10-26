@@ -10,8 +10,9 @@ class DecodeHelper {
     if (requestBody.isEmpty) throw const MissingRequestBody();
     try {
       final data = jsonDecode(requestBody);
-      if (data is! Map<String, Object?>)
+      if (data is! Map<String, Object?>) {
         throw const UnableToDecodeRequestBody();
+      }
       return data;
     } on FormatException catch (e) {
       throw UnableToDecodeRequestBody(
