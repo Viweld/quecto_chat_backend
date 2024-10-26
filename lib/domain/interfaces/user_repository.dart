@@ -5,7 +5,12 @@ import '../entities/user/user_sort_type.dart';
 /// Interface for user repository
 abstract interface class UserRepository {
   /// Save a user
-  Future<void> addUser(User user);
+  Future<void> addUser({
+    required String fullName,
+    required DateTime createdAt,
+    required String email,
+    required String password,
+  });
 
   /// Update user data
   Future<void> updateUser(User user);

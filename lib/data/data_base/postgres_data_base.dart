@@ -54,18 +54,28 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> addUser(User user) async {
+  Future<void> addUser({
+    required String fullName,
+    required DateTime createdAt,
+    required String email,
+    required String password,
+  }) async {
     // Check for existence of user with same email
     final existingUser = await _connection.execute(
       'SELECT id FROM public."${_Keys._tUsers}" '
-      'WHERE email = ${user.email}',
+      'WHERE email = $email',
     );
 
     if (existingUser.isNotEmpty) throw const EmailAlreadyUsed();
 
     await _connection.insert(
       tableName: _Keys._tUsers,
-      data: _Mapper._mapUser(user),
+      data: _Mapper._mapUser(
+        fullName: fullName,
+        createdAt: createdAt,
+        email: email,
+        password: password,
+      ),
     );
   }
 

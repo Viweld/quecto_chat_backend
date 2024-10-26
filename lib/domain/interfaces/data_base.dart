@@ -8,7 +8,12 @@ abstract interface class DataBase {
   Future<void> initialize();
 
   /// Save a user to the database
-  Future<void> addUser(User user);
+  Future<void> addUser({
+    required String fullName,
+    required DateTime createdAt,
+    required String email,
+    required String password,
+  });
 
   /// Get user data from the database using ID
   Future<User> getUserById(String userId);

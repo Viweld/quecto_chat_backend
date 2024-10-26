@@ -10,5 +10,10 @@ abstract interface class EnvParameters {
   String get dbPassword;
 
   String get dbSslCertFilePath;
-// ---------------------------------------------------------------------------
+
+  // MAIL SENDER CONFIGURATIONS:
+  // ---------------------------------------------------------------------------
+  String get sendGridApiKey;
+
+  String get sendGridUrl;
 }

@@ -4,6 +4,7 @@ import '../domain/interfaces/token_service.dart';
 
 /// Implementation of TokenService
 class JwtService implements TokenService {
+  // TODO(Vadim): #canBeImproved - transfer this constants to .env
   static const _secretKey = 'your_secret_key';
   static const _accessTokenDuration = Duration(minutes: 15);
   static const _refreshTokenDuration = Duration(days: 7);

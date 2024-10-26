@@ -17,10 +17,16 @@ final class _Mapper {
   }
 
   /// Mapping user data from User to a structure for the DB
-  static Map<String, Object?> _mapUser(User src) => {
-        _Keys._fUser$fullName: src.fullName,
-        _Keys._fUser$createdAt: '${src.createdAt}',
-        _Keys._fUser$email: src.email,
-        _Keys._fUser$password: src.password,
+  static Map<String, Object?> _mapUser({
+    required String fullName,
+    required DateTime createdAt,
+    required String email,
+    required String password,
+  }) =>
+      {
+        _Keys._fUser$fullName: fullName,
+        _Keys._fUser$createdAt: '$createdAt',
+        _Keys._fUser$email: email,
+        _Keys._fUser$password: password,
       };
 }

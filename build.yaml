@@ -4,5 +4,5 @@ targets:
       source_gen:combining_builder:
         options:
           build_extensions:
-            '^lib/presentation/models/requests/{{}}.dart': 'lib/presentation/models/requests/generated/{{}}.g.dart'
-            '^lib/presentation/models/responses/{{}}.dart': 'lib/presentation/models/responses/generated/{{}}.g.dart'
+            '^lib/presentation/models/inputs/{{}}.dart': 'lib/presentation/models/inputs/generated/{{}}.g.dart'
+            '^lib/presentation/models/outputs/{{}}.dart': 'lib/presentation/models/outputs/generated/{{}}.g.dart'

@@ -5,8 +5,8 @@ import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/domain/use_cases/user/user_login.dart';
-import 'package:quecto_chat_backend/presentation/models/requests/user_login_input_dto.dart';
-import 'package:quecto_chat_backend/presentation/models/responses/user_login_output_dto.dart';
+import 'package:quecto_chat_backend/presentation/models/inputs/user_login_input_dto.dart';
+import 'package:quecto_chat_backend/presentation/models/outputs/user_login_output_dto.dart';
 import 'package:quecto_chat_backend/services/jwt_service.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {

@@ -9,6 +9,7 @@ final class EnvParametersImpl implements EnvParameters {
 
   late final DotEnv _env;
 
+  // ---------------------------------------------------------------------------
   @override
   String get dbHost => _env['AWS_DB_ENDPOINT'] ?? '';
 
@@ -23,4 +24,11 @@ final class EnvParametersImpl implements EnvParameters {
 
   @override
   String get dbSslCertFilePath => _env['AWS_DB_SSL_CERTIFICATE_PATH'] ?? '';
+
+  // ---------------------------------------------------------------------------
+  @override
+  String get sendGridApiKey => _env['SEND_GRID_API_KEY'] ?? '';
+
+  @override
+  String get sendGridUrl => _env['SEND_GRID_URL'] ?? '';
 }

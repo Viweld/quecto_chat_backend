@@ -11,7 +11,18 @@ class UserRepositoryImpl implements UserRepository {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> addUser(User user) => dataBase.addUser(user);
+  Future<void> addUser({
+    required String fullName,
+    required DateTime createdAt,
+    required String email,
+    required String password,
+  }) =>
+      dataBase.addUser(
+        fullName: fullName,
+        createdAt: createdAt,
+        email: email,
+        password: password,
+      );
 
   // ---------------------------------------------------------------------------
   @override
