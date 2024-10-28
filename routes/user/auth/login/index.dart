@@ -3,11 +3,9 @@ import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
 import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/domain/use_cases/user/user_login.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_login_input_dto.dart';
 import 'package:quecto_chat_backend/presentation/models/outputs/user_login_output_dto.dart';
-import 'package:quecto_chat_backend/services/jwt_service.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
@@ -27,9 +25,7 @@ FutureOr<Response> _post(RequestContext context) async {
     final credentials = UserLoginInputDto.fromJson(requestBody);
 
     // preparing dependencies
-    final userRepository = context.read<UserRepository>();
-    final jwtService = JwtService();
-    final userLogin = UserLogin(userRepository, jwtService);
+    final userLogin = context.read<UserLogin>();
 
     // execute login
     final tokens = await userLogin(credentials) as UserLoginOutputDto;

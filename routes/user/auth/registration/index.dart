@@ -2,11 +2,8 @@ import 'dart:async';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/domain/interfaces/env_parameters.dart';
-import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/domain/use_cases/user/user_registration.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_registration_input_dto.dart';
-import 'package:quecto_chat_backend/services/send_grid_mail_sender_service.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
@@ -26,10 +23,7 @@ FutureOr<Response> _post(RequestContext context) async {
     final registerData = UserRegistrationInputDto.fromJson(requestBody);
 
     // preparing dependencies
-    final userRepository = context.read<UserRepository>();
-    final envParameters = context.read<EnvParameters>();
-    final mailSenderService = SendGridMailSenderService(envParameters);
-    final userRegister = UserRegistration(userRepository, mailSenderService);
+    final userRegister = context.read<UserRegistration>();
 
     // execute registration
     await userRegister(registerData);

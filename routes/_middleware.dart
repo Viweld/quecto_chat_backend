@@ -1,17 +1,11 @@
 import 'dart:async';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:quecto_chat_backend/data/repositories/user_repository_impl.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/domain/interfaces/data_base.dart';
-import 'package:quecto_chat_backend/domain/interfaces/user_repository.dart';
 import 'package:quecto_chat_backend/services/jwt_service.dart';
 
 Handler middleware(Handler handler) {
-  return handler
-      .use(requestLogger())
-      .use(_verifyTokenHandler)
-      .use(_dependencyInjection);
+  return handler.use(requestLogger()).use(_verifyTokenHandler);
 }
 
 // -----------------------------------------------------------------------------
@@ -79,28 +73,3 @@ Future<Response> _continueProcessing(
     return ResponseHelper.badRequest(detail: '$e');
   }
 }
-
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-/// DEPENDENCY INJECTION:
-// Interdependent dependencies should be placed bottom to top.
-// If B depends on A, then:
-//   handler
-//     .use(B())
-//     .use(A());
-Handler _dependencyInjection(Handler handler) {
-  return handler.use(_userRepositoryProvider());
-}
-
-// -----------------------------------------------------------------------------
-late final UserRepository _userRepository;
-
-/// Provider for UserRepository
-Middleware _userRepositoryProvider() {
-  return provider<UserRepository>((context) {
-    final dataBase = context.read<DataBase>();
-    return _userRepository = UserRepositoryImpl(dataBase: dataBase);
-  });
-}
-// -----------------------------------------------------------------------------
