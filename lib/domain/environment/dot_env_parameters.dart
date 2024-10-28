@@ -1,6 +1,6 @@
 import 'package:dotenv/dotenv.dart';
 
-import '../domain/interfaces/env_parameters.dart';
+import '../interfaces/env_parameters.dart';
 
 final class DotEnvParameters implements EnvParameters {
   DotEnvParameters() {

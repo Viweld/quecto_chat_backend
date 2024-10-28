@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/services/jwt_service.dart';
+import 'package:quecto_chat_backend/domain/interfaces/token_service.dart';
 
 Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(_verifyTokenHandler);
@@ -42,7 +42,7 @@ Handler _verifyTokenHandler(Handler handler) {
 
     // 3. Check for token validity:
     try {
-      final jwtService = JwtService();
+      final jwtService = context.read<TokenService>();
       final userId = jwtService.validateToken(token);
       final updatedContext = context.provide<String>(() => userId);
       return await _continueProcessing(handler, updatedContext);
