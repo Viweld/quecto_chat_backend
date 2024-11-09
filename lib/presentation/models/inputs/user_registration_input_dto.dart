@@ -1,11 +1,8 @@
-import 'package:json_annotation/json_annotation.dart';
-import '../../../domain/exceptions/app_exceptions.dart';
-import '../../../domain/use_cases/user/user_registration.dart';
+import '../../../domain/models/inputs/common/input_fields/base_input_field.dart';
+import '../../../domain/models/inputs/user/user_registration_input.dart';
 
 part 'generated/user_registration_input_dto.g.dart';
 
-// ignore_for_file: sort_constructors_first
-@JsonSerializable()
 final class UserRegistrationInputDto extends UserRegistrationInput {
   UserRegistrationInputDto({
     required super.fullName,
@@ -16,11 +13,15 @@ final class UserRegistrationInputDto extends UserRegistrationInput {
 
   // ---------------------------------------------------------------------------
   /// Deserialization
-  factory UserRegistrationInputDto.fromJson(Map<String, dynamic> json) {
-    try {
-      return _$UserRegistrationInputDtoFromJson(json);
-    } on Object {
-      throw UnableToDecodeRequestBody('$json');
-    }
-  }
+  factory UserRegistrationInputDto.fromJson(Map<String, dynamic> json) =>
+      UserRegistrationInputDto(
+        fullName: StringInputField('full_name', json['full_name']),
+        email: EmailInputField('email', json['email']),
+        password: PasswordInputField('password', json['password']),
+        confirmPassword: ConfirmPasswordInputField(
+          'password',
+          json['password'],
+          PasswordInputField('password', json['password']),
+        ),
+      );
 }

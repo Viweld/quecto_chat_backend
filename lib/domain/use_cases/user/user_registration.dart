@@ -2,29 +2,7 @@ import 'dart:math';
 
 import '../../interfaces/mail_sender_service.dart';
 import '../../interfaces/user_repository.dart';
-
-// Input data-structure
-// -----------------------------------------------------------------------------
-base class UserRegistrationInput {
-  const UserRegistrationInput({
-    required this.fullName,
-    required this.email,
-    required this.password,
-    required this.confirmPassword,
-  });
-
-  /// Account password
-  final String fullName;
-
-  /// User e-mail
-  final String email;
-
-  /// Account password
-  final String password;
-
-  /// Account confirm password
-  final String confirmPassword;
-}
+import '../../models/inputs/user/user_registration_input.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------
@@ -42,8 +20,8 @@ class UserRegistration {
     // send an email with verification code
     final verificationCode = _generateRandomCode();
     await _mailSenderService.sendEmail(
-      regData.email,
-      'Dear ${regData.fullName}',
+      regData.email.value,
+      'Dear ${regData.fullName.value}',
       'Use this code to complete your registration in Quecto:$verificationCode',
     );
 

@@ -2,7 +2,6 @@ import 'package:dart_frog/dart_frog.dart';
 
 import '../../data/data_base/postgres_data_base.dart';
 import '../../data/repositories/user_repository_impl.dart';
-import 'dot_env_parameters.dart';
 import '../../services/jwt_service.dart';
 import '../../services/send_grid_mail_sender_service.dart';
 import '../interfaces/data_base.dart';
@@ -12,6 +11,7 @@ import '../interfaces/token_service.dart';
 import '../interfaces/user_repository.dart';
 import '../use_cases/user/user_login.dart';
 import '../use_cases/user/user_registration.dart';
+import 'dot_env_parameters.dart';
 
 final class DepProvider {
   DepProvider();

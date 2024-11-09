@@ -1,24 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
-import '../../../domain/exceptions/app_exceptions.dart';
-import '../../../domain/use_cases/user/user_login.dart';
+import '../../../domain/models/inputs/common/input_fields/base_input_field.dart';
+import '../../../domain/models/inputs/user/user_login_input.dart';
 
-part 'generated/user_login_input_dto.g.dart';
-
-// ignore_for_file: sort_constructors_first
-@JsonSerializable()
 final class UserLoginInputDto extends UserLoginInput {
-  UserLoginInputDto({
+  const UserLoginInputDto({
     required super.email,
     required super.password,
   });
 
   // ---------------------------------------------------------------------------
   /// Deserialization
-  factory UserLoginInputDto.fromJson(Map<String, dynamic> json) {
-    try {
-      return _$UserLoginInputDtoFromJson(json);
-    } on Object {
-      throw UnableToDecodeRequestBody('$json');
-    }
-  }
+  factory UserLoginInputDto.fromJson(Map<String, dynamic> json) =>
+      UserLoginInputDto(
+        email: EmailInputField('email', json['email']),
+        password: PasswordInputField('password', json['password']),
+      );
 }
