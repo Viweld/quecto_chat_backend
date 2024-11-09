@@ -9,7 +9,7 @@ part 'string_input_field.dart';
 part 'confirm_password_input_field.dart';
 
 @immutable
-abstract base class BaseInputField<T, E> {
+sealed class BaseInputField<T, E> {
   const BaseInputField(this.key, this._rawValue);
 
   final String key;

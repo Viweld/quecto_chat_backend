@@ -1,3 +1,5 @@
+import '../models/inputs/common/input_fields/base_input_field.dart';
+
 sealed class CoreExceptions implements Exception {}
 
 // -----------------------------------------------------------------------------
@@ -18,18 +20,18 @@ final class UnableToDecodeRequestBody implements RequestBodyExceptions {
   final String? details;
 }
 
-/// Unsupported data type in request body (with details)
-final class UnsupportedDataTypeInRequestBody implements RequestBodyExceptions {
-  const UnsupportedDataTypeInRequestBody([this.details]);
-
-  final String? details;
-}
+// /// Unsupported data type in request body (with details)
+// final class UnsupportedDataTypeInRequestBody implements RequestBodyExceptions {
+//   const UnsupportedDataTypeInRequestBody([this.details]);
+//
+//   final String? details;
+// }
 
 /// Invalid request body values
 final class InvalidRequestBodyValues implements RequestBodyExceptions {
-  const InvalidRequestBodyValues(this.keys);
+  const InvalidRequestBodyValues(this.invalidFields);
 
-  final List<String> keys;
+  final List<BaseInputField<Object, Object>> invalidFields;
 }
 
 // -----------------------------------------------------------------------------

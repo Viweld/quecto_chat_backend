@@ -30,22 +30,18 @@ FutureOr<Response> _post(RequestContext context) async {
     // execute login
     final tokens = await userLogin(credentials) as UserLoginOutputDto;
     return ResponseHelper.success(body: tokens.toJson());
-  } on WrongEmailOrPassword {
-    return ResponseHelper.unAuthorized(detail: 'Wrong email or password');
   } on MissingRequestBody {
     return ResponseHelper.badRequest(detail: 'Missing request body');
-  } on InvalidRequestBodyValues catch (e) {
-    return ResponseHelper.badRequest(
-        detail:
-            'Invalid request body values ${e.keys.map((k) => '"$k"').toList().join(', ')}');
   } on UnableToDecodeRequestBody catch (e) {
     return ResponseHelper.badRequest(
         detail:
             'Unable to decode request body ${e.details == null ? '.' : ': ${e.details}'}');
-  } on UnsupportedDataTypeInRequestBody catch (e) {
-    return ResponseHelper.badRequest(
-        detail:
-            'Unsupported data type in request body ${e.details == null ? '.' : ': ${e.details}'}');
+  } on InvalidRequestBodyValues catch (e) {
+    // TODO(Vadim): Create response text use e.invalidFields
+    final invalidFields = 'Some errors';
+    return ResponseHelper.badRequest(detail: invalidFields);
+  } on WrongEmailOrPassword {
+    return ResponseHelper.unAuthorized(detail: 'Wrong email or password');
   } on Object catch (e) {
     return ResponseHelper.internalServerError(detail: '$e');
   }

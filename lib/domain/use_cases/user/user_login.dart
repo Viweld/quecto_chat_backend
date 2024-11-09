@@ -17,7 +17,7 @@ class UserLogin {
     // validation input fields
     final validationResult = input.checkFields();
     if (validationResult.isNotEmpty) {
-      throw const WrongEmailOrPassword();
+      throw InvalidRequestBodyValues(validationResult);
     }
 
     // verifying credentials
