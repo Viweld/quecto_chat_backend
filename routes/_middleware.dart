@@ -1,11 +1,31 @@
 import 'dart:async';
 
 import 'package:dart_frog/dart_frog.dart';
+import 'package:intl/intl.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/domain/interfaces/token_service.dart';
+import 'package:quecto_chat_backend/l10n/generated/l10n.dart';
+import 'package:quecto_chat_backend/l10n/generated/messages_all_locales.dart';
 
 Handler middleware(Handler handler) {
-  return handler.use(requestLogger()).use(_verifyTokenHandler);
+  return handler
+      .use(requestLogger())
+      .use(_setRequestLanguage)
+      .use(_verifyTokenHandler);
+}
+
+/// Set request language and provide Localization
+Handler _setRequestLanguage(Handler handler) {
+  return (context) async {
+    final acceptLanguage = context.request.headers['accept-language'] ?? 'en';
+    // Specifies the required locale, defaulting to 'en'
+    final locale = acceptLanguage.startsWith('ru') ? 'ru' : 'en';
+
+    Intl.defaultLocale = locale;
+    await initializeMessages(locale);
+
+    return handler(context.provide<Localization>(Localization.new));
+  };
 }
 
 // -----------------------------------------------------------------------------

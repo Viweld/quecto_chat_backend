@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "greeting": "Привет",
+  "farewell": "До свидания",
+  "@greeting": {
+    "description": "Приветственное сообщение"
+  },
+  "tariffsBuyButton": "Купить за {cost} за {monthCount, plural, one{{monthCount} месяц} few{{monthCount} месяца} many{{monthCount} месяцев} other{{monthCount} месяцев}}",
+  "@tariffsBuyButton": {
+    "description": "cost and month count",
+    "placeholders": {
+      "cost": {},
+      "monthCount": {}
+    }
+  }
+}
+
