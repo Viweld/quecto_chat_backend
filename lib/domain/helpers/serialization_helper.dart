@@ -1,5 +1,6 @@
 import 'package:dart_frog/dart_frog.dart';
 
+import '../extensions/context_extensions.dart';
 import '../models/inputs/common/input_fields/base_input_field.dart';
 
 extension SerializationInvalidFieldsList
@@ -12,22 +13,32 @@ extension SerializationInvalidFieldsList
         field.key,
         () => switch (field) {
           final PasswordInputField f => switch (f.error!) {
-              PasswordInputError.wrongType => '',
-              PasswordInputError.emptyField => '',
+              PasswordInputError.wrongType =>
+                context.texts.validationErrorStringExpected,
+              PasswordInputError.emptyField =>
+                context.texts.validationErrorCanNotBeEmpty,
             },
           final ConfirmPasswordInputField f => switch (f.error!) {
-              ConfirmPasswordInputError.wrongType => '',
-              ConfirmPasswordInputError.emptyField => '',
-              ConfirmPasswordInputError.notEqual => '',
+              ConfirmPasswordInputError.wrongType =>
+                context.texts.validationErrorStringExpected,
+              ConfirmPasswordInputError.emptyField =>
+                context.texts.validationErrorCanNotBeEmpty,
+              ConfirmPasswordInputError.notEqual =>
+                context.texts.validationErrorPasswordsNotEqual,
             },
           final StringInputField f => switch (f.error!) {
-              StringInputError.wrongType => '',
-              StringInputError.emptyField => '',
+              StringInputError.wrongType =>
+                context.texts.validationErrorStringExpected,
+              StringInputError.emptyField =>
+                context.texts.validationErrorCanNotBeEmpty,
             },
           final EmailInputField f => switch (f.error!) {
-              EmailInputError.wrongType => '',
-              EmailInputError.emptyField => '',
-              EmailInputError.wrongFormat => '',
+              EmailInputError.wrongType =>
+                context.texts.validationErrorStringExpected,
+              EmailInputError.emptyField =>
+                context.texts.validationErrorCanNotBeEmpty,
+              EmailInputError.wrongFormat =>
+                context.texts.validationErrorEmailWrongType,
             },
         },
       );

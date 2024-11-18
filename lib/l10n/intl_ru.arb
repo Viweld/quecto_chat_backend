@@ -1,17 +1,16 @@
 {
   "@@locale": "ru",
-  "greeting": "Привет",
-  "farewell": "До свидания",
-  "@greeting": {
-    "description": "Приветственное сообщение"
-  },
-  "tariffsBuyButton": "Купить за {cost} за {monthCount, plural, one{{monthCount} месяц} few{{monthCount} месяца} many{{monthCount} месяцев} other{{monthCount} месяцев}}",
-  "@tariffsBuyButton": {
-    "description": "cost and month count",
-    "placeholders": {
-      "cost": {},
-      "monthCount": {}
-    }
-  }
+
+  "@ Errors ()": "",
+  "requestErrorMissingBody": "Ожидается тело запроса",
+  "requestErrorUnableToDecode": "Невозможно декодировать тело запроса",
+  "validationErrorStringExpected": "Ожидается строковое значение",
+  "validationErrorCanNotBeEmpty": "Не может быть пустым",
+  "validationErrorPasswordsNotEqual": "Введенные пароли не совпадают",
+  "validationErrorEmailWrongType": "Некорректный формат e-mail",
+
+  "loginErrorWongEmailOrPassword": "Неправильные логин или пароль"
+
+
 }
 

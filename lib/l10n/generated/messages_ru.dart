@@ -20,16 +20,25 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'ru';
 
-  static m0(cost, monthCount) =>
-      "Купить за ${cost} за {monthCount, plural, one{${monthCount} месяц} few{${monthCount} месяца} many{${monthCount} месяцев} other{${monthCount} месяцев}}";
-
   @override
   final Map<String, dynamic> messages =
       _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-        'farewell': MessageLookupByLibrary.simpleMessage('До свидания'),
-        'greeting': MessageLookupByLibrary.simpleMessage('Привет'),
-        'tariffsBuyButton': m0
+        'loginErrorWongEmailOrPassword': MessageLookupByLibrary.simpleMessage(
+            'Неправильные логин или пароль'),
+        'requestErrorMissingBody':
+            MessageLookupByLibrary.simpleMessage('Ожидается тело запроса'),
+        'requestErrorUnableToDecode': MessageLookupByLibrary.simpleMessage(
+            'Невозможно декодировать тело запроса'),
+        'validationErrorCanNotBeEmpty':
+            MessageLookupByLibrary.simpleMessage('Не может быть пустым'),
+        'validationErrorEmailWrongType':
+            MessageLookupByLibrary.simpleMessage('Некорректный формат e-mail'),
+        'validationErrorPasswordsNotEqual':
+            MessageLookupByLibrary.simpleMessage(
+                'Введенные пароли не совпадают'),
+        'validationErrorStringExpected':
+            MessageLookupByLibrary.simpleMessage('Ожидается строковое значение')
       };
 }

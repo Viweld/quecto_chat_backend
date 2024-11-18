@@ -1,33 +1,75 @@
 import 'package:intl/intl.dart';
 
 class Localization {
-  /// `Hello`
-  String get greeting {
-    return Intl.message(
-      'Hello',
-      name: 'greeting',
-      desc: 'Greeting message',
-      args: [],
-    );
-  }
+  Localization();
 
-  /// `Goodbye`
-  String get farewell {
+  /// `Expected request body`
+  String get requestErrorMissingBody {
     return Intl.message(
-      'Goodbye',
-      name: 'farewell',
+      'Expected request body',
+      name: 'requestErrorMissingBody',
       desc: '',
       args: [],
     );
   }
 
-  /// `Buy for {cost} per {monthCount, plural, one{{monthCount} month} many{{monthCount} months} other{{monthCount} months}}`
-  String tariffsBuyButton(Object cost, num monthCount) {
+  /// `Unable to decode request body`
+  String get requestErrorUnableToDecode {
     return Intl.message(
-      'Buy for $cost per ${Intl.plural(monthCount, one: '$monthCount month', many: '$monthCount months', other: '$monthCount months')}',
-      name: 'tariffsBuyButton',
-      desc: 'cost and month count',
-      args: [cost, monthCount],
+      'Unable to decode request body',
+      name: 'requestErrorUnableToDecode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expected string value`
+  String get validationErrorStringExpected {
+    return Intl.message(
+      'Expected string value',
+      name: 'validationErrorStringExpected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot be empty`
+  String get validationErrorCanNotBeEmpty {
+    return Intl.message(
+      'Cannot be empty',
+      name: 'validationErrorCanNotBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Entered passwords will not be equal`
+  String get validationErrorPasswordsNotEqual {
+    return Intl.message(
+      'Entered passwords will not be equal',
+      name: 'validationErrorPasswordsNotEqual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect email format`
+  String get validationErrorEmailWrongType {
+    return Intl.message(
+      'Incorrect email format',
+      name: 'validationErrorEmailWrongType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong login or password`
+  String get loginErrorWongEmailOrPassword {
+    return Intl.message(
+      'Wrong login or password',
+      name: 'loginErrorWongEmailOrPassword',
+      desc: '',
+      args: [],
     );
   }
 }

@@ -20,16 +20,25 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'en';
 
-  static m0(cost, monthCount) =>
-      "Buy for ${cost} per {monthCount, plural, one{${monthCount} month} many{${monthCount} months} other{${monthCount} months}}";
-
   @override
   final Map<String, dynamic> messages =
       _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-        'farewell': MessageLookupByLibrary.simpleMessage('Goodbye'),
-        'greeting': MessageLookupByLibrary.simpleMessage('Hello'),
-        'tariffsBuyButton': m0
+        'loginErrorWongEmailOrPassword':
+            MessageLookupByLibrary.simpleMessage('Wrong login or password'),
+        'requestErrorMissingBody':
+            MessageLookupByLibrary.simpleMessage('Expected request body'),
+        'requestErrorUnableToDecode': MessageLookupByLibrary.simpleMessage(
+            'Unable to decode request body'),
+        'validationErrorCanNotBeEmpty':
+            MessageLookupByLibrary.simpleMessage('Cannot be empty'),
+        'validationErrorEmailWrongType':
+            MessageLookupByLibrary.simpleMessage('Incorrect email format'),
+        'validationErrorPasswordsNotEqual':
+            MessageLookupByLibrary.simpleMessage(
+                'Entered passwords will not be equal'),
+        'validationErrorStringExpected':
+            MessageLookupByLibrary.simpleMessage('Expected string value')
       };
 }

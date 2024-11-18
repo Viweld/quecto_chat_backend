@@ -1,16 +1,13 @@
 {
   "@@locale": "en",
-  "greeting": "Hello",
-  "farewell": "Goodbye",
-  "@greeting": {
-    "description": "Greeting message"
-  },
-  "tariffsBuyButton": "Buy for {cost} per {monthCount, plural, one{{monthCount} month} many{{monthCount} months} other{{monthCount} months}}",
-  "@tariffsBuyButton": {
-    "description": "cost and month count",
-    "placeholders": {
-      "cost": {},
-      "monthCount": {}
-    }
-  }
+
+  "@ Errors ()": "",
+  "requestErrorMissingBody": "Expected request body",
+  "requestErrorUnableToDecode": "Unable to decode request body",
+  "validationErrorStringExpected": "Expected string value",
+  "validationErrorCanNotBeEmpty": "Cannot be empty",
+  "validationErrorPasswordsNotEqual": "Entered passwords will not be equal",
+  "validationErrorEmailWrongType": "Incorrect email format",
+
+  "loginErrorWongEmailOrPassword": "Wrong login or password"
 }
