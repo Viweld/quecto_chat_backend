@@ -10,6 +10,7 @@ abstract interface class UserRepository {
     required DateTime createdAt,
     required String email,
     required String password,
+    required String verificationCode,
   });
 
   /// Update user data

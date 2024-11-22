@@ -13,6 +13,7 @@ abstract interface class DataBase {
     required DateTime createdAt,
     required String email,
     required String password,
+    required String verificationCode,
   });
 
   /// Get user data from the database using ID

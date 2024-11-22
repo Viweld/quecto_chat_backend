@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:dart_frog/dart_frog.dart';
+import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
+import 'package:quecto_chat_backend/domain/extensions/context_extensions.dart';
 import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
+import 'package:quecto_chat_backend/domain/helpers/serialization_helper.dart';
 import 'package:quecto_chat_backend/domain/use_cases/user/user_registration.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_registration_input_dto.dart';
 
@@ -28,22 +32,19 @@ FutureOr<Response> _post(RequestContext context) async {
     // execute registration
     await userRegister(registerData);
     return ResponseHelper.successEmpty();
-
-    // TODO(Vadim): #unimplemented - error handling needs to be finished
-    // } on MissingRequestBody {
-    //   return ResponseHelper.badRequest(detail: 'Missing request body');
-    // } on InvalidRequestBodyValues catch (e) {
-    //   return ResponseHelper.badRequest(
-    //       detail:
-    //           'Invalid request body values ${e.keys.map((k) => '"$k"').toList().join(', ')}');
-    // } on UnableToDecodeRequestBody catch (e) {
-    //   return ResponseHelper.badRequest(
-    //       detail:
-    //           'Unable to decode request body ${e.details == null ? '.' : ': ${e.details}'}');
-    // } on UnsupportedDataTypeInRequestBody catch (e) {
-    //   return ResponseHelper.badRequest(
-    //       detail:
-    //           'Unsupported data type in request body ${e.details == null ? '.' : ': ${e.details}'}');
+  } on MissingRequestBody {
+    return ResponseHelper.badRequest(
+        detail: context.texts.requestErrorMissingBody);
+  } on UnableToDecodeRequestBody catch (e) {
+    return ResponseHelper.badRequest(
+        detail: context.texts.requestErrorUnableToDecode +
+            (e.details == null ? '' : ': ${e.details}'));
+  } on InvalidRequestBodyValues catch (e) {
+    final invalidFields = e.invalidFields.serialize(context);
+    return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
+  } on WrongEmailOrPassword {
+    return ResponseHelper.unAuthorized(
+        detail: context.texts.loginErrorWongEmailOrPassword);
   } on Object catch (e) {
     return ResponseHelper.internalServerError(detail: '$e');
   }

@@ -16,12 +16,14 @@ class UserRepositoryImpl implements UserRepository {
     required DateTime createdAt,
     required String email,
     required String password,
+    required String verificationCode,
   }) =>
       dataBase.addUser(
         fullName: fullName,
         createdAt: createdAt,
         email: email,
         password: password,
+        verificationCode: verificationCode,
       );
 
   // ---------------------------------------------------------------------------

@@ -12,7 +12,10 @@ class _Migration {
               '${_Keys._fUser$fullName} TEXT NOT NULL, '
               '${_Keys._fUser$createdAt} TEXT NOT NULL, '
               '${_Keys._fUser$email} TEXT NOT NULL, '
-              '${_Keys._fUser$password} TEXT NOT NULL'
+              '${_Keys._fUser$password} TEXT NOT NULL, '
+              '${_Keys._fUser$verificationCode} TEXT, '
+              '${_Keys._fUser$verificationCodeSentAt} INTEGER, '
+              '${_Keys._fUser$isVerified} INTEGER NOT NULL'
               ');');
     } on Object {
       rethrow;

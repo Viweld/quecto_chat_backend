@@ -59,6 +59,7 @@ final class PostgresDataBase implements DataBase {
     required DateTime createdAt,
     required String email,
     required String password,
+    required String verificationCode,
   }) async {
     // Check for existence of user with same email
     final existingUser = await _connection.execute(
@@ -75,6 +76,9 @@ final class PostgresDataBase implements DataBase {
         createdAt: createdAt,
         email: email,
         password: password,
+        verificationCode: verificationCode,
+        verificationCodeSentAt: DateTime.now().millisecondsSinceEpoch,
+        isVerified: false,
       ),
     );
   }

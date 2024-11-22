@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../../exceptions/app_exceptions.dart';
 import '../../interfaces/mail_sender_service.dart';
 import '../../interfaces/user_repository.dart';
 import '../../models/inputs/user/user_registration_input.dart';
@@ -13,33 +14,36 @@ class UserRegistration {
   final MailSenderService _mailSenderService;
 
   // ---------------------------------------------------------------------------
-  Future<void> call(UserRegistrationInput regData) async {
+  Future<void> call(UserRegistrationInput input) async {
     // validate fields credentials
-    // TODO(Vadim): #unimplemented - make validations
+    final validationResult = input.checkFields();
+    if (validationResult.isNotEmpty) {
+      throw InvalidRequestBodyValues(validationResult);
+    }
 
     // send an email with verification code
     final verificationCode = _generateRandomCode();
     await _mailSenderService.sendEmail(
-      regData.email.value,
-      'Dear ${regData.fullName.value}',
+      input.email.value,
+      'Dear ${input.fullName.value}',
       'Use this code to complete your registration in Quecto:$verificationCode',
     );
 
     // save user credentials with sent email-code
-    // TODO(Vadim): #unimplemented - make query to record to database user regData with verification code
-    // final user = await _userRepository.addUser(
-    //   fullName: regData.fullName,
-    //   createdAt: DateTime.now(),
-    //   email: regData.email,
-    //   password: regData.password,
-    // );
+    await _userRepository.addUser(
+      fullName: input.fullName.value,
+      createdAt: DateTime.now(),
+      email: input.email.value,
+      password: input.password.value,
+      verificationCode: verificationCode,
+    );
   }
 
   // HELPER METHODS:
   // ---------------------------------------------------------------------------
   /// generate random code 100000 to 999999
-  int _generateRandomCode() {
+  String _generateRandomCode() {
     final random = Random();
-    return 100000 + random.nextInt(900000);
+    return '${100000 + random.nextInt(900000)}';
   }
 }

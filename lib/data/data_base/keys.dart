@@ -9,8 +9,9 @@ class _Keys {
   static const _fUser$createdAt = 'createdAt';
   static const _fUser$email = 'email';
   static const _fUser$password = 'password';
-  //static const _fUser$photoUrl = 'photoUrl';
-  //static const _fUser$chattingWith = 'chattingWith';
+  static const _fUser$verificationCode = 'verificationCode';
+  static const _fUser$verificationCodeSentAt = 'verificationCodeSentAt';
+  static const _fUser$isVerified = 'isVerified';
 
   // Table keys and message data fields:
   // static const _tMessages = 'messages';

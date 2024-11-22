@@ -13,6 +13,9 @@ final class _Mapper {
       createdAt: DateTime.parse('${src[_Keys._fUser$createdAt]}'),
       email: src[_Keys._fUser$email] as String,
       password: src[_Keys._fUser$password] as String,
+      verificationCode: src[_Keys._fUser$verificationCode] as String?,
+      verificationCodeSentAt: src[_Keys._fUser$verificationCodeSentAt] as int?,
+      isVerified: (src[_Keys._fUser$isVerified] as int) == 1,
     );
   }
 
@@ -22,11 +25,17 @@ final class _Mapper {
     required DateTime createdAt,
     required String email,
     required String password,
+    required String verificationCode,
+    required int verificationCodeSentAt,
+    required bool isVerified,
   }) =>
       {
         _Keys._fUser$fullName: fullName,
         _Keys._fUser$createdAt: '$createdAt',
         _Keys._fUser$email: email,
         _Keys._fUser$password: password,
+        _Keys._fUser$verificationCode: verificationCode,
+        _Keys._fUser$verificationCodeSentAt: verificationCodeSentAt,
+        _Keys._fUser$isVerified: isVerified ? 1 : 0,
       };
 }

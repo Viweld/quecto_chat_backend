@@ -1,5 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
 import '../../../domain/models/inputs/common/input_fields/base_input_field.dart';
 import '../../../domain/models/inputs/user/user_registration_input.dart';
 

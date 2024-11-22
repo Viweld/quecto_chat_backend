@@ -5,6 +5,9 @@ final class User {
     required this.createdAt,
     required this.email,
     required this.password,
+    required this.verificationCode,
+    required this.verificationCodeSentAt,
+    required this.isVerified,
   });
 
   /// Unique user identifier.
@@ -21,4 +24,13 @@ final class User {
 
   /// User's password.
   final String password;
+
+  /// Temporarily verification code
+  final String? verificationCode;
+
+  /// Temporarily verification code sending timestamp
+  final int? verificationCodeSentAt;
+
+  /// User's account verification state
+  final bool isVerified;
 }
