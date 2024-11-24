@@ -1,16 +1,20 @@
 import '../../exceptions/app_exceptions.dart';
+import '../../interfaces/token_service.dart';
 import '../../interfaces/user_repository.dart';
 import '../../models/inputs/user/user_registration_validate_input.dart';
+import '../../models/outputs/user/user_registration_validate_output.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------
 class UserRegistrationValidate {
-  UserRegistrationValidate(this._userRepository);
+  UserRegistrationValidate(this._userRepository, this._tokenService);
 
   final UserRepository _userRepository;
+  final TokenService _tokenService;
 
   // ---------------------------------------------------------------------------
-  Future<void> call(UserRegistrationValidateInput input) async {
+  Future<UserRegistrationValidateOutput> call(
+      UserRegistrationValidateInput input) async {
     // validate fields credentials
     final validationResult = input.checkFields();
     if (validationResult.isNotEmpty) {
@@ -21,6 +25,7 @@ class UserRegistrationValidate {
     final preRegisteredUser =
         await _userRepository.getUserByEmail(input.email.value);
 
+    // check user data
     if (preRegisteredUser == null) {
       throw Exception('Введенная почта не зарегистрирована в приложении');
     } else if (preRegisteredUser.isVerified) {
@@ -30,10 +35,17 @@ class UserRegistrationValidate {
       throw Exception('Неправильный код подтврждения');
     }
 
+    // update user data in database
     await _userRepository.updateUser(preRegisteredUser.copyWith(
       verificationCode: null,
       verificationCodeSentAt: null,
       isVerified: true,
     ));
+
+    // return generated access and refresh tokens
+    return UserRegistrationValidateOutput(
+      access: _tokenService.generateAccessToken(preRegisteredUser.id),
+      refresh: _tokenService.generateRefreshToken(preRegisteredUser.id),
+    );
   }
 }
