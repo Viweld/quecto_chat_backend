@@ -3,8 +3,8 @@ import 'package:postgres/postgres.dart';
 extension PostgresExtension on Connection {
   // ---------------------------------------------------------------------------
   /// Most common query to database with postgres package
-  Future<List<Map<String, Object?>>> query({
-    required String tableKey,
+  Future<List<Map<String, Object?>>> get({
+    required String tableName,
     List<String>? columns,
     String? where,
     String? orderBy,
@@ -18,7 +18,7 @@ extension PostgresExtension on Connection {
       query.write('SELECT *');
     }
 
-    query.write(' FROM $tableKey');
+    query.write(' FROM $tableName');
     if (where != null) query.write(' WHERE $where');
     if (orderBy != null) query.write(' ORDER BY $orderBy');
     if (limit != null) query.write(' LIMIT $limit');
@@ -43,6 +43,25 @@ extension PostgresExtension on Connection {
       await session.execute(
         'INSERT INTO public."$tableName"(${data.keys.join(', ')}) '
         'VALUES (${data.keys.map((k) => '@$k').join(', ')})',
+        parameters: data,
+      );
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  Future<void> update({
+    required String tableName,
+    required Map<String, Object?> data,
+  }) async {
+    // open the transaction
+    await runTx((session) async {
+      // executes an SQL query with parameters
+      await session.execute(
+        '''
+        UPDATE public."$tableName"
+        SET ${data.keys.map((key) => '"$key" = @$key').join(', ')}
+        WHERE "id" = @id
+        ''',
         parameters: data,
       );
     });

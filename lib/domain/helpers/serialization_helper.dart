@@ -40,6 +40,14 @@ extension SerializationInvalidFieldsList
               EmailInputError.wrongFormat =>
                 context.texts.validationErrorEmailWrongType,
             },
+          final ValidationCodeInputField f => switch (f.error!) {
+              ValidationCodeInputError.wrongType =>
+                context.texts.validationErrorStringExpected,
+              ValidationCodeInputError.emptyField =>
+                context.texts.validationErrorCanNotBeEmpty,
+              ValidationCodeInputError.wrongFormat =>
+                context.texts.validationErrorValidationCodeWrongType,
+            },
         },
       );
     }

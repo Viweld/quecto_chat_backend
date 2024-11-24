@@ -8,6 +8,8 @@ part 'string_input_field.dart';
 
 part 'confirm_password_input_field.dart';
 
+part 'validation_code_input_field.dart';
+
 @immutable
 sealed class BaseInputField<T, E> {
   const BaseInputField(this.key, this._rawValue);

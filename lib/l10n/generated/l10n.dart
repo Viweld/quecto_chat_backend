@@ -63,6 +63,16 @@ class Localization {
     );
   }
 
+  /// `Code must be 6 digits long`
+  String get validationErrorValidationCodeWrongType {
+    return Intl.message(
+      'Code must be 6 digits long',
+      name: 'validationErrorValidationCodeWrongType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Wrong login or password`
   String get loginErrorWongEmailOrPassword {
     return Intl.message(

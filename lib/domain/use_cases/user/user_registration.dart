@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../../entities/user.dart';
 import '../../exceptions/app_exceptions.dart';
 import '../../interfaces/mail_sender_service.dart';
 import '../../interfaces/user_repository.dart';
@@ -29,14 +30,16 @@ class UserRegistration {
       'Use this code to complete your registration in Quecto:$verificationCode',
     );
 
-    // save user credentials with sent email-code
-    await _userRepository.addUser(
+    // save user data with sent email-code
+    await _userRepository.addUser(User(
       fullName: input.fullName.value,
       createdAt: DateTime.now(),
       email: input.email.value,
       password: input.password.value,
       verificationCode: verificationCode,
-    );
+      verificationCodeSentAt: DateTime.now().millisecondsSinceEpoch,
+      isVerified: false,
+    ));
   }
 
   // HELPER METHODS:

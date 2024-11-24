@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:postgres/postgres.dart';
 
 import '../../domain/entities/paginated.dart';
-import '../../domain/entities/user/user.dart';
-import '../../domain/entities/user/user_sort_type.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/entities/user_sort_type.dart';
 import '../../domain/exceptions/app_exceptions.dart';
 import '../../domain/extensions/postgres_extension.dart';
 import '../../domain/interfaces/data_base.dart';
@@ -54,32 +54,18 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> addUser({
-    required String fullName,
-    required DateTime createdAt,
-    required String email,
-    required String password,
-    required String verificationCode,
-  }) async {
+  Future<void> addUser(User user) async {
     // Check for existence of user with same email
     final existingUser = await _connection.execute(
       'SELECT id FROM public."${_Keys._tUsers}" '
-      'WHERE email = $email',
+      'WHERE email = ${user.email}',
     );
 
     if (existingUser.isNotEmpty) throw const EmailAlreadyUsed();
 
     await _connection.insert(
       tableName: _Keys._tUsers,
-      data: _Mapper._mapUser(
-        fullName: fullName,
-        createdAt: createdAt,
-        email: email,
-        password: password,
-        verificationCode: verificationCode,
-        verificationCodeSentAt: DateTime.now().millisecondsSinceEpoch,
-        isVerified: false,
-      ),
+      data: _Mapper._mapUser(src: user),
     );
   }
 
@@ -93,8 +79,8 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<User?> getUserByEmail(String email) async {
-    final result = await _connection.query(
-      tableKey: _Keys._tUsers,
+    final result = await _connection.get(
+      tableName: _Keys._tUsers,
       where: 'email = $email',
     );
 
@@ -103,9 +89,11 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> updateUser(User user) {
-    // TODO(Vadim): #unimplemented updateUser
-    throw UnimplementedError();
+  Future<void> updateUser(User user) async {
+    await _connection.update(
+      tableName: _Keys._tUsers,
+      data: _Mapper._mapUser(src: user),
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -119,8 +107,8 @@ final class PostgresDataBase implements DataBase {
     final orderQuerySample = _getOrderQuerySample(orderBy);
     final searchQuerySample = _getSearchByUsersNameQuerySample(search);
 
-    final result = await _connection.query(
-      tableKey: _Keys._tUsers,
+    final result = await _connection.get(
+      tableName: _Keys._tUsers,
       where: searchQuerySample,
       orderBy: orderQuerySample,
       limit: limit,

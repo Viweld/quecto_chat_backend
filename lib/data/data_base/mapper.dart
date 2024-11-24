@@ -20,22 +20,13 @@ final class _Mapper {
   }
 
   /// Mapping user data from User to a structure for the DB
-  static Map<String, Object?> _mapUser({
-    required String fullName,
-    required DateTime createdAt,
-    required String email,
-    required String password,
-    required String verificationCode,
-    required int verificationCodeSentAt,
-    required bool isVerified,
-  }) =>
-      {
-        _Keys._fUser$fullName: fullName,
-        _Keys._fUser$createdAt: '$createdAt',
-        _Keys._fUser$email: email,
-        _Keys._fUser$password: password,
-        _Keys._fUser$verificationCode: verificationCode,
-        _Keys._fUser$verificationCodeSentAt: verificationCodeSentAt,
-        _Keys._fUser$isVerified: isVerified ? 1 : 0,
+  static Map<String, Object?> _mapUser({required User src}) => {
+        _Keys._fUser$fullName: src.fullName,
+        _Keys._fUser$createdAt: '${src.createdAt}',
+        _Keys._fUser$email: src.email,
+        _Keys._fUser$password: src.password,
+        _Keys._fUser$verificationCode: src.verificationCode,
+        _Keys._fUser$verificationCodeSentAt: src.verificationCodeSentAt,
+        _Keys._fUser$isVerified: src.isVerified ? 1 : 0,
       };
 }

@@ -38,7 +38,10 @@ class MessageLookup extends MessageLookupByLibrary {
         'validationErrorPasswordsNotEqual':
             MessageLookupByLibrary.simpleMessage(
                 'Введенные пароли не совпадают'),
-        'validationErrorStringExpected':
-            MessageLookupByLibrary.simpleMessage('Ожидается строковое значение')
+        'validationErrorStringExpected': MessageLookupByLibrary.simpleMessage(
+            'Ожидается строковое значение'),
+        'validationErrorValidationCodeWrongType':
+            MessageLookupByLibrary.simpleMessage(
+                'Код должен состоять из 6 цифр')
       };
 }

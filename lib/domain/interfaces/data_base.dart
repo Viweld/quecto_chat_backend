@@ -1,6 +1,6 @@
 import '../entities/paginated.dart';
-import '../entities/user/user.dart';
-import '../entities/user/user_sort_type.dart';
+import '../entities/user.dart';
+import '../entities/user_sort_type.dart';
 
 /// Interface for database
 abstract interface class DataBase {
@@ -8,13 +8,7 @@ abstract interface class DataBase {
   Future<void> initialize();
 
   /// Save a user to the database
-  Future<void> addUser({
-    required String fullName,
-    required DateTime createdAt,
-    required String email,
-    required String password,
-    required String verificationCode,
-  });
+  Future<void> addUser(User user);
 
   /// Get user data from the database using ID
   Future<User> getUserById(String userId);

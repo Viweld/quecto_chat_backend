@@ -1,8 +1,11 @@
 targets:
   $default:
     builders:
+      freezed:
+        options:
+          build_extensions:
+            '^lib/domain/entities/{{}}.dart': 'lib/domain/entities/generated/{{}}.freezed.dart'
       source_gen:combining_builder:
         options:
           build_extensions:
-            '^lib/presentation/models/inputs/{{}}.dart': 'lib/presentation/models/inputs/generated/{{}}.g.dart'
             '^lib/presentation/models/outputs/{{}}.dart': 'lib/presentation/models/outputs/generated/{{}}.g.dart'

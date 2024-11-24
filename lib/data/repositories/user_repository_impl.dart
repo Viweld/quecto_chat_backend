@@ -1,6 +1,6 @@
 import '../../domain/entities/paginated.dart';
-import '../../domain/entities/user/user.dart';
-import '../../domain/entities/user/user_sort_type.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/entities/user_sort_type.dart';
 import '../../domain/interfaces/data_base.dart';
 import '../../domain/interfaces/user_repository.dart';
 
@@ -11,20 +11,7 @@ class UserRepositoryImpl implements UserRepository {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> addUser({
-    required String fullName,
-    required DateTime createdAt,
-    required String email,
-    required String password,
-    required String verificationCode,
-  }) =>
-      dataBase.addUser(
-        fullName: fullName,
-        createdAt: createdAt,
-        email: email,
-        password: password,
-        verificationCode: verificationCode,
-      );
+  Future<void> addUser(User user) => dataBase.addUser(user);
 
   // ---------------------------------------------------------------------------
   @override

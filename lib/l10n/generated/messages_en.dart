@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 'Entered passwords will not be equal'),
         'validationErrorStringExpected':
-            MessageLookupByLibrary.simpleMessage('Expected string value')
+            MessageLookupByLibrary.simpleMessage('Expected string value'),
+        'validationErrorValidationCodeWrongType':
+            MessageLookupByLibrary.simpleMessage('Code must be 6 digits long')
       };
 }

@@ -8,6 +8,7 @@
   "validationErrorCanNotBeEmpty": "Cannot be empty",
   "validationErrorPasswordsNotEqual": "Entered passwords will not be equal",
   "validationErrorEmailWrongType": "Incorrect email format",
+  "validationErrorValidationCodeWrongType": "Code must be 6 digits long",
 
   "loginErrorWongEmailOrPassword": "Wrong login or password"
 }

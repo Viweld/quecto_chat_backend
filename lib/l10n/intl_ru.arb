@@ -8,6 +8,7 @@
   "validationErrorCanNotBeEmpty": "Не может быть пустым",
   "validationErrorPasswordsNotEqual": "Введенные пароли не совпадают",
   "validationErrorEmailWrongType": "Некорректный формат e-mail",
+  "validationErrorValidationCodeWrongType": "Код должен состоять из 6 цифр",
 
   "loginErrorWongEmailOrPassword": "Неправильные логин или пароль"
 
