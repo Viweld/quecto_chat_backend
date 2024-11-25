@@ -14,7 +14,8 @@ class UserRegistrationValidate {
 
   // ---------------------------------------------------------------------------
   Future<UserRegistrationValidateOutput> call(
-      UserRegistrationValidateInput input) async {
+    UserRegistrationValidateInput input,
+  ) async {
     // validate fields credentials
     final validationResult = input.checkFields();
     if (validationResult.isNotEmpty) {
@@ -27,12 +28,12 @@ class UserRegistrationValidate {
 
     // check user data
     if (preRegisteredUser == null) {
-      throw Exception('Введенная почта не зарегистрирована в приложении');
+      throw const UnknownUserEmail();
     } else if (preRegisteredUser.isVerified) {
-      throw Exception('Пользователь уже подтвержден');
+      throw const AlreadyVerified();
     } else if (preRegisteredUser.verificationCode !=
         input.validationCode.value) {
-      throw Exception('Неправильный код подтврждения');
+      throw const WrongVerificationCode();
     }
 
     // update user data in database

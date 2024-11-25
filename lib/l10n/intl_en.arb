@@ -10,5 +10,8 @@
   "validationErrorEmailWrongType": "Incorrect email format",
   "validationErrorValidationCodeWrongType": "Code must be 6 digits long",
 
-  "loginErrorWongEmailOrPassword": "Wrong login or password"
+  "authErrorWrongEmailOrPassword": "Wrong login or password",
+  "authErrorUnknownUserEmail": "The entered email is not registered in the application",
+  "authErrorAlreadyVerified": "The user has already been verified",
+  "authErrorWrongVerificationCode": "Incorrect verification code"
 }

@@ -74,10 +74,40 @@ class Localization {
   }
 
   /// `Wrong login or password`
-  String get loginErrorWongEmailOrPassword {
+  String get authErrorWrongEmailOrPassword {
     return Intl.message(
       'Wrong login or password',
-      name: 'loginErrorWongEmailOrPassword',
+      name: 'authErrorWrongEmailOrPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The entered email is not registered in the application`
+  String get authErrorUnknownUserEmail {
+    return Intl.message(
+      'The entered email is not registered in the application',
+      name: 'authErrorUnknownUserEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The user has already been verified`
+  String get authErrorAlreadyVerified {
+    return Intl.message(
+      'The user has already been verified',
+      name: 'authErrorAlreadyVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect verification code`
+  String get authErrorWrongVerificationCode {
+    return Intl.message(
+      'Incorrect verification code',
+      name: 'authErrorWrongVerificationCode',
       desc: '',
       args: [],
     );

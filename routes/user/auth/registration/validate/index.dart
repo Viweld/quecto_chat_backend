@@ -24,6 +24,7 @@ FutureOr<Response> _post(RequestContext context) async {
     // get credentials from request body
     final requestBodyRaw = await context.request.body();
     final requestBody = DecodeHelper.decodeBody(requestBodyRaw);
+    // TODO(Vadim): #unimplemented
     final registerData = UserRegistrationInputDto.fromJson(requestBody);
 
     // preparing dependencies
@@ -32,19 +33,19 @@ FutureOr<Response> _post(RequestContext context) async {
     // execute registration
     await userRegister(registerData);
     return ResponseHelper.successEmpty();
-  } on MissingRequestBody {
-    return ResponseHelper.badRequest(
-        detail: context.texts.requestErrorMissingBody);
-  } on UnableToDecodeRequestBody catch (e) {
-    return ResponseHelper.badRequest(
-        detail: context.texts.requestErrorUnableToDecode +
-            (e.details == null ? '' : ': ${e.details}'));
-  } on InvalidRequestBodyValues catch (e) {
-    final invalidFields = e.invalidFields.serialize(context);
-    return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
-  } on WrongEmailOrPassword {
-    return ResponseHelper.unAuthorized(
-        detail: context.texts.authErrorWrongEmailOrPassword);
+    // } on MissingRequestBody {
+    //   return ResponseHelper.badRequest(
+    //       detail: context.texts.requestErrorMissingBody);
+    // } on UnableToDecodeRequestBody catch (e) {
+    //   return ResponseHelper.badRequest(
+    //       detail: context.texts.requestErrorUnableToDecode +
+    //           (e.details == null ? '' : ': ${e.details}'));
+    // } on InvalidRequestBodyValues catch (e) {
+    //   final invalidFields = e.invalidFields.serialize(context);
+    //   return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
+    // } on WrongEmailOrPassword {
+    //   return ResponseHelper.unAuthorized(
+    //       detail: context.texts.authErrorWrongEmailOrPassword);
   } on Object catch (e) {
     return ResponseHelper.internalServerError(detail: '$e');
   }

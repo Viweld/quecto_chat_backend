@@ -15,14 +15,15 @@ import 'package:intl/src/intl_helpers.dart';
 
 import 'messages_en.dart' deferred as messages_en;
 import 'messages_ru.dart' deferred as messages_ru;
-//ignore_for_file: prefer_final_locals
-//ignore_for_file: avoid_catches_without_on_clauses
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
   'en': messages_en.loadLibrary,
   'ru': messages_ru.loadLibrary,
 };
+
+//ignore_for_file: prefer_final_locals
+//ignore_for_file: avoid_catches_without_on_clauses
 
 MessageLookupByLibrary? _findExact(String localeName) {
   switch (localeName) {

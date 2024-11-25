@@ -45,7 +45,7 @@ FutureOr<Response> _post(RequestContext context) async {
     return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
   } on WrongEmailOrPassword {
     return ResponseHelper.unAuthorized(
-        detail: context.texts.loginErrorWongEmailOrPassword);
+        detail: context.texts.authErrorWrongEmailOrPassword);
   } on Object catch (e) {
     return ResponseHelper.internalServerError(detail: '$e');
   }

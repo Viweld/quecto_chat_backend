@@ -20,13 +20,6 @@ final class UnableToDecodeRequestBody implements RequestBodyExceptions {
   final String? details;
 }
 
-// /// Unsupported data type in request body (with details)
-// final class UnsupportedDataTypeInRequestBody implements RequestBodyExceptions {
-//   const UnsupportedDataTypeInRequestBody([this.details]);
-//
-//   final String? details;
-// }
-
 /// Invalid request body values
 final class InvalidRequestBodyValues implements RequestBodyExceptions {
   const InvalidRequestBodyValues(this.invalidFields);
@@ -48,4 +41,19 @@ final class EmailAlreadyUsed implements UserExceptions {
 /// Wrong email or password
 final class WrongEmailOrPassword implements UserExceptions {
   const WrongEmailOrPassword();
+}
+
+/// Email is not registered in the application
+final class UnknownUserEmail implements UserExceptions {
+  const UnknownUserEmail();
+}
+
+/// User already verified
+final class AlreadyVerified implements UserExceptions {
+  const AlreadyVerified();
+}
+
+/// Wrong verification code
+final class WrongVerificationCode implements UserExceptions {
+  const WrongVerificationCode();
 }

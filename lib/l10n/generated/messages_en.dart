@@ -25,8 +25,14 @@ class MessageLookup extends MessageLookupByLibrary {
       _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-        'loginErrorWongEmailOrPassword':
+        'authErrorAlreadyVerified': MessageLookupByLibrary.simpleMessage(
+            'The user has already been verified'),
+        'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(
+            'The entered email is not registered in the application'),
+        'authErrorWrongEmailOrPassword':
             MessageLookupByLibrary.simpleMessage('Wrong login or password'),
+        'authErrorWrongVerificationCode':
+            MessageLookupByLibrary.simpleMessage('Incorrect verification code'),
         'requestErrorMissingBody':
             MessageLookupByLibrary.simpleMessage('Expected request body'),
         'requestErrorUnableToDecode': MessageLookupByLibrary.simpleMessage(

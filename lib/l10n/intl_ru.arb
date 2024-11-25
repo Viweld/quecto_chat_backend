@@ -10,7 +10,10 @@
   "validationErrorEmailWrongType": "Некорректный формат e-mail",
   "validationErrorValidationCodeWrongType": "Код должен состоять из 6 цифр",
 
-  "loginErrorWongEmailOrPassword": "Неправильные логин или пароль"
+  "authErrorWrongEmailOrPassword": "Неправильные логин или пароль",
+  "authErrorUnknownUserEmail": "Веденная почта не зарегистрирована в приложении",
+  "authErrorAlreadyVerified": "Пользователь уже подтвержден",
+  "authErrorWrongVerificationCode": "Неправильный код подтврждения"
 
 
 }
