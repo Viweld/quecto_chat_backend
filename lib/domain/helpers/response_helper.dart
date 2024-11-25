@@ -64,8 +64,13 @@ class ResponseHelper {
   }
 
   /// Endpoint not found:
-  static Future<Response> notFound() async {
-    return Response.json(statusCode: HttpStatus.notFound);
+  static Future<Response> notFound({String? detail}) async {
+    return detail == null
+        ? Response.json(statusCode: HttpStatus.notFound)
+        : Response.json(
+            statusCode: HttpStatus.notFound,
+            body: {'detail': detail},
+          );
   }
 
   /// Internal server error:

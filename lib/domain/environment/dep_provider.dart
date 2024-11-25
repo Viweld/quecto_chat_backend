@@ -11,6 +11,7 @@ import '../interfaces/token_service.dart';
 import '../interfaces/user_repository.dart';
 import '../use_cases/user/user_login.dart';
 import '../use_cases/user/user_registration.dart';
+import '../use_cases/user/user_registration_validate.dart';
 import 'dot_env_parameters.dart';
 
 final class DepProvider {
@@ -38,6 +39,7 @@ final class DepProvider {
   /// provide dependencies
   Handler injectDependencies(Handler handler) {
     return handler
+        .use(_prepareUserRegistrationValidateUseCase())
         .use(_prepareUserLoginUseCase())
         .use(_prepareUserRegistrationUseCase())
         .use(_provideUserRepository())
@@ -100,6 +102,15 @@ final class DepProvider {
       final userRepository = context.read<UserRepository>();
 
       return UserLogin(userRepository, _tokenService);
+    });
+  }
+
+  /// Factory provide UserRegistrationValidate
+  Middleware _prepareUserRegistrationValidateUseCase() {
+    return provider<UserRegistrationValidate>((context) {
+      final userRepository = context.read<UserRepository>();
+
+      return UserRegistrationValidate(userRepository, _tokenService);
     });
   }
 }
