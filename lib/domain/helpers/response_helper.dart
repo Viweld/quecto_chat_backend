@@ -50,6 +50,16 @@ class ResponseHelper {
           );
   }
 
+  /// Too many requests:
+  static Future<Response> tooManyRequests({String? detail}) async {
+    return detail == null
+        ? Response.json(statusCode: HttpStatus.tooManyRequests)
+        : Response.json(
+            statusCode: HttpStatus.tooManyRequests,
+            body: {'detail': detail},
+          );
+  }
+
   /// Response with arbitrary status and error text without response data:
   static Future<Response> abortWithStatus({
     required int status,

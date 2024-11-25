@@ -13,7 +13,8 @@
   "authErrorWrongEmailOrPassword": "Неправильные логин или пароль",
   "authErrorUnknownUserEmail": "Веденная почта не зарегистрирована в приложении",
   "authErrorAlreadyVerified": "Пользователь уже подтвержден",
-  "authErrorWrongVerificationCode": "Неправильный код подтврждения"
+  "authErrorWrongVerificationCode": "Неправильный код подтврждения",
+  "authErrorTooManyAttempts": "Получить код повторно можно через 60 секунд"
 
 
 }

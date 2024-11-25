@@ -13,5 +13,7 @@
   "authErrorWrongEmailOrPassword": "Wrong login or password",
   "authErrorUnknownUserEmail": "The entered email is not registered in the application",
   "authErrorAlreadyVerified": "The user has already been verified",
-  "authErrorWrongVerificationCode": "Incorrect verification code"
+  "authErrorWrongVerificationCode": "Incorrect verification code",
+  "authErrorTooManyAttempts": "You can get the code again in 60 seconds"
+
 }

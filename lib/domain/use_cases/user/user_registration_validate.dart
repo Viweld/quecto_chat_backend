@@ -16,7 +16,7 @@ class UserRegistrationValidate {
   Future<UserRegistrationValidateOutput> call(
     UserRegistrationValidateInput input,
   ) async {
-    // validate fields credentials
+    // validation input fields
     final validationResult = input.checkFields();
     if (validationResult.isNotEmpty) {
       throw InvalidRequestBodyValues(validationResult);

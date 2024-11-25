@@ -12,6 +12,7 @@ import '../interfaces/user_repository.dart';
 import '../use_cases/user/user_login.dart';
 import '../use_cases/user/user_registration.dart';
 import '../use_cases/user/user_registration_validate.dart';
+import '../use_cases/user/user_resend_validation_code.dart';
 import 'dot_env_parameters.dart';
 
 final class DepProvider {
@@ -39,6 +40,7 @@ final class DepProvider {
   /// provide dependencies
   Handler injectDependencies(Handler handler) {
     return handler
+        .use(_prepareUserResendValidationCodeUseCase())
         .use(_prepareUserRegistrationValidateUseCase())
         .use(_prepareUserLoginUseCase())
         .use(_prepareUserRegistrationUseCase())
@@ -111,6 +113,15 @@ final class DepProvider {
       final userRepository = context.read<UserRepository>();
 
       return UserRegistrationValidate(userRepository, _tokenService);
+    });
+  }
+
+  /// Factory provide UserResendValidationCode
+  Middleware _prepareUserResendValidationCodeUseCase() {
+    return provider<UserResendValidationCode>((context) {
+      final userRepository = context.read<UserRepository>();
+
+      return UserResendValidationCode(userRepository, _mailSenderService);
     });
   }
 }

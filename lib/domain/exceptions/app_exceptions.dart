@@ -57,3 +57,8 @@ final class AlreadyVerified implements UserExceptions {
 final class WrongVerificationCode implements UserExceptions {
   const WrongVerificationCode();
 }
+
+/// Too many attempts to send verification code
+final class TooManyAttempts implements UserExceptions {
+  const TooManyAttempts();
+}

@@ -112,4 +112,14 @@ class Localization {
       args: [],
     );
   }
+
+  /// `You can get the code again in 60 seconds`
+  String get authErrorTooManyAttempts {
+    return Intl.message(
+      'You can get the code again in 60 seconds',
+      name: 'authErrorTooManyAttempts',
+      desc: '',
+      args: [],
+    );
+  }
 }

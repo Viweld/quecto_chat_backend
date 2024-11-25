@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, dynamic> _notInlinedMessages(_) => {
         'authErrorAlreadyVerified': MessageLookupByLibrary.simpleMessage(
             'Пользователь уже подтвержден'),
+        'authErrorTooManyAttempts': MessageLookupByLibrary.simpleMessage(
+            'Получить код повторно можно через 60 секунд'),
         'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(
             'Веденная почта не зарегистрирована в приложении'),
         'authErrorWrongEmailOrPassword': MessageLookupByLibrary.simpleMessage(
