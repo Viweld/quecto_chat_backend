@@ -10,9 +10,6 @@ abstract interface class UserRepository {
   /// Update user data
   Future<void> updateUser(User user);
 
-  /// Get user data by ID
-  Future<User> getUserById(String userId);
-
   /// Get user data by E-mail
   Future<User?> getUserByEmail(String email);
 

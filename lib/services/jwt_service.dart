@@ -1,36 +1,36 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
+import '../domain/interfaces/env_parameters.dart';
 import '../domain/interfaces/token_service.dart';
 
 /// Implementation of TokenService
 class JwtService implements TokenService {
-  // TODO(Vadim): #canBeImproved - transfer this constants to .env
-  static const _secretKey = 'your_secret_key';
-  static const _accessTokenDuration = Duration(minutes: 15);
-  static const _refreshTokenDuration = Duration(days: 7);
+  JwtService(EnvParameters env) : _env = env;
+
+  final EnvParameters _env;
 
   // Method for generating access token
   @override
   String generateAccessToken(String userId) {
-    final expiry = DateTime.now().add(_accessTokenDuration);
+    final expiry = DateTime.now().add(_env.jwtAccessTokenDuration);
     final jwt = JWT({
       'sub': userId, // subject (user ID)
       'exp': expiry.millisecondsSinceEpoch ~/ 1000, // expiry time
     });
 
-    return jwt.sign(SecretKey(_secretKey));
+    return jwt.sign(SecretKey(_env.jwtSecretKey));
   }
 
   // Method for generating refresh token
   @override
   String generateRefreshToken(String userId) {
-    final expiry = DateTime.now().add(_refreshTokenDuration);
+    final expiry = DateTime.now().add(_env.jwtRefreshTokenDuration);
     final jwt = JWT({
       'sub': userId, // subject (user ID)
       'exp': expiry.millisecondsSinceEpoch ~/ 1000, // expiry time
     });
 
-    return jwt.sign(SecretKey(_secretKey));
+    return jwt.sign(SecretKey(_env.jwtSecretKey));
   }
 
   // Method to validate token and extract userId
@@ -38,7 +38,7 @@ class JwtService implements TokenService {
   String validateToken(String token) {
     try {
       // Verifying a token using a secret key
-      final jwt = JWT.verify(token, SecretKey(_secretKey));
+      final jwt = JWT.verify(token, SecretKey(_env.jwtSecretKey));
       final jwtPayload = jwt.payload as Map<String, Object>;
       return '${jwtPayload['sub']}'; // Return userId from token
     } catch (e) {

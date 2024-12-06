@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/services/jwt_service.dart';
+import 'package:quecto_chat_backend/domain/interfaces/token_service.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
@@ -16,10 +16,10 @@ FutureOr<Response> onRequest(RequestContext context) async {
 /// POST:
 FutureOr<Response> _post(RequestContext context) async {
   final requestBody = await context.request.body();
-  final data = jsonDecode(requestBody);
+  final data = jsonDecode(requestBody) as Map;
 
   final refreshToken = data['refresh'];
-  final jwtService = JwtService();
+  final jwtService = context.read<TokenService>();
 
   try {
     final userId = jwtService.validateToken(refreshToken);

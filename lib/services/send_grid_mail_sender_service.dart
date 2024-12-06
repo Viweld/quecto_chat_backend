@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as debug;
 import 'package:http/http.dart' as http;
 
 import '../domain/interfaces/env_parameters.dart';
@@ -40,9 +41,9 @@ class SendGridMailSenderService implements MailSenderService {
 
     // TODO(Vadim): #unimplemented - make result
     if (response.statusCode == 202) {
-      print('Email sent successfully!');
+      debug.log('Email sent successfully!');
     } else {
-      print('Failed to send email: ${response.body}');
+      debug.log('Failed to send email: ${response.body}');
     }
   }
 }

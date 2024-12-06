@@ -32,7 +32,7 @@ final class DepProvider {
   /// Initializing persistent and asynchronously initialized dependencies
   Future<void> initialize() async {
     _envParameters = DotEnvParameters();
-    _tokenService = JwtService();
+    _tokenService = JwtService(_envParameters);
     _mailSenderService = SendGridMailSenderService(_envParameters);
     _dataBase = await _prepareDataBase(_envParameters);
   }

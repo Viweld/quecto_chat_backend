@@ -15,10 +15,6 @@ class UserRepositoryImpl implements UserRepository {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<User> getUserById(String userId) => dataBase.getUserById(userId);
-
-  // ---------------------------------------------------------------------------
-  @override
   Future<User?> getUserByEmail(String email) => dataBase.getUserByEmail(email);
 
   // ---------------------------------------------------------------------------

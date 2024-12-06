@@ -16,4 +16,12 @@ abstract interface class EnvParameters {
   String get sendGridApiKey;
 
   String get sendGridUrl;
+
+  // JWT SERVICE CONFIGURATIONS:
+  // ---------------------------------------------------------------------------
+  String get jwtSecretKey;
+
+  Duration get jwtAccessTokenDuration;
+
+  Duration get jwtRefreshTokenDuration;
 }

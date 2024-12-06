@@ -71,13 +71,6 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<User> getUserById(String userId) {
-    // TODO(Vadim): #unimplemented getUserById
-    throw UnimplementedError();
-  }
-
-  // ---------------------------------------------------------------------------
-  @override
   Future<User?> getUserByEmail(String email) async {
     final result = await _connection.get(
       tableName: _Keys._tUsers,
