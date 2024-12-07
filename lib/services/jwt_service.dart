@@ -63,4 +63,26 @@ class JwtService implements TokenService {
       throw const InvalidToken();
     }
   }
+
+  @override
+  String validateAccessToken(String token) {
+    try {
+      final jwt = JWT.verify(token, SecretKey(_env.jwtSecretKey));
+      final payload = jwt.payload as Map<String, dynamic>;
+
+      if (payload['type'] != 'access') {
+        throw const TokenIsNotAccessToken();
+      }
+
+      final expiry =
+          DateTime.fromMillisecondsSinceEpoch((payload['exp'] as int) * 1000);
+      if (expiry.isBefore(DateTime.now())) {
+        throw const TokenExpired();
+      }
+
+      return '${payload['sub']}';
+    } on Object {
+      throw const InvalidToken();
+    }
+  }
 }
