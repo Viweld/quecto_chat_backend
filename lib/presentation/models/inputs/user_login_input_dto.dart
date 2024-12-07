@@ -2,16 +2,14 @@ import '../../../domain/models/inputs/common/input_fields/base_input_field.dart'
 import '../../../domain/models/inputs/user/user_login_input.dart';
 
 final class UserLoginInputDto extends UserLoginInput {
-  const UserLoginInputDto({
-    required super.email,
-    required super.password,
-  });
+  UserLoginInputDto.fromJson(Map<String, dynamic> json)
+      : super(
+          email: EmailInputField(_emailKey, json[_emailKey]),
+          password: PasswordInputField(_passwordKey, json[_passwordKey]),
+        );
 
+  // KEYS:
   // ---------------------------------------------------------------------------
-  /// Deserialization
-  factory UserLoginInputDto.fromJson(Map<String, dynamic> json) =>
-      UserLoginInputDto(
-        email: EmailInputField('email', json['email']),
-        password: PasswordInputField('password', json['password']),
-      );
+  static const _emailKey = 'email';
+  static const _passwordKey = 'password';
 }

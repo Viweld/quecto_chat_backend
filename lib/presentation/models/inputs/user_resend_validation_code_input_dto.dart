@@ -3,15 +3,12 @@ import '../../../domain/models/inputs/user/user_resend_validation_code_input.dar
 
 final class UserResendValidationCodeInputDto
     extends UserResendValidationCodeInput {
-  UserResendValidationCodeInputDto({
-    required super.email,
-  });
+  UserResendValidationCodeInputDto.fromJson(Map<String, dynamic> json)
+      : super(
+          email: EmailInputField(_emailKey, json[_emailKey]),
+        );
 
+  // KEYS:
   // ---------------------------------------------------------------------------
-  /// Deserialization
-  factory UserResendValidationCodeInputDto.fromJson(
-          Map<String, dynamic> json) =>
-      UserResendValidationCodeInputDto(
-        email: EmailInputField('email', json['email']),
-      );
+  static const _emailKey = 'email';
 }

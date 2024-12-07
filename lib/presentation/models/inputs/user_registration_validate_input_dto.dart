@@ -3,28 +3,24 @@ import '../../../domain/models/inputs/user/user_registration_validate_input.dart
 
 final class UserRegistrationValidateInputDto
     extends UserRegistrationValidateInput {
-  UserRegistrationValidateInputDto({
-    required super.fullName,
-    required super.email,
-    required super.password,
-    required super.confirmPassword,
-    required super.validationCode,
-  });
+  UserRegistrationValidateInputDto.fromJson(Map<String, dynamic> json)
+      : super(
+          fullName: StringInputField(_fullNameKey, json[_fullNameKey]),
+          email: EmailInputField(_emailKey, json[_emailKey]),
+          password: PasswordInputField(_passwordKey, json[_passwordKey]),
+          confirmPassword: ConfirmPasswordInputField(
+            _passwordKey,
+            json[_passwordKey],
+            PasswordInputField(_passwordKey, json[_passwordKey]),
+          ),
+          validationCode: ValidationCodeInputField(
+              _validationCodeKey, json[_validationCodeKey]),
+        );
 
+  // KEYS:
   // ---------------------------------------------------------------------------
-  /// Deserialization
-  factory UserRegistrationValidateInputDto.fromJson(
-          Map<String, dynamic> json) =>
-      UserRegistrationValidateInputDto(
-        fullName: StringInputField('full_name', json['full_name']),
-        email: EmailInputField('email', json['email']),
-        password: PasswordInputField('password', json['password']),
-        confirmPassword: ConfirmPasswordInputField(
-          'password',
-          json['password'],
-          PasswordInputField('password', json['password']),
-        ),
-        validationCode: ValidationCodeInputField(
-            'validation_code', json['validation_code']),
-      );
+  static const _fullNameKey = 'full_name';
+  static const _emailKey = 'email';
+  static const _passwordKey = 'password';
+  static const _validationCodeKey = 'validation_code';
 }
