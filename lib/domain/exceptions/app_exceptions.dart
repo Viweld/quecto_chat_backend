@@ -2,6 +2,37 @@ import '../models/inputs/common/input_fields/base_input_field.dart';
 
 sealed class CoreExceptions implements Exception {}
 
+/// Internal server error
+final class InternalServerError implements CoreExceptions {
+  const InternalServerError();
+}
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+/// The most common exceptions when processing tokens:
+sealed class TokenExceptions implements CoreExceptions {}
+
+/// Token expired
+final class TokenExpired implements TokenExceptions {
+  const TokenExpired();
+}
+
+/// Invalid token
+final class InvalidToken implements TokenExceptions {
+  const InvalidToken();
+}
+
+/// Token is not a refresh token
+final class TokenIsNotRefreshToken implements TokenExceptions {
+  const TokenIsNotRefreshToken();
+}
+
+/// Token is not an access token
+final class TokenIsNotAccessToken implements TokenExceptions {
+  const TokenIsNotAccessToken();
+}
+
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
