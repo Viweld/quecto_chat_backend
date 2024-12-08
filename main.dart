@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:quecto_chat_backend/domain/environment/dep_provider.dart';
+import 'package:quecto_chat_backend/core/environment/dep_provider.dart';
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
   // provide environment:

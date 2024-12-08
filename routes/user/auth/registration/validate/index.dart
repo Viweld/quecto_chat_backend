@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
-import 'package:quecto_chat_backend/domain/extensions/context_extensions.dart';
-import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
-import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/domain/helpers/serialization_helper.dart';
-import 'package:quecto_chat_backend/domain/use_cases/user/user_registration_validate.dart';
+import 'package:quecto_chat_backend/core/extensions/context_extensions.dart';
+import 'package:quecto_chat_backend/core/helpers/decode_helper.dart';
+import 'package:quecto_chat_backend/core/helpers/response_helper.dart';
+import 'package:quecto_chat_backend/core/helpers/serialization_helper.dart';
+import 'package:quecto_chat_backend/domain/use_cases/user/registration_validate/user_registration_validate.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_registration_validate_input_dto.dart';
 import 'package:quecto_chat_backend/presentation/models/outputs/user_registration_validate_output_dto.dart';
 

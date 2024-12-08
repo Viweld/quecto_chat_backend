@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import '../../entities/user.dart';
-import '../../exceptions/app_exceptions.dart';
-import '../../interfaces/mail_sender_service.dart';
-import '../../interfaces/user_repository.dart';
-import '../../models/inputs/user/user_registration_input.dart';
+import '../../../entities/user.dart';
+import '../../../exceptions/app_exceptions.dart';
+import '../../../../core/interfaces/mail_sender_service.dart';
+import '../../../../core/interfaces/user_repository.dart';
+import 'user_registration_input.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------

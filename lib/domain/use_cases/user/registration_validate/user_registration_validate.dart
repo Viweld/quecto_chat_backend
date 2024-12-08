@@ -1,8 +1,8 @@
-import '../../exceptions/app_exceptions.dart';
-import '../../interfaces/token_service.dart';
-import '../../interfaces/user_repository.dart';
-import '../../models/inputs/user/user_registration_validate_input.dart';
-import '../../models/outputs/user/user_registration_validate_output.dart';
+import '../../../exceptions/app_exceptions.dart';
+import '../../../../core/interfaces/token_service.dart';
+import '../../../../core/interfaces/user_repository.dart';
+import 'user_registration_validate_input.dart';
+import 'user_registration_validate_output.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------

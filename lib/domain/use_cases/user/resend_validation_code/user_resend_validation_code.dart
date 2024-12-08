@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import '../../exceptions/app_exceptions.dart';
-import '../../interfaces/mail_sender_service.dart';
-import '../../interfaces/user_repository.dart';
-import '../../models/inputs/user/user_resend_validation_code_input.dart';
+import '../../../exceptions/app_exceptions.dart';
+import '../../../../core/interfaces/mail_sender_service.dart';
+import '../../../../core/interfaces/user_repository.dart';
+import 'user_resend_validation_code_input.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------

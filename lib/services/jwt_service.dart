@@ -1,8 +1,8 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 import '../domain/exceptions/app_exceptions.dart';
-import '../domain/interfaces/env_parameters.dart';
-import '../domain/interfaces/token_service.dart';
+import '../core/interfaces/env_parameters.dart';
+import '../core/interfaces/token_service.dart';
 
 /// Implementation of TokenService
 class JwtService implements TokenService {

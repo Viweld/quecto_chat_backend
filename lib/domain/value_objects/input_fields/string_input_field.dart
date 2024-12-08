@@ -1,4 +1,4 @@
-part of '../../entities/input_field.dart';
+part of 'input_field.dart';
 
 /// Invalid states
 enum StringInputError {

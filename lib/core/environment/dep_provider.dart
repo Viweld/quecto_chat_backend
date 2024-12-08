@@ -9,10 +9,11 @@ import '../interfaces/env_parameters.dart';
 import '../interfaces/mail_sender_service.dart';
 import '../interfaces/token_service.dart';
 import '../interfaces/user_repository.dart';
-import '../use_cases/user/user_login.dart';
-import '../use_cases/user/user_registration.dart';
-import '../use_cases/user/user_registration_validate.dart';
-import '../use_cases/user/user_resend_validation_code.dart';
+import '../../domain/use_cases/user/login/user_login.dart';
+import '../../domain/use_cases/user/registration/user_registration.dart';
+import '../../domain/use_cases/user/registration_validate/user_registration_validate.dart';
+import '../../domain/use_cases/user/resend_validation_code/user_resend_validation_code.dart';
+import '../../domain/use_cases/user/token_refresh/user_token_refresh.dart';
 import 'dot_env_parameters.dart';
 
 final class DepProvider {
@@ -40,6 +41,7 @@ final class DepProvider {
   /// provide dependencies
   Handler injectDependencies(Handler handler) {
     return handler
+        .use(_prepareUserTokenRefreshUseCase())
         .use(_prepareUserResendValidationCodeUseCase())
         .use(_prepareUserRegistrationValidateUseCase())
         .use(_prepareUserLoginUseCase())
@@ -122,6 +124,13 @@ final class DepProvider {
       final userRepository = context.read<UserRepository>();
 
       return UserResendValidationCode(userRepository, _mailSenderService);
+    });
+  }
+
+  /// Factory provide UserTokenRefresh
+  Middleware _prepareUserTokenRefreshUseCase() {
+    return provider<UserTokenRefresh>((_) {
+      return UserTokenRefresh(_tokenService);
     });
   }
 }

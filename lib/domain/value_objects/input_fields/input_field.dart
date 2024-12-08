@@ -1,14 +1,14 @@
 import 'package:meta/meta.dart';
 
-part '../value_objects/input_fields/email_input_field.dart';
+part 'email_input_field.dart';
 
-part '../value_objects/input_fields/password_input_field.dart';
+part 'password_input_field.dart';
 
-part '../value_objects/input_fields/string_input_field.dart';
+part 'string_input_field.dart';
 
-part '../value_objects/input_fields/confirm_password_input_field.dart';
+part 'confirm_password_input_field.dart';
 
-part '../value_objects/input_fields/validation_code_input_field.dart';
+part 'validation_code_input_field.dart';
 
 @immutable
 sealed class InputField<T, E> {

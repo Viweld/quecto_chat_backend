@@ -6,9 +6,9 @@ import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_sort_type.dart';
 import '../../domain/exceptions/app_exceptions.dart';
-import '../../domain/extensions/postgres_extension.dart';
-import '../../domain/interfaces/data_base.dart';
-import '../../domain/interfaces/env_parameters.dart';
+import '../../core/extensions/postgres_extension.dart';
+import '../../core/interfaces/data_base.dart';
+import '../../core/interfaces/env_parameters.dart';
 
 part 'mapper.dart';
 

@@ -1,4 +1,4 @@
-import '../entities/input_field.dart';
+import '../value_objects/input_fields/input_field.dart';
 
 sealed class CoreExceptions implements Exception {}
 

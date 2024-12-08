@@ -1,6 +1,6 @@
-import '../entities/paginated.dart';
-import '../entities/user.dart';
-import '../entities/user_sort_type.dart';
+import '../../domain/entities/paginated.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/entities/user_sort_type.dart';
 
 /// Interface for database
 abstract interface class DataBase {

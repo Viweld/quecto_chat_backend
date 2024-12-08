@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:developer' as debug;
 import 'package:http/http.dart' as http;
 
-import '../domain/interfaces/env_parameters.dart';
-import '../domain/interfaces/mail_sender_service.dart';
+import '../core/interfaces/env_parameters.dart';
+import '../core/interfaces/mail_sender_service.dart';
 
 /// Implementation of MailSenderService
 class SendGridMailSenderService implements MailSenderService {

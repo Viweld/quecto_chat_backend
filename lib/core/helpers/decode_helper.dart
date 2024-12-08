@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../exceptions/app_exceptions.dart';
+import '../../domain/exceptions/app_exceptions.dart';
 
 class DecodeHelper {
   const DecodeHelper._();

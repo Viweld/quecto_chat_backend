@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:intl/intl.dart';
-import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
-import 'package:quecto_chat_backend/domain/interfaces/token_service.dart';
+import 'package:quecto_chat_backend/core/helpers/response_helper.dart';
+import 'package:quecto_chat_backend/core/interfaces/token_service.dart';
 import 'package:quecto_chat_backend/l10n/generated/l10n.dart';
 import 'package:quecto_chat_backend/l10n/generated/messages_all_locales.dart';
 

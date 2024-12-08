@@ -1,5 +1,5 @@
-import '../../../domain/models/inputs/common/input_fields/base_input_field.dart';
-import '../../../domain/models/inputs/user/user_token_refresh.dart';
+import '../../../domain/value_objects/input_fields/input_field.dart';
+import '../../../domain/use_cases/user/token_refresh/user_token_refresh_input.dart';
 
 final class UserTokenRefreshInputDto extends UserTokenRefreshInput {
   UserTokenRefreshInputDto.fromJson(Map<String, dynamic> json)

@@ -1,7 +1,7 @@
 import 'package:dart_frog/dart_frog.dart';
 
+import '../../domain/value_objects/input_fields/input_field.dart';
 import '../extensions/context_extensions.dart';
-import '../../domain/entities/input_field.dart';
 
 extension SerializationInvalidFieldsList on List<InputField<Object, Object>> {
   Map<String, Object?> serialize(RequestContext context) {

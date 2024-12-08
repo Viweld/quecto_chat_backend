@@ -1,7 +1,7 @@
-import '../../exceptions/app_exceptions.dart';
-import '../../interfaces/token_service.dart';
-import '../../models/inputs/user/user_token_refresh.dart';
-import '../../models/outputs/user/user_token_refresh_output.dart';
+import '../../../exceptions/app_exceptions.dart';
+import '../../../../core/interfaces/token_service.dart';
+import 'user_token_refresh_input.dart';
+import 'user_token_refresh_output.dart';
 
 // Use-case
 // -----------------------------------------------------------------------------

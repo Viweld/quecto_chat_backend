@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../domain/models/outputs/user/user_registration_validate_output.dart';
+import '../../../domain/use_cases/user/registration_validate/user_registration_validate_output.dart';
 
 part 'generated/user_registration_validate_output_dto.g.dart';
 

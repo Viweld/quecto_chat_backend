@@ -1,5 +1,5 @@
-import '../../../domain/models/inputs/common/input_fields/base_input_field.dart';
-import '../../../domain/models/inputs/user/user_registration_input.dart';
+import '../../../domain/value_objects/input_fields/input_field.dart';
+import '../../../domain/use_cases/user/registration/user_registration_input.dart';
 
 final class UserRegistrationInputDto extends UserRegistrationInput {
   UserRegistrationInputDto.fromJson(Map<String, dynamic> json)
