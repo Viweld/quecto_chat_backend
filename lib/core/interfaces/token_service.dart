@@ -8,4 +8,7 @@ abstract interface class TokenService {
 
   /// Validates the refresh token and returns the user ID
   String validateRefreshToken(String token);
+
+  /// Validates the access token and returns the user ID
+  String validateAccessToken(String token);
 }

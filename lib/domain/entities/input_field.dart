@@ -1,18 +1,18 @@
 import 'package:meta/meta.dart';
 
-part 'email_input_field.dart';
+part '../value_objects/input_fields/email_input_field.dart';
 
-part 'password_input_field.dart';
+part '../value_objects/input_fields/password_input_field.dart';
 
-part 'string_input_field.dart';
+part '../value_objects/input_fields/string_input_field.dart';
 
-part 'confirm_password_input_field.dart';
+part '../value_objects/input_fields/confirm_password_input_field.dart';
 
-part 'validation_code_input_field.dart';
+part '../value_objects/input_fields/validation_code_input_field.dart';
 
 @immutable
-sealed class BaseInputField<T, E> {
-  const BaseInputField(this.key, this._rawValue);
+sealed class InputField<T, E> {
+  const InputField(this.key, this._rawValue);
 
   final String key;
 
@@ -31,7 +31,7 @@ sealed class BaseInputField<T, E> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is BaseInputField &&
+        other is InputField &&
             runtimeType == other.runtimeType &&
             _rawValue == other._rawValue;
   }

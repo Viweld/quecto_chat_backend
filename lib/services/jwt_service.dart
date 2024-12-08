@@ -39,50 +39,48 @@ class JwtService implements TokenService {
   // Method to validate refresh token and extract userId
   @override
   String validateRefreshToken(String token) {
+    final payload = _verifyAndGetPayload(token);
+    _checkTokenType(payload, 'refresh');
+    _checkExpiry(payload);
+    return '${payload['sub']}';
+  }
+
+  // Method to validate access token and extract userId
+  @override
+  String validateAccessToken(String token) {
+    final payload = _verifyAndGetPayload(token);
+    _checkTokenType(payload, 'access');
+    _checkExpiry(payload);
+    return '${payload['sub']}';
+  }
+
+  /// HANDLE METHODS:
+  // ---------------------------------------------------------------------------
+  /// Helper method for token verification and data extraction
+  Map<String, dynamic> _verifyAndGetPayload(String token) {
     try {
-      // verifying a token using a secret key
       final jwt = JWT.verify(token, SecretKey(_env.jwtSecretKey));
-
-      final payload = jwt.payload as Map<String, dynamic>;
-
-      // check if token is a refresh token
-      if (payload['type'] != 'refresh') {
-        throw const TokenIsNotRefreshToken();
-      }
-
-      final milliseconds = payload['exp'] as int;
-      final expiry = DateTime.fromMillisecondsSinceEpoch(milliseconds * 1000);
-
-      // check expiration time
-      if (expiry.isBefore(DateTime.now())) {
-        throw const TokenExpired();
-      }
-
-      return '${payload['sub']}';
+      return jwt.payload as Map<String, dynamic>;
     } on Object {
       throw const InvalidToken();
     }
   }
 
-  @override
-  String validateAccessToken(String token) {
-    try {
-      final jwt = JWT.verify(token, SecretKey(_env.jwtSecretKey));
-      final payload = jwt.payload as Map<String, dynamic>;
+  /// Helper method for checking token expiration
+  void _checkExpiry(Map<String, dynamic> payload) {
+    final milliseconds = payload['exp'] as int;
+    final expiry = DateTime.fromMillisecondsSinceEpoch(milliseconds * 1000);
+    if (expiry.isBefore(DateTime.now())) {
+      throw const TokenExpired();
+    }
+  }
 
-      if (payload['type'] != 'access') {
-        throw const TokenIsNotAccessToken();
-      }
-
-      final expiry =
-          DateTime.fromMillisecondsSinceEpoch((payload['exp'] as int) * 1000);
-      if (expiry.isBefore(DateTime.now())) {
-        throw const TokenExpired();
-      }
-
-      return '${payload['sub']}';
-    } on Object {
-      throw const InvalidToken();
+  /// Helper method for checking token type
+  void _checkTokenType(Map<String, dynamic> payload, String expectedType) {
+    if (payload['type'] != expectedType) {
+      throw expectedType == 'refresh'
+          ? const TokenIsNotRefreshToken()
+          : const TokenIsNotAccessToken();
     }
   }
 }

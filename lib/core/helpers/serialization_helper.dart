@@ -1,10 +1,9 @@
 import 'package:dart_frog/dart_frog.dart';
 
 import '../extensions/context_extensions.dart';
-import '../models/inputs/common/input_fields/base_input_field.dart';
+import '../../domain/entities/input_field.dart';
 
-extension SerializationInvalidFieldsList
-    on List<BaseInputField<Object, Object>> {
+extension SerializationInvalidFieldsList on List<InputField<Object, Object>> {
   Map<String, Object?> serialize(RequestContext context) {
     final Map<String, Object?> result = {'details': 'Invalid values in fields'};
 

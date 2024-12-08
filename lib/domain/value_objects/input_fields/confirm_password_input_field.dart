@@ -1,4 +1,4 @@
-part of 'base_input_field.dart';
+part of '../../entities/input_field.dart';
 
 /// Invalid states
 enum ConfirmPasswordInputError {
@@ -9,7 +9,7 @@ enum ConfirmPasswordInputError {
 
 // -----------------------------------------------------------------------------
 base class ConfirmPasswordInputField
-    extends BaseInputField<String, ConfirmPasswordInputError> {
+    extends InputField<String, ConfirmPasswordInputError> {
   const ConfirmPasswordInputField(
       super.key, super._rawValue, this.basePassword);
 

@@ -1,4 +1,4 @@
-part of 'base_input_field.dart';
+part of '../../entities/input_field.dart';
 
 /// Invalid states
 enum ValidationCodeInputError {
@@ -9,7 +9,7 @@ enum ValidationCodeInputError {
 
 // -----------------------------------------------------------------------------
 base class ValidationCodeInputField
-    extends BaseInputField<String, ValidationCodeInputError> {
+    extends InputField<String, ValidationCodeInputError> {
   const ValidationCodeInputField(super.key, super._rawValue);
 
   @override

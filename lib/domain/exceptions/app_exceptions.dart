@@ -1,4 +1,4 @@
-import '../models/inputs/common/input_fields/base_input_field.dart';
+import '../entities/input_field.dart';
 
 sealed class CoreExceptions implements Exception {}
 
@@ -55,7 +55,7 @@ final class UnableToDecodeRequestBody implements RequestBodyExceptions {
 final class InvalidRequestBodyValues implements RequestBodyExceptions {
   const InvalidRequestBodyValues(this.invalidFields);
 
-  final List<BaseInputField<Object, Object>> invalidFields;
+  final List<InputField<Object, Object>> invalidFields;
 }
 
 // -----------------------------------------------------------------------------

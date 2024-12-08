@@ -1,4 +1,4 @@
-part of 'base_input_field.dart';
+part of '../../entities/input_field.dart';
 
 /// Invalid states
 enum EmailInputError {
@@ -7,7 +7,7 @@ enum EmailInputError {
   wrongFormat,
 }
 
-base class EmailInputField extends BaseInputField<String, EmailInputError> {
+base class EmailInputField extends InputField<String, EmailInputError> {
   const EmailInputField(super.key, super._rawValue);
 
   @override

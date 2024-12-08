@@ -5,7 +5,10 @@ import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
 import 'package:quecto_chat_backend/domain/extensions/context_extensions.dart';
 import 'package:quecto_chat_backend/domain/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/domain/helpers/response_helper.dart';
+import 'package:quecto_chat_backend/domain/helpers/serialization_helper.dart';
+import 'package:quecto_chat_backend/domain/use_cases/user/user_token_refresh.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_token_refresh_input_dto.dart';
+import 'package:quecto_chat_backend/presentation/models/outputs/user_token_refresh_output_dto.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
@@ -27,13 +30,11 @@ FutureOr<Response> _post(RequestContext context) async {
     // preparing dependencies
     final userTokenRefresh = context.read<UserTokenRefresh>();
 
-    // 200
-    // 400
-    // 401
-    // 405
+    // execute token refresh use-case
+    final tokens =
+        await userTokenRefresh.call(refreshData) as UserTokenRefreshOutputDto;
 
-    final userId = jwtService.validateToken(refreshToken);
-    final newAccessToken = jwtService.generateAccessToken(userId);
+    return ResponseHelper.success(body: tokens.toJson());
   } on MissingRequestBody {
     return ResponseHelper.badRequest(
         detail: context.texts.requestErrorMissingBody);
@@ -41,12 +42,14 @@ FutureOr<Response> _post(RequestContext context) async {
     return ResponseHelper.badRequest(
         detail: context.texts.requestErrorUnableToDecode +
             (e.details == null ? '' : ': ${e.details}'));
-
-    return ResponseHelper.success(body: {'access': newAccessToken});
   } on InvalidRequestBodyValues catch (e) {
     final invalidFields = e.invalidFields.serialize(context);
     return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
-  } on Object {
-    return ResponseHelper.unAuthorized(detail: 'Invalid refresh token');
+  } on TokenExceptions {
+    return ResponseHelper.unAuthorized(
+      detail: 'Invalid refresh token',
+    );
+  } on Object catch (e) {
+    return ResponseHelper.internalServerError(detail: '$e');
   }
 }

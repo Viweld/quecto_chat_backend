@@ -1,24 +1,24 @@
-part of 'base_input_field.dart';
+part of '../../entities/input_field.dart';
 
 /// Invalid states
-enum StringInputError {
+enum PasswordInputError {
   wrongType,
   emptyField,
 }
 
 // -----------------------------------------------------------------------------
-base class StringInputField extends BaseInputField<String, StringInputError> {
-  const StringInputField(super.key, super._rawValue);
+base class PasswordInputField extends InputField<String, PasswordInputError> {
+  const PasswordInputField(super.key, super._rawValue);
 
   @override
   String get value => (super._rawValue is String) ? '${super._rawValue}' : '';
 
   @override
-  StringInputError? _validator(Object? rawValue) {
+  PasswordInputError? _validator(Object? rawValue) {
     if (rawValue is! String) {
-      return StringInputError.wrongType;
+      return PasswordInputError.wrongType;
     } else if (rawValue.isEmpty) {
-      return StringInputError.emptyField;
+      return PasswordInputError.emptyField;
     } else {
       return null;
     }

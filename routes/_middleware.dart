@@ -63,7 +63,7 @@ Handler _verifyTokenHandler(Handler handler) {
     // 3. Check for token validity:
     try {
       final jwtService = context.read<TokenService>();
-      final userId = jwtService.validateToken(token);
+      final userId = jwtService.validateAccessToken(token);
       final updatedContext = context.provide<String>(() => userId);
       return await _continueProcessing(handler, updatedContext);
     } on Object {
