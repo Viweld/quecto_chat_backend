@@ -49,7 +49,5 @@ FutureOr<Response> _post(RequestContext context) async {
     return ResponseHelper.unAuthorized(
       detail: 'Invalid refresh token',
     );
-  } on Object catch (e) {
-    return ResponseHelper.internalServerError(detail: '$e');
   }
 }

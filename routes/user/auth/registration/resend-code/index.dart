@@ -53,7 +53,5 @@ FutureOr<Response> _post(RequestContext context) async {
   } on TooManyAttempts {
     return ResponseHelper.tooManyRequests(
         detail: context.texts.authErrorTooManyAttempts);
-  } on Object catch (e) {
-    return ResponseHelper.internalServerError(detail: '$e');
   }
 }

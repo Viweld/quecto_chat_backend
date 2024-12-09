@@ -55,7 +55,5 @@ FutureOr<Response> _post(RequestContext context) async {
   } on WrongVerificationCode {
     return ResponseHelper.badRequest(
         detail: context.texts.authErrorWrongVerificationCode);
-  } on Object catch (e) {
-    return ResponseHelper.internalServerError(detail: '$e');
   }
 }

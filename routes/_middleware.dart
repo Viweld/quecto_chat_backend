@@ -36,6 +36,9 @@ Handler _setRequestLanguage(Handler handler) {
 const _publicEndpoints = [
   'user/auth/login',
   'user/auth/token/refresh',
+  'user/auth/registration',
+  'user/auth/registration/validate',
+  'user/auth/registration/resend-code',
 ];
 
 /// List of private endpoints:
@@ -49,7 +52,7 @@ Handler _verifyTokenHandler(Handler handler) {
     // 1.1. If the request is public, process it:
     final isFreeAccess = _publicEndpoints.contains(url);
     if (isFreeAccess) return _continueProcessing(handler, context);
-    // 1.2. If the request is private, respond with 404
+    // 1.2. If the request isn't private, respond with 404
     final isPrivateAccess = _privateEndpoints.contains(url);
     if (!isPrivateAccess) return ResponseHelper.notFound();
 
