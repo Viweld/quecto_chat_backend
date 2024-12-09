@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import '../../../entities/user.dart';
-import '../../../exceptions/app_exceptions.dart';
 import '../../../../core/interfaces/mail_sender_service.dart';
 import '../../../../core/interfaces/user_repository.dart';
+import '../../../entities/user.dart';
+import '../../../exceptions/app_exceptions.dart';
 import 'user_registration_input.dart';
 
 // Use-case

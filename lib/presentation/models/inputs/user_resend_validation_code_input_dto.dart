@@ -1,5 +1,5 @@
-import '../../../domain/value_objects/input_fields/input_field.dart';
 import '../../../domain/use_cases/user/resend_validation_code/user_resend_validation_code_input.dart';
+import '../../../domain/value_objects/input_fields/input_field.dart';
 
 final class UserResendValidationCodeInputDto
     extends UserResendValidationCodeInput {

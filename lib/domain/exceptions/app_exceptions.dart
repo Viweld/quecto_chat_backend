@@ -36,6 +36,17 @@ final class TokenIsNotAccessToken implements TokenExceptions {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+/// The most common exceptions when processing mail sender:
+sealed class MailSenderExceptions implements CoreExceptions {}
+
+/// Unable to send email
+final class UnableToSendEmail implements MailSenderExceptions {
+  const UnableToSendEmail();
+}
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// The most common exceptions when processing incoming requests:
 sealed class RequestBodyExceptions implements CoreExceptions {}
 

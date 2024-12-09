@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:developer' as debug;
 import 'package:http/http.dart' as http;
 
-import '../core/interfaces/env_parameters.dart';
-import '../core/interfaces/mail_sender_service.dart';
+import '../../../core/interfaces/env_parameters.dart';
+import '../../../core/interfaces/mail_sender_service.dart';
+import '../../../domain/exceptions/app_exceptions.dart';
 
 /// Implementation of MailSenderService
 class SendGridMailSenderService implements MailSenderService {
@@ -39,11 +40,11 @@ class SendGridMailSenderService implements MailSenderService {
       }),
     );
 
-    // TODO(Vadim): #unimplemented - make result
     if (response.statusCode == 202) {
       debug.log('Email sent successfully!');
     } else {
       debug.log('Failed to send email: ${response.body}');
+      throw const UnableToSendEmail();
     }
   }
 }

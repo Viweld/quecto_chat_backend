@@ -1,8 +1,8 @@
+import '../../core/interfaces/data_base.dart';
+import '../../core/interfaces/user_repository.dart';
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_sort_type.dart';
-import '../../core/interfaces/data_base.dart';
-import '../../core/interfaces/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl({required this.dataBase});

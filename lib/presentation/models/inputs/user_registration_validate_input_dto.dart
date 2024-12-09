@@ -1,5 +1,5 @@
-import '../../../domain/value_objects/input_fields/input_field.dart';
 import '../../../domain/use_cases/user/registration_validate/user_registration_validate_input.dart';
+import '../../../domain/value_objects/input_fields/input_field.dart';
 
 final class UserRegistrationValidateInputDto
     extends UserRegistrationValidateInput {

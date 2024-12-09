@@ -1,11 +1,11 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
-import '../domain/exceptions/app_exceptions.dart';
-import '../core/interfaces/env_parameters.dart';
-import '../core/interfaces/token_service.dart';
+import '../../core/interfaces/env_parameters.dart';
+import '../../core/interfaces/token_service.dart';
+import '../../domain/exceptions/app_exceptions.dart';
 
 /// Implementation of TokenService
-class JwtService implements TokenService {
+final class JwtService implements TokenService {
   JwtService(EnvParameters env) : _env = env;
 
   final EnvParameters _env;

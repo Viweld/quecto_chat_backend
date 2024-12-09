@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import '../../../exceptions/app_exceptions.dart';
 import '../../../../core/interfaces/mail_sender_service.dart';
 import '../../../../core/interfaces/user_repository.dart';
+import '../../../exceptions/app_exceptions.dart';
 import 'user_resend_validation_code_input.dart';
 
 // Use-case

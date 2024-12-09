@@ -2,18 +2,18 @@ import 'package:dart_frog/dart_frog.dart';
 
 import '../../data/data_base/postgres_data_base.dart';
 import '../../data/repositories/user_repository_impl.dart';
-import '../../services/jwt_service.dart';
-import '../../services/send_grid_mail_sender_service.dart';
-import '../interfaces/data_base.dart';
-import '../interfaces/env_parameters.dart';
-import '../interfaces/mail_sender_service.dart';
-import '../interfaces/token_service.dart';
-import '../interfaces/user_repository.dart';
+import '../../data/services/jwt_service.dart';
+import '../../data/services/send_grid_mail_sender_service.dart';
 import '../../domain/use_cases/user/login/user_login.dart';
 import '../../domain/use_cases/user/registration/user_registration.dart';
 import '../../domain/use_cases/user/registration_validate/user_registration_validate.dart';
 import '../../domain/use_cases/user/resend_validation_code/user_resend_validation_code.dart';
 import '../../domain/use_cases/user/token_refresh/user_token_refresh.dart';
+import '../interfaces/data_base.dart';
+import '../interfaces/env_parameters.dart';
+import '../interfaces/mail_sender_service.dart';
+import '../interfaces/token_service.dart';
+import '../interfaces/user_repository.dart';
 import 'dot_env_parameters.dart';
 
 final class DepProvider {

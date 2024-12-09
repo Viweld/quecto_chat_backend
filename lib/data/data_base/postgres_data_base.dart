@@ -2,18 +2,16 @@ import 'dart:io';
 
 import 'package:postgres/postgres.dart';
 
+import '../../core/extensions/postgres_extension.dart';
+import '../../core/interfaces/data_base.dart';
+import '../../core/interfaces/env_parameters.dart';
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_sort_type.dart';
 import '../../domain/exceptions/app_exceptions.dart';
-import '../../core/extensions/postgres_extension.dart';
-import '../../core/interfaces/data_base.dart';
-import '../../core/interfaces/env_parameters.dart';
-
-part 'mapper.dart';
 
 part 'keys.dart';
-
+part 'mapper.dart';
 part 'migration.dart';
 
 final class PostgresDataBase implements DataBase {
