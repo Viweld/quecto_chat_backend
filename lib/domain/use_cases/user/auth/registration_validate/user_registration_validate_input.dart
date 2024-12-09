@@ -1,12 +1,13 @@
-import '../../../../core/interfaces/base_input.dart';
-import '../../../value_objects/input_fields/input_field.dart';
+import '../../../../../core/interfaces/base_input.dart';
+import '../../../../value_objects/input_fields/input_field.dart';
 
-base class UserRegistrationInput implements BaseInput {
-  const UserRegistrationInput({
+base class UserRegistrationValidateInput implements BaseInput {
+  const UserRegistrationValidateInput({
     required this.fullName,
     required this.email,
     required this.password,
     required this.confirmPassword,
+    required this.validationCode,
   });
 
   /// User full name
@@ -21,6 +22,9 @@ base class UserRegistrationInput implements BaseInput {
   /// Account confirm password
   final ConfirmPasswordInputField confirmPassword;
 
+  /// User validation code
+  final ValidationCodeInputField validationCode;
+
   // ---------------------------------------------------------------------------
   /// Get invalid inputs as Map<String, BaseInput>
   @override
@@ -29,5 +33,6 @@ base class UserRegistrationInput implements BaseInput {
         if (email.invalid) email,
         if (password.invalid) email,
         if (confirmPassword.invalid) confirmPassword,
+        if (validationCode.invalid) validationCode,
       ];
 }

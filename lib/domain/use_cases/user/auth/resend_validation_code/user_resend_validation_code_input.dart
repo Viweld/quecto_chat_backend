@@ -1,5 +1,5 @@
-import '../../../../core/interfaces/base_input.dart';
-import '../../../value_objects/input_fields/input_field.dart';
+import '../../../../../core/interfaces/base_input.dart';
+import '../../../../value_objects/input_fields/input_field.dart';
 
 base class UserResendValidationCodeInput implements BaseInput {
   const UserResendValidationCodeInput({

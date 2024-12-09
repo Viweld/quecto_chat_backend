@@ -1,6 +1,6 @@
-import '../../../../core/interfaces/token_service.dart';
-import '../../../../core/interfaces/user_repository.dart';
-import '../../../exceptions/app_exceptions.dart';
+import '../../../../../core/interfaces/token_service.dart';
+import '../../../../../core/interfaces/user_repository.dart';
+import '../../../../exceptions/app_exceptions.dart';
 import 'user_registration_validate_input.dart';
 import 'user_registration_validate_output.dart';
 

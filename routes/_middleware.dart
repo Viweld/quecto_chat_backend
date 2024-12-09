@@ -42,7 +42,9 @@ const _publicEndpoints = [
 ];
 
 /// List of private endpoints:
-const _privateEndpoints = [];
+const _privateEndpoints = [
+  'user/auth/logout',
+];
 
 /// Checks for token presence and validity in requests
 Handler _verifyTokenHandler(Handler handler) {

@@ -7,7 +7,7 @@ import 'package:quecto_chat_backend/core/helpers/decode_helper.dart';
 import 'package:quecto_chat_backend/core/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/core/helpers/serialization_helper.dart';
 import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
-import 'package:quecto_chat_backend/domain/use_cases/user/registration_validate/user_registration_validate.dart';
+import 'package:quecto_chat_backend/domain/use_cases/user/auth/registration_validate/user_registration_validate.dart';
 import 'package:quecto_chat_backend/presentation/models/inputs/user_registration_validate_input_dto.dart';
 import 'package:quecto_chat_backend/presentation/models/outputs/user_registration_validate_output_dto.dart';
 

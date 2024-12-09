@@ -1,4 +1,4 @@
-import '../../../domain/use_cases/user/registration/user_registration_input.dart';
+import '../../../domain/use_cases/user/auth/registration/user_registration_input.dart';
 import '../../../domain/value_objects/input_fields/input_field.dart';
 
 final class UserRegistrationInputDto extends UserRegistrationInput {

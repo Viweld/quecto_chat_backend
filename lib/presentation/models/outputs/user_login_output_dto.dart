@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../domain/use_cases/user/login/user_login_output.dart';
+import '../../../domain/use_cases/user/auth/login/user_login_output.dart';
 
 part 'generated/user_login_output_dto.g.dart';
 
