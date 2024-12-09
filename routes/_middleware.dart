@@ -28,10 +28,10 @@ Handler _setRequestLanguage(Handler handler) {
   };
 }
 
+// ACCESS TOKEN VERIFICATION:
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-/// TOKEN VERIFICATION:
 /// List of public endpoints:
 const _publicEndpoints = [
   'user/auth/login',
