@@ -1,5 +1,4 @@
 import '../../../../../core/interfaces/token_manager_facade.dart';
-import '../../../../../core/interfaces/token_service.dart';
 import '../../../../exceptions/app_exceptions.dart';
 import 'user_token_refresh_input.dart';
 import 'user_token_refresh_output.dart';

@@ -14,7 +14,6 @@ import '../interfaces/data_base.dart';
 import '../interfaces/env_parameters.dart';
 import '../interfaces/mail_sender_service.dart';
 import '../interfaces/token_manager_facade.dart';
-import '../interfaces/token_service.dart';
 import '../interfaces/user_repository.dart';
 import '../service_facades/token_manager_facade_impl.dart';
 import 'dot_env_parameters.dart';

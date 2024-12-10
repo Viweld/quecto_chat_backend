@@ -1,5 +1,4 @@
 import '../../../../../core/interfaces/token_manager_facade.dart';
-import '../../../../../core/interfaces/token_service.dart';
 import '../../../../../core/interfaces/user_repository.dart';
 import '../../../../exceptions/app_exceptions.dart';
 import 'user_registration_validate_input.dart';
