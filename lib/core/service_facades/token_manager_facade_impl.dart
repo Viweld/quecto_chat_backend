@@ -15,43 +15,53 @@ class TokenManagerFacadeImpl implements TokenManagerFacade {
 
   @override
   String generateAccessToken(String userId) =>
-      _tokenService.generateAccessToken(userId);
+      _tokenService.generateAccessToken(userId).userId;
 
   @override
   Future<String> generateRefreshToken(String userId) async {
+    // Generate refresh-token using the service
     final token = _tokenService.generateRefreshToken(userId);
     // Add the generated refresh token to the whitelist
     await _tokenRepository.addRefreshTokenToWhitelist(token);
-    return token;
+    // Return user ID
+    return token.userId;
   }
 
   @override
-  String validateAccessToken(String token) {
+  String validateAccessToken(String tokenValue) {
+    // Validate the token using the service
+    final token = _tokenService.validateAccessToken(tokenValue);
     // Check if the token is in the blacklist
     if (_tokenRepository.isAccessTokenInBlacklist(token)) {
       throw const AccessTokenIsBlacklisted();
     }
-    // Validate the token using the service
-    return _tokenService.validateAccessToken(token);
+    // Return user ID
+    return token.userId;
   }
 
   @override
-  Future<String> validateRefreshToken(String token) async {
+  Future<String> validateRefreshToken(String tokenValue) async {
+    // Validate the token using the service
+    final token = _tokenService.validateRefreshToken(tokenValue);
     // Check if the token is in the whitelist
     final isWhitelisted =
         await _tokenRepository.isRefreshTokenInWhitelist(token);
     if (!isWhitelisted) {
       throw const RefreshTokenIsNotWhitelisted();
     }
-    // Validate the token using the service
-    return _tokenService.validateRefreshToken(token);
+    // Return user ID
+    return token.userId;
   }
 
   @override
-  Future<void> removeRefreshTokenFromWhitelist(String token) =>
-      _tokenRepository.removeRefreshTokenFromWhitelist(token);
+  Future<void> removeRefreshTokenFromWhitelist(String tokenValue) async {
+    final token = _tokenService.decodeTokenByValue(tokenValue);
+    await _tokenRepository.removeRefreshTokenFromWhitelist(token);
+  }
 
   @override
-  void blacklistedAccessToken(String token) =>
-      _tokenRepository.addAccessTokenToBlacklist(token);
+  void blacklistedAccessToken(String tokenValue) {
+    final token = _tokenService.decodeTokenByValue(tokenValue);
+    _tokenRepository.addAccessTokenToBlacklist(token);
+  }
 }

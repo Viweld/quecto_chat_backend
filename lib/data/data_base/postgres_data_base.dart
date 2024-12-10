@@ -9,6 +9,7 @@ import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_sort_type.dart';
 import '../../domain/exceptions/app_exceptions.dart';
+import '../../domain/value_objects/token/token.dart';
 
 part 'keys.dart';
 part 'mapper.dart';
@@ -115,19 +116,19 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<bool> isRefreshTokenInWhitelist(String token) async {
+  Future<bool> isRefreshTokenInWhitelist(Token token) async {
     throw UnimplementedError();
   }
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> addRefreshTokenToWhitelist(String token) async {
+  Future<void> addRefreshTokenToWhitelist(Token token) async {
     throw UnimplementedError();
   }
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> removeRefreshTokenFromWhitelist(String token) async {
+  Future<void> removeRefreshTokenFromWhitelist(Token token) async {
     throw UnimplementedError();
   }
 

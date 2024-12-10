@@ -2,51 +2,48 @@ import 'dart:collection';
 
 import '../../core/interfaces/data_base.dart';
 import '../../core/interfaces/token_repository.dart';
+import '../../domain/value_objects/token/token.dart';
 
 class TokenRepositoryImpl implements TokenRepository {
-  TokenRepositoryImpl({required DataBase database}) : _database = database;
+  TokenRepositoryImpl(this._database);
 
   final DataBase _database;
 
-  /// Blacklist для access-токенов
-  /// Ключ: timestamp, Значение: access-токен
-  final SplayTreeMap<int, String> _accessTokenBlacklist = SplayTreeMap();
+  // Blacklist for access tokens, sorted by token expiration time
+  final SplayTreeMap<int, List<Token>> _accessTokenBlacklist = SplayTreeMap();
 
-  /// Текущее время в миллисекундах
-  int _currentTimestamp() => DateTime.now().millisecondsSinceEpoch;
+  @override
+  void addAccessTokenToBlacklist(Token token) {
+    final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-  /// Удаляет токены с истёкшим сроком из blacklist
-  void _cleanupExpiredTokens() {
-    final now = _currentTimestamp();
-    final expiredKeys = _accessTokenBlacklist.keys
-        .takeWhile((timestamp) => timestamp < now)
-        .toList();
-    for (final key in expiredKeys) {
-      _accessTokenBlacklist.remove(key);
+    // Removing expired tokens from the beginning of the tree
+    while (_accessTokenBlacklist.isNotEmpty &&
+        _accessTokenBlacklist.firstKey()! <= now) {
+      _accessTokenBlacklist.remove(_accessTokenBlacklist.firstKey());
+    }
+
+    // Adding a token to the blacklist
+    final expirationTime = token.expirationTime;
+    if (_accessTokenBlacklist.containsKey(expirationTime)) {
+      _accessTokenBlacklist[expirationTime]!.add(token);
+    } else {
+      _accessTokenBlacklist[expirationTime] = [token];
     }
   }
 
   @override
-  void addAccessTokenToBlacklist(String token) {
-    // remove expired tokens
-    _cleanupExpiredTokens();
-    // add token to blacklist
-    _accessTokenBlacklist[_currentTimestamp()] = token;
-  }
+  bool isAccessTokenInBlacklist(Token token) => _accessTokenBlacklist.values
+      .any((tokens) => tokens.any((t) => t.value == token.value));
 
   @override
-  bool isAccessTokenInBlacklist(String token) =>
-      _accessTokenBlacklist.containsValue(token);
-
-  @override
-  Future<void> addRefreshTokenToWhitelist(String token) =>
+  Future<void> addRefreshTokenToWhitelist(Token token) =>
       _database.addRefreshTokenToWhitelist(token);
 
   @override
-  Future<void> removeRefreshTokenFromWhitelist(String token) =>
+  Future<void> removeRefreshTokenFromWhitelist(Token token) =>
       _database.removeRefreshTokenFromWhitelist(token);
 
   @override
-  Future<bool> isRefreshTokenInWhitelist(String token) =>
+  Future<bool> isRefreshTokenInWhitelist(Token token) =>
       _database.isRefreshTokenInWhitelist(token);
 }

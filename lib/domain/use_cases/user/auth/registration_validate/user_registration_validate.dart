@@ -1,3 +1,4 @@
+import '../../../../../core/interfaces/token_manager_facade.dart';
 import '../../../../../core/interfaces/token_service.dart';
 import '../../../../../core/interfaces/user_repository.dart';
 import '../../../../exceptions/app_exceptions.dart';
@@ -7,10 +8,10 @@ import 'user_registration_validate_output.dart';
 // Use-case
 // -----------------------------------------------------------------------------
 class UserRegistrationValidate {
-  UserRegistrationValidate(this._userRepository, this._tokenService);
+  UserRegistrationValidate(this._userRepository, this._tokenManagerFacade);
 
   final UserRepository _userRepository;
-  final TokenService _tokenService;
+  final TokenManagerFacade _tokenManagerFacade;
 
   // ---------------------------------------------------------------------------
   Future<UserRegistrationValidateOutput> call(
@@ -43,10 +44,13 @@ class UserRegistrationValidate {
       isVerified: true,
     ));
 
-    // return generated access and refresh tokens
-    return UserRegistrationValidateOutput(
-      access: _tokenService.generateAccessToken(preRegisteredUser.id),
-      refresh: _tokenService.generateRefreshToken(preRegisteredUser.id),
-    );
+    // generate tokens
+    final access =
+        _tokenManagerFacade.generateAccessToken(preRegisteredUser.id);
+    final refresh =
+        await _tokenManagerFacade.generateRefreshToken(preRegisteredUser.id);
+
+    // return tokens
+    return UserRegistrationValidateOutput(access: access, refresh: refresh);
   }
 }

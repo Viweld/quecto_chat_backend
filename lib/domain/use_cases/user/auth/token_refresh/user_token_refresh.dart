@@ -1,3 +1,4 @@
+import '../../../../../core/interfaces/token_manager_facade.dart';
 import '../../../../../core/interfaces/token_service.dart';
 import '../../../../exceptions/app_exceptions.dart';
 import 'user_token_refresh_input.dart';
@@ -6,9 +7,9 @@ import 'user_token_refresh_output.dart';
 // Use-case
 // -----------------------------------------------------------------------------
 class UserTokenRefresh {
-  UserTokenRefresh(this._tokenService);
+  UserTokenRefresh(this._tokenManagerFacade);
 
-  final TokenService _tokenService;
+  final TokenManagerFacade _tokenManagerFacade;
 
   // ---------------------------------------------------------------------------
   Future<UserTokenRefreshOutput> call(UserTokenRefreshInput input) async {
@@ -20,13 +21,15 @@ class UserTokenRefresh {
       }
 
       // validate refresh token and get user id
-      final userId = _tokenService.validateRefreshToken(input.refresh.value);
+      final userId =
+          await _tokenManagerFacade.validateRefreshToken(input.refresh.value);
 
-      // return generated access and refresh tokens
-      return UserTokenRefreshOutput(
-        access: _tokenService.generateAccessToken(userId),
-        refresh: _tokenService.generateRefreshToken(userId),
-      );
+      // generate tokens
+      final access = _tokenManagerFacade.generateAccessToken(userId);
+      final refresh = await _tokenManagerFacade.generateRefreshToken(userId);
+
+      // return tokens
+      return UserTokenRefreshOutput(access: access, refresh: refresh);
     } on TokenExceptions {
       throw const InvalidToken();
     } on Object {

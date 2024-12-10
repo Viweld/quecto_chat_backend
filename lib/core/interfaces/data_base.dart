@@ -1,6 +1,7 @@
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/user_sort_type.dart';
+import '../../domain/value_objects/token/token.dart';
 
 /// Interface for database
 abstract interface class DataBase {
@@ -25,11 +26,11 @@ abstract interface class DataBase {
   });
 
   /// Return **true** if the refresh-token is in the whitelist
-  Future<bool> isRefreshTokenInWhitelist(String token);
+  Future<bool> isRefreshTokenInWhitelist(Token token);
 
   /// Add refresh-token to whitelist in the database
-  Future<void> addRefreshTokenToWhitelist(String token);
+  Future<void> addRefreshTokenToWhitelist(Token token);
 
   /// Remove refresh-token from whitelist in the database
-  Future<void> removeRefreshTokenFromWhitelist(String token);
+  Future<void> removeRefreshTokenFromWhitelist(Token token);
 }

@@ -7,14 +7,14 @@ abstract interface class TokenManagerFacade {
   Future<String> generateRefreshToken(String userId);
 
   /// Validates the refresh token and returns the user ID
-  Future<String> validateRefreshToken(String token);
+  Future<String> validateRefreshToken(String tokenValue);
 
   /// Validates the access token and returns the user ID
-  String validateAccessToken(String token);
+  String validateAccessToken(String tokenValue);
 
   /// Remove refresh token from the whitelist
-  Future<void> removeRefreshTokenFromWhitelist(String token);
+  Future<void> removeRefreshTokenFromWhitelist(String tokenValue);
 
   /// Add access token to blacklist
-  void blacklistedAccessToken(String token);
+  void blacklistedAccessToken(String tokenValue);
 }

@@ -61,16 +61,16 @@ Handler _verifyTokenHandler(Handler handler) {
 
     // 2. Check for a token in headers:
     final authHeader = context.request.headers['Authorization'];
-    final token = _getTokenFromAuthHeader(authHeader);
-    if (token == null) {
+    final tokenValue = _getTokenFromAuthHeader(authHeader);
+    if (tokenValue == null) {
       return ResponseHelper.unAuthorized(detail: 'No token provided');
     }
 
     // 3. Check for token validity:
     try {
       final tokenService = context.read<TokenService>();
-      final userId = tokenService.validateAccessToken(token);
-      final updatedContext = context.provide<String>(() => userId);
+      final token = tokenService.validateAccessToken(tokenValue);
+      final updatedContext = context.provide<String>(() => token.userId);
       return await _continueProcessing(handler, updatedContext);
     } on AccessTokenIsBlacklisted {
       return ResponseHelper.unAuthorized(detail: 'Access token is blacklisted');

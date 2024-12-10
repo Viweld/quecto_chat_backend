@@ -1,4 +1,4 @@
-import '../../../../../core/interfaces/token_service.dart';
+import '../../../../../core/interfaces/token_manager_facade.dart';
 import '../../../../../core/interfaces/user_repository.dart';
 import '../../../../exceptions/app_exceptions.dart';
 import 'user_login_input.dart';
@@ -7,10 +7,10 @@ import 'user_login_output.dart';
 // Use-case
 // -----------------------------------------------------------------------------
 class UserLogin {
-  UserLogin(this._userRepository, this._tokenService);
+  UserLogin(this._userRepository, this._tokenManagerFacade);
 
   final UserRepository _userRepository;
-  final TokenService _tokenService;
+  final TokenManagerFacade _tokenManagerFacade;
 
   // ---------------------------------------------------------------------------
   Future<UserLoginOutput> call(UserLoginInput input) async {
@@ -26,10 +26,11 @@ class UserLogin {
       throw const WrongEmailOrPassword();
     }
 
-    // return generated access and refresh tokens
-    return UserLoginOutput(
-      access: _tokenService.generateAccessToken(user.id),
-      refresh: _tokenService.generateRefreshToken(user.id),
-    );
+    // generate tokens
+    final access = _tokenManagerFacade.generateAccessToken(user.id);
+    final refresh = await _tokenManagerFacade.generateRefreshToken(user.id);
+
+    // return tokens
+    return UserLoginOutput(access: access, refresh: refresh);
   }
 }

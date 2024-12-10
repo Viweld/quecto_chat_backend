@@ -1,6 +1,7 @@
 import 'package:dart_frog/dart_frog.dart';
 
 import '../../data/data_base/postgres_data_base.dart';
+import '../../data/repositories/token_repository_impl.dart';
 import '../../data/repositories/user_repository_impl.dart';
 import '../../data/services/jwt_service.dart';
 import '../../data/services/send_grid_mail_sender_service.dart';
@@ -12,8 +13,10 @@ import '../../domain/use_cases/user/auth/token_refresh/user_token_refresh.dart';
 import '../interfaces/data_base.dart';
 import '../interfaces/env_parameters.dart';
 import '../interfaces/mail_sender_service.dart';
+import '../interfaces/token_manager_facade.dart';
 import '../interfaces/token_service.dart';
 import '../interfaces/user_repository.dart';
+import '../service_facades/token_manager_facade_impl.dart';
 import 'dot_env_parameters.dart';
 
 final class DepProvider {
@@ -21,7 +24,7 @@ final class DepProvider {
 
   // Permanent dependencies:
   late EnvParameters _envParameters;
-  late TokenService _tokenService;
+  late TokenManagerFacade _tokenManagerFacade;
   late MailSenderService _mailSenderService;
   late DataBase _dataBase;
 
@@ -33,9 +36,12 @@ final class DepProvider {
   /// Initializing persistent and asynchronously initialized dependencies
   Future<void> initialize() async {
     _envParameters = DotEnvParameters();
-    _tokenService = JwtService(_envParameters);
     _mailSenderService = SendGridMailSenderService(_envParameters);
     _dataBase = await _prepareDataBase(_envParameters);
+    _tokenManagerFacade = TokenManagerFacadeImpl(
+      tokenService: JwtService(_envParameters),
+      tokenRepository: TokenRepositoryImpl(_dataBase),
+    );
   }
 
   /// provide dependencies
@@ -53,7 +59,7 @@ final class DepProvider {
         .use(_provideDotEnv());
   }
 
-  // HANDLER METHODS:
+  // HELPER METHODS:
   // ---------------------------------------------------------------------------
   /// Prepare of DataBase
   Future<DataBase> _prepareDataBase(EnvParameters dotEnv) async {
@@ -71,7 +77,7 @@ final class DepProvider {
 
   /// Provide of TokenService
   Middleware _provideTokenService() {
-    return provider<TokenService>((_) => _tokenService);
+    return provider<TokenManagerFacade>((_) => _tokenManagerFacade);
   }
 
   /// Provide of MailSenderService
@@ -105,7 +111,7 @@ final class DepProvider {
     return provider<UserLogin>((context) {
       final userRepository = context.read<UserRepository>();
 
-      return UserLogin(userRepository, _tokenService);
+      return UserLogin(userRepository, _tokenManagerFacade);
     });
   }
 
@@ -114,7 +120,7 @@ final class DepProvider {
     return provider<UserRegistrationValidate>((context) {
       final userRepository = context.read<UserRepository>();
 
-      return UserRegistrationValidate(userRepository, _tokenService);
+      return UserRegistrationValidate(userRepository, _tokenManagerFacade);
     });
   }
 
@@ -130,7 +136,7 @@ final class DepProvider {
   /// Factory provide UserTokenRefresh
   Middleware _prepareUserTokenRefreshUseCase() {
     return provider<UserTokenRefresh>((_) {
-      return UserTokenRefresh(_tokenService);
+      return UserTokenRefresh(_tokenManagerFacade);
     });
   }
 }
