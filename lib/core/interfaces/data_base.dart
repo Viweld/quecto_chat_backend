@@ -23,4 +23,13 @@ abstract interface class DataBase {
     int? limit,
     int? offset,
   });
+
+  /// Return **true** if the refresh-token is in the whitelist
+  Future<bool> isRefreshTokenInWhitelist(String token);
+
+  /// Add refresh-token to whitelist in the database
+  Future<void> addRefreshTokenToWhitelist(String token);
+
+  /// Remove refresh-token from whitelist in the database
+  Future<void> removeRefreshTokenFromWhitelist(String token);
 }

@@ -4,6 +4,7 @@ import 'package:dart_frog/dart_frog.dart';
 import 'package:intl/intl.dart';
 import 'package:quecto_chat_backend/core/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/core/interfaces/token_service.dart';
+import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
 import 'package:quecto_chat_backend/l10n/generated/l10n.dart';
 import 'package:quecto_chat_backend/l10n/generated/messages_all_locales.dart';
 
@@ -67,10 +68,12 @@ Handler _verifyTokenHandler(Handler handler) {
 
     // 3. Check for token validity:
     try {
-      final jwtService = context.read<TokenService>();
-      final userId = jwtService.validateAccessToken(token);
+      final tokenService = context.read<TokenService>();
+      final userId = tokenService.validateAccessToken(token);
       final updatedContext = context.provide<String>(() => userId);
       return await _continueProcessing(handler, updatedContext);
+    } on AccessTokenIsBlacklisted {
+      return ResponseHelper.unAuthorized(detail: 'Access token is blacklisted');
     } on Object {
       // If the token is invalid or an error occurred during validation
       return ResponseHelper.unAuthorized(detail: 'Invalid or expired token');

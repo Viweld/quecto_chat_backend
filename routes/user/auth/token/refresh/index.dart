@@ -45,6 +45,10 @@ FutureOr<Response> _post(RequestContext context) async {
   } on InvalidRequestBodyValues catch (e) {
     final invalidFields = e.invalidFields.serialize(context);
     return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
+  } on RefreshTokenIsNotWhitelisted {
+    return ResponseHelper.unAuthorized(
+      detail: 'Refresh token is not in the whitelist',
+    );
   } on TokenExceptions {
     return ResponseHelper.unAuthorized(
       detail: 'Invalid refresh token',

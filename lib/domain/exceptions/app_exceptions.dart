@@ -33,6 +33,16 @@ final class TokenIsNotAccessToken implements TokenExceptions {
   const TokenIsNotAccessToken();
 }
 
+/// Refresh-token isn't in the whitelist
+final class RefreshTokenIsNotWhitelisted implements TokenExceptions {
+  const RefreshTokenIsNotWhitelisted();
+}
+
+/// Access-token is in the blacklist
+final class AccessTokenIsBlacklisted implements TokenExceptions {
+  const AccessTokenIsBlacklisted();
+}
+
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------

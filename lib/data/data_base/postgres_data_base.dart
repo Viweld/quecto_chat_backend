@@ -113,6 +113,24 @@ final class PostgresDataBase implements DataBase {
     );
   }
 
+  // ---------------------------------------------------------------------------
+  @override
+  Future<bool> isRefreshTokenInWhitelist(String token) async {
+    throw UnimplementedError();
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<void> addRefreshTokenToWhitelist(String token) async {
+    throw UnimplementedError();
+  }
+
+  // ---------------------------------------------------------------------------
+  @override
+  Future<void> removeRefreshTokenFromWhitelist(String token) async {
+    throw UnimplementedError();
+  }
+
   // HELPER METHODS:
   // ---------------------------------------------------------------------------
   /// Returns the query fragment responsible for sorting retrieved data
