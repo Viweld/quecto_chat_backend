@@ -128,7 +128,7 @@ final class PostgresDataBase implements DataBase {
 
   // ---------------------------------------------------------------------------
   @override
-  Future<void> removeRefreshTokenFromWhitelist(Token token) async {
+  Future<void> clearUserWhitelist(String userId) async {
     throw UnimplementedError();
   }
 

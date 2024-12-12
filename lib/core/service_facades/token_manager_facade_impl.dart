@@ -31,10 +31,6 @@ class TokenManagerFacadeImpl implements TokenManagerFacade {
   String validateAccessToken(String tokenValue) {
     // Validate the token using the service
     final token = _tokenService.validateAccessToken(tokenValue);
-    // Check if the token is in the blacklist
-    if (_tokenRepository.isAccessTokenInBlacklist(token)) {
-      throw const AccessTokenIsBlacklisted();
-    }
     // Return user ID
     return token.userId;
   }
@@ -54,14 +50,6 @@ class TokenManagerFacadeImpl implements TokenManagerFacade {
   }
 
   @override
-  Future<void> removeRefreshTokenFromWhitelist(String tokenValue) async {
-    final token = _tokenService.decodeTokenByValue(tokenValue);
-    await _tokenRepository.removeRefreshTokenFromWhitelist(token);
-  }
-
-  @override
-  void blacklistedAccessToken(String tokenValue) {
-    final token = _tokenService.decodeTokenByValue(tokenValue);
-    _tokenRepository.addAccessTokenToBlacklist(token);
-  }
+  Future<void> clearUserWhitelist(String userId) =>
+      _tokenRepository.clearUserWhitelist(userId);
 }

@@ -5,6 +5,7 @@ import '../../data/repositories/token_repository_impl.dart';
 import '../../data/repositories/user_repository_impl.dart';
 import '../../data/services/jwt_service.dart';
 import '../../data/services/send_grid_mail_sender_service.dart';
+import '../../domain/use_cases/user/auth/full_logout/user_full_logout.dart';
 import '../../domain/use_cases/user/auth/login/user_login.dart';
 import '../../domain/use_cases/user/auth/registration/user_registration.dart';
 import '../../domain/use_cases/user/auth/registration_validate/user_registration_validate.dart';
@@ -46,6 +47,7 @@ final class DepProvider {
   /// provide dependencies
   Handler injectDependencies(Handler handler) {
     return handler
+        .use(_prepareUserLogoutUseCase())
         .use(_prepareUserTokenRefreshUseCase())
         .use(_prepareUserResendValidationCodeUseCase())
         .use(_prepareUserRegistrationValidateUseCase())
@@ -136,6 +138,13 @@ final class DepProvider {
   Middleware _prepareUserTokenRefreshUseCase() {
     return provider<UserTokenRefresh>((_) {
       return UserTokenRefresh(_tokenManagerFacade);
+    });
+  }
+
+  /// Factory provide UserLogout
+  Middleware _prepareUserLogoutUseCase() {
+    return provider<UserFullLogout>((_) {
+      return UserFullLogout(_tokenManagerFacade);
     });
   }
 }

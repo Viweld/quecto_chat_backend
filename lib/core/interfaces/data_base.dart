@@ -31,6 +31,6 @@ abstract interface class DataBase {
   /// Add refresh-token to whitelist in the database
   Future<void> addRefreshTokenToWhitelist(Token token);
 
-  /// Remove refresh-token from whitelist in the database
-  Future<void> removeRefreshTokenFromWhitelist(Token token);
+  /// Remove all users refresh-tokens
+  Future<void> clearUserWhitelist(String userId);
 }
