@@ -3,7 +3,7 @@ part of 'postgres_data_base.dart';
 class _Keys {
   static const _fCommonPrimaryKey = 'id';
 
-  // Table keys and user data fields:
+  // User keys:
   static const _tUsers = 'users';
   static const _fUser$fullName = 'fullName';
   static const _fUser$createdAt = 'createdAt';
@@ -13,11 +13,10 @@ class _Keys {
   static const _fUser$verificationCodeSentAt = 'verificationCodeSentAt';
   static const _fUser$isVerified = 'isVerified';
 
-  // Table keys and message data fields:
-  // static const _tMessages = 'messages';
-  // static const _fMessage$fromId = 'fromId';
-  // static const _fMessage$toId = 'toId';
-  // static const _fMessage$timestamp = 'timestamp';
-  // static const _fMessage$content = 'content';
-  // static const _fMessage$type = 'type';
+  // Sessions keys:
+  static const _tUserSessions = 'sessions';
+  static const _fUserSession$userId = 'userId';
+  static const _fUserSession$refreshToken = 'refreshToken';
+  static const _fUserSession$expirationTime = 'expirationTime';
+  static const _fUserSession$sessionName = 'sessionName';
 }

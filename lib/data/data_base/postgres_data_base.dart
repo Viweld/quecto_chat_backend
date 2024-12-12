@@ -7,12 +7,15 @@ import '../../core/interfaces/data_base.dart';
 import '../../core/interfaces/env_parameters.dart';
 import '../../domain/entities/paginated.dart';
 import '../../domain/entities/user.dart';
+import '../../domain/entities/user_session.dart';
 import '../../domain/entities/user_sort_type.dart';
 import '../../domain/exceptions/app_exceptions.dart';
 import '../../domain/value_objects/token/token.dart';
 
 part 'keys.dart';
+
 part 'mapper.dart';
+
 part 'migration.dart';
 
 final class PostgresDataBase implements DataBase {
@@ -117,13 +120,27 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<bool> isRefreshTokenInWhitelist(Token token) async {
-    throw UnimplementedError();
+    final result = await _connection.get(
+      tableName: _Keys._tUserSessions,
+      where: '${_Keys._fUserSession$refreshToken} = ${token.value}',
+    );
+    return result.isNotEmpty;
   }
 
   // ---------------------------------------------------------------------------
   @override
   Future<void> addRefreshTokenToWhitelist(Token token) async {
-    throw UnimplementedError();
+    // TODO(Vadim): make this save procedure better
+    await _connection.insert(
+      tableName: _Keys._tUserSessions,
+      data: _Mapper._mapUserSession(
+        src: UserSession(
+          userId: token.userId,
+          refreshToken: token.value,
+          expirationTime: token.expirationTime,
+        ),
+      ),
+    );
   }
 
   // ---------------------------------------------------------------------------

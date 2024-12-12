@@ -5,17 +5,26 @@ class _Migration {
   // when creating a database
   static Future<void> _onConnectionCreate(Connection connection) async {
     try {
+      // Users table
+      await connection.execute('CREATE TABLE IF NOT EXISTS ${_Keys._tUsers} ('
+          '${_Keys._fCommonPrimaryKey} SERIAL PRIMARY KEY, '
+          '${_Keys._fUser$fullName} TEXT NOT NULL, '
+          '${_Keys._fUser$createdAt} TEXT NOT NULL, '
+          '${_Keys._fUser$email} TEXT NOT NULL, '
+          '${_Keys._fUser$password} TEXT NOT NULL, '
+          '${_Keys._fUser$verificationCode} TEXT, '
+          '${_Keys._fUser$verificationCodeSentAt} INTEGER, '
+          '${_Keys._fUser$isVerified} INTEGER NOT NULL'
+          ');');
+
+      // User sessions table
       await connection
-          // table about user
-          .execute('CREATE TABLE IF NOT EXISTS ${_Keys._tUsers} ('
+          .execute('CREATE TABLE IF NOT EXISTS ${_Keys._tUserSessions} ('
               '${_Keys._fCommonPrimaryKey} SERIAL PRIMARY KEY, '
-              '${_Keys._fUser$fullName} TEXT NOT NULL, '
-              '${_Keys._fUser$createdAt} TEXT NOT NULL, '
-              '${_Keys._fUser$email} TEXT NOT NULL, '
-              '${_Keys._fUser$password} TEXT NOT NULL, '
-              '${_Keys._fUser$verificationCode} TEXT, '
-              '${_Keys._fUser$verificationCodeSentAt} INTEGER, '
-              '${_Keys._fUser$isVerified} INTEGER NOT NULL'
+              '${_Keys._fUserSession$userId} TEXT NOT NULL, '
+              '${_Keys._fUserSession$refreshToken} TEXT NOT NULL, '
+              '${_Keys._fUserSession$expirationTime} INTEGER NOT NULL, '
+              '${_Keys._fUserSession$sessionName} TEXT'
               ');');
     } on Object {
       rethrow;

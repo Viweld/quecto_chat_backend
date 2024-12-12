@@ -29,4 +29,25 @@ final class _Mapper {
         _Keys._fUser$verificationCodeSentAt: src.verificationCodeSentAt,
         _Keys._fUser$isVerified: src.isVerified ? 1 : 0,
       };
+
+  // USER:
+  // ---------------------------------------------------------------------------
+  /// Parsing user data from the DB to the User model
+  static UserSession _parseUserSession(Map<String, Object?> src) {
+    return UserSession(
+      id: src[_Keys._fCommonPrimaryKey] as String,
+      userId: src[_Keys._fUserSession$userId] as String,
+      refreshToken: src[_Keys._fUserSession$refreshToken] as String,
+      expirationTime: src[_Keys._fUserSession$expirationTime] as int,
+      sessionName: src[_Keys._fUserSession$sessionName] as String?,
+    );
+  }
+
+  /// Mapping user data from User to a structure for the DB
+  static Map<String, Object?> _mapUserSession({required UserSession src}) => {
+        _Keys._fUserSession$userId: src.userId,
+        _Keys._fUserSession$refreshToken: src.refreshToken,
+        _Keys._fUserSession$expirationTime: src.expirationTime,
+        _Keys._fUserSession$sessionName: src.sessionName,
+      };
 }
