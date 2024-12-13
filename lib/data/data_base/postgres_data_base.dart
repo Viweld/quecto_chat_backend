@@ -130,7 +130,6 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<void> addRefreshTokenToWhitelist(Token token) async {
-    // TODO(Vadim): make this save procedure better
     await _connection.insert(
       tableName: _Keys._tUserSessions,
       data: _Mapper._mapUserSession(
@@ -146,7 +145,11 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<void> clearUserWhitelist(String userId) async {
-    throw UnimplementedError();
+    await _connection.delete(
+      tableName: _Keys._tUserSessions,
+      fieldKey: _Keys._fUserSession$userId,
+      matchValue: userId,
+    );
   }
 
   // HELPER METHODS:

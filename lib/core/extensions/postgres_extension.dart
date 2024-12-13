@@ -18,7 +18,7 @@ extension PostgresExtension on Connection {
       query.write('SELECT *');
     }
 
-    query.write(' FROM $tableName');
+    query.write(' FROM public.$tableName');
     if (where != null) query.write(' WHERE $where');
     if (orderBy != null) query.write(' ORDER BY $orderBy');
     if (limit != null) query.write(' LIMIT $limit');
@@ -41,14 +41,17 @@ extension PostgresExtension on Connection {
     await runTx((session) async {
       // executes an SQL query with parameters
       await session.execute(
-        'INSERT INTO public."$tableName"(${data.keys.join(', ')}) '
-        'VALUES (${data.keys.map((k) => '@$k').join(', ')})',
         parameters: data,
+        '''
+        INSERT INTO public.$tableName(${data.keys.join(', ')})
+        VALUES (${data.keys.map((k) => '@$k').join(', ')})
+        ''',
       );
     });
   }
 
   // ---------------------------------------------------------------------------
+  /// Query to update data in database with postgres package as a transactional process
   Future<void> update({
     required String tableName,
     required Map<String, Object?> data,
@@ -57,12 +60,34 @@ extension PostgresExtension on Connection {
     await runTx((session) async {
       // executes an SQL query with parameters
       await session.execute(
-        '''
-        UPDATE public."$tableName"
-        SET ${data.keys.map((key) => '"$key" = @$key').join(', ')}
-        WHERE "id" = @id
-        ''',
         parameters: data,
+        '''
+        UPDATE public.$tableName
+        SET ${data.keys.map((key) => '$key = @$key').join(', ')}
+        WHERE id = @id
+        ''',
+      );
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  /// Deletes rows from a specified table in the database where the field value matches a given condition.
+  /// - `tableName`: The name of the table from which rows will be deleted.
+  /// - `fieldKey`: The column name used to match the rows to delete.
+  /// - `matchValue`: The value that must match the specified column for rows to be deleted.
+  Future<void> delete({
+    required String tableName,
+    required String fieldKey,
+    required String matchValue,
+  }) async {
+    // open the transaction
+    await runTx((session) async {
+      // executes an SQL query
+      await session.execute(
+        '''
+        DELETE FROM public.$tableName
+        WHERE $fieldKey = $matchValue
+        ''',
       );
     });
   }

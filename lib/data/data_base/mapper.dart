@@ -30,7 +30,7 @@ final class _Mapper {
         _Keys._fUser$isVerified: src.isVerified ? 1 : 0,
       };
 
-  // USER:
+  // USER SESSION:
   // ---------------------------------------------------------------------------
   /// Parsing user data from the DB to the User model
   static UserSession _parseUserSession(Map<String, Object?> src) {
