@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="dev_configurations" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+    <option name="arguments" value="dart run dart_frog dev" />
+    <option name="envs">
+      <entry key="DB_HOST" value="localhost" />
+      <entry key="DB_NAME" value="mydatabase" />
+      <entry key="DB_PASSWORD" value="password" />
+      <entry key="DB_USER" value="user" />
+      <entry key="JWT_ACCESS_TOKEN_DURATION" value="15" />
+      <entry key="JWT_REFRESH_TOKEN_DURATION" value="10080" />
+      <entry key="JWT_SECRET_KEY" value="your_secret_key" />
+      <entry key="SEND_GRID_API_KEY" value="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" />
+      <entry key="SEND_GRID_URL" value="https://api.sendgrid.com/v3/mail/send" />
+    </option>
+    <option name="filePath" value="$PROJECT_DIR$/.dart_frog/server.dart" />
+    <option name="workingDirectory" value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>

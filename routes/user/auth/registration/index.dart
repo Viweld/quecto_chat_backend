@@ -43,6 +43,8 @@ FutureOr<Response> _post(RequestContext context) async {
   } on InvalidRequestBodyValues catch (e) {
     final invalidFields = e.invalidFields.serialize(context);
     return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
+  } on EmailAlreadyUsed {
+    return ResponseHelper.badRequest(detail: 'Этот email уже занят');
   } on WrongEmailOrPassword {
     return ResponseHelper.unAuthorized(
         detail: context.texts.authErrorWrongEmailOrPassword);

@@ -14,3 +14,5 @@ build/
 
 # Test related files
 .env
+.env_dev
+

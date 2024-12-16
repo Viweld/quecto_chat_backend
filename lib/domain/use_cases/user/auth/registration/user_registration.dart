@@ -24,11 +24,11 @@ class UserRegistration {
 
     // send an email with verification code
     final verificationCode = _generateRandomCode();
-    await _mailSenderService.sendEmail(
-      input.email.value,
-      'Dear ${input.fullName.value}',
-      'Use this code to complete your registration in Quecto:$verificationCode',
-    );
+    // await _mailSenderService.sendEmail(
+    //   input.email.value,
+    //   'Dear ${input.fullName.value}',
+    //   'Use this code to complete your registration in Quecto:$verificationCode',
+    // );
 
     // save user data with sent email-code
     await _userRepository.addUser(User(

@@ -5,7 +5,7 @@ abstract interface class EnvParameters {
 
   String get dbName;
 
-  String get dbUsername;
+  String get dbUser;
 
   String get dbPassword;
 

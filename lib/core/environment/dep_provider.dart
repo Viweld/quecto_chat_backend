@@ -17,7 +17,7 @@ import '../interfaces/mail_sender_service.dart';
 import '../interfaces/token_manager_facade.dart';
 import '../interfaces/user_repository.dart';
 import '../service_facades/token_manager_facade_impl.dart';
-import 'dot_env_parameters.dart';
+import 'platform_env_parameters.dart';
 
 final class DepProvider {
   DepProvider();
@@ -35,7 +35,7 @@ final class DepProvider {
   // ---------------------------------------------------------------------------
   /// Initializing persistent and asynchronously initialized dependencies
   Future<void> initialize() async {
-    _envParameters = DotEnvParameters();
+    _envParameters = PlatformEnvParameters();
     _mailSenderService = SendGridMailSenderService(_envParameters);
     _dataBase = await _prepareDataBase(_envParameters);
     _tokenManagerFacade = TokenManagerFacadeImpl(

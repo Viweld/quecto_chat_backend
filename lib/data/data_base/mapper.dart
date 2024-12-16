@@ -15,7 +15,7 @@ final class _Mapper {
       password: src[_Keys._fUser$password] as String,
       verificationCode: src[_Keys._fUser$verificationCode] as String?,
       verificationCodeSentAt: src[_Keys._fUser$verificationCodeSentAt] as int?,
-      isVerified: (src[_Keys._fUser$isVerified] as int) == 1,
+      isVerified: src[_Keys._fUser$isVerified] as bool,
     );
   }
 
@@ -27,7 +27,7 @@ final class _Mapper {
         _Keys._fUser$password: src.password,
         _Keys._fUser$verificationCode: src.verificationCode,
         _Keys._fUser$verificationCodeSentAt: src.verificationCodeSentAt,
-        _Keys._fUser$isVerified: src.isVerified ? 1 : 0,
+        _Keys._fUser$isVerified: src.isVerified,
       };
 
   // USER SESSION:

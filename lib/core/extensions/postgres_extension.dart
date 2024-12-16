@@ -37,16 +37,17 @@ extension PostgresExtension on Connection {
     required String tableName,
     required Map<String, Object?> data,
   }) async {
-    // open the transaction
     await runTx((session) async {
-      // executes an SQL query with parameters
-      await session.execute(
-        parameters: data,
-        '''
-        INSERT INTO public.$tableName(${data.keys.join(', ')})
-        VALUES (${data.keys.map((k) => '@$k').join(', ')})
-        ''',
-      );
+      final keys = data.keys.toList();
+      final placeholders = keys.map((k) => '@$k').join(', ');
+      final columns = keys.join(', ');
+
+      final query = '''
+        INSERT INTO public.$tableName ($columns)
+        VALUES ($placeholders)
+      ''';
+
+      await session.execute(Sql.named(query), parameters: data);
     });
   }
 
@@ -58,15 +59,13 @@ extension PostgresExtension on Connection {
   }) async {
     // open the transaction
     await runTx((session) async {
-      // executes an SQL query with parameters
-      await session.execute(
-        parameters: data,
-        '''
+      final query = '''
         UPDATE public.$tableName
         SET ${data.keys.map((key) => '$key = @$key').join(', ')}
         WHERE id = @id
-        ''',
-      );
+      ''';
+
+      await session.execute(Sql.named(query), parameters: data);
     });
   }
 
@@ -86,7 +85,7 @@ extension PostgresExtension on Connection {
       await session.execute(
         '''
         DELETE FROM public.$tableName
-        WHERE $fieldKey = $matchValue
+        WHERE $fieldKey = \'$matchValue\'
         ''',
       );
     });

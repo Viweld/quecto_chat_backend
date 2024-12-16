@@ -1,13 +1,11 @@
-import 'package:dotenv/dotenv.dart';
+import 'dart:io';
 
 import '../interfaces/env_parameters.dart';
 
-final class DotEnvParameters implements EnvParameters {
-  DotEnvParameters() {
-    _env = DotEnv()..load(['/app/.env']);
-  }
+final class PlatformEnvParameters implements EnvParameters {
+  PlatformEnvParameters();
 
-  late final DotEnv _env;
+  final Map<String, String> _env = Platform.environment;
 
   // ---------------------------------------------------------------------------
   @override

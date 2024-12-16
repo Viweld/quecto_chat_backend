@@ -14,8 +14,8 @@ class _Migration {
               '${_Keys._fUser$email} TEXT NOT NULL, '
               '${_Keys._fUser$password} TEXT NOT NULL, '
               '${_Keys._fUser$verificationCode} TEXT, '
-              '${_Keys._fUser$verificationCodeSentAt} INTEGER, '
-              '${_Keys._fUser$isVerified} INTEGER NOT NULL'
+              '${_Keys._fUser$verificationCodeSentAt} BIGINT, '
+              '${_Keys._fUser$isVerified} BOOLEAN NOT NULL'
               ');');
 
       // User sessions table
@@ -24,7 +24,7 @@ class _Migration {
               '${_Keys._fCommonPrimaryKey} SERIAL PRIMARY KEY, '
               '${_Keys._fUserSession$userId} TEXT NOT NULL, '
               '${_Keys._fUserSession$refreshToken} TEXT NOT NULL, '
-              '${_Keys._fUserSession$expirationTime} INTEGER NOT NULL, '
+              '${_Keys._fUserSession$expirationTime} BIGINT NOT NULL, '
               '${_Keys._fUserSession$sessionName} TEXT'
               ');');
     } on Object {

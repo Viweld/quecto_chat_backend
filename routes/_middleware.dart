@@ -98,6 +98,6 @@ Future<Response> _continueProcessing(
   try {
     return await handler(context);
   } on Object catch (e) {
-    return ResponseHelper.badRequest(detail: '$e');
+    return ResponseHelper.internalServerError(detail: '$e');
   }
 }

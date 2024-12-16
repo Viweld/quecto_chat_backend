@@ -30,8 +30,7 @@ final class PostgresDataBase implements DataBase {
   @override
   Future<void> initialize() async {
     // creating SecurityContext
-    final securityContext = SecurityContext.defaultContext
-      ..setTrustedCertificates(_env.dbSslCertFilePath);
+    final securityContext = _getSecurityContext(_env.dbSslCertFilePath);
 
     _connection = await Connection.open(
       Endpoint(
@@ -40,30 +39,40 @@ final class PostgresDataBase implements DataBase {
         // database name
         database: _env.dbName,
         // username
-        username: _env.dbUsername,
+        username: _env.dbUser,
         // password
         password: _env.dbPassword,
         // Specify this if you are not using Unix socket.
         isUnixSocket: false,
       ),
       settings: ConnectionSettings(
-        sslMode: SslMode.verifyFull,
         onOpen: _Migration._onConnectionCreate,
+        sslMode: securityContext == null ? SslMode.disable : SslMode.verifyFull,
         securityContext: securityContext,
       ),
     );
+  }
+
+  /// get security context from cert file
+  SecurityContext? _getSecurityContext(String dbSslCertFilePath) {
+    if (dbSslCertFilePath.isEmpty) {
+      return null;
+    } else {
+      return SecurityContext.defaultContext
+        ..setTrustedCertificates(dbSslCertFilePath);
+    }
   }
 
   // ---------------------------------------------------------------------------
   @override
   Future<void> addUser(User user) async {
     // Check for existence of user with same email
-    final existingUser = await _connection.execute(
-      'SELECT id FROM public."${_Keys._tUsers}" '
-      'WHERE email = ${user.email}',
+    final result = await _connection.get(
+      tableName: _Keys._tUsers,
+      where: '${_Keys._fUser$email} = \'${user.email}\'',
     );
 
-    if (existingUser.isNotEmpty) throw const EmailAlreadyUsed();
+    if (result.isNotEmpty) throw const EmailAlreadyUsed();
 
     await _connection.insert(
       tableName: _Keys._tUsers,
@@ -76,7 +85,7 @@ final class PostgresDataBase implements DataBase {
   Future<User?> getUserByEmail(String email) async {
     final result = await _connection.get(
       tableName: _Keys._tUsers,
-      where: 'email = $email',
+      where: '${_Keys._fUser$email} = \'$email\'',
     );
 
     return result.isEmpty ? null : _Mapper._parseUser(result.first);
@@ -122,7 +131,7 @@ final class PostgresDataBase implements DataBase {
   Future<bool> isRefreshTokenInWhitelist(Token token) async {
     final result = await _connection.get(
       tableName: _Keys._tUserSessions,
-      where: '${_Keys._fUserSession$refreshToken} = ${token.value}',
+      where: '${_Keys._fUserSession$refreshToken} = \'${token.value}\'',
     );
     return result.isNotEmpty;
   }
