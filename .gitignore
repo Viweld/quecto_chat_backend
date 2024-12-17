@@ -12,7 +12,8 @@ pubspec.lock
 build/
 .dart_frog
 
-# Test related files
+# secrets
 .env
 .env_dev
+.idea/runConfigurations/
 
