@@ -1,4 +1,14 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:intl/intl.dart';
+
+// **************************************************************************
+// Generator: Flutter Intl IDE plugin
+// Made by Localizely
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
+// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
 class Localization {
   Localization();
@@ -118,6 +128,36 @@ class Localization {
     return Intl.message(
       'You can get the code again in 60 seconds',
       name: 'authErrorTooManyAttempts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email is already taken`
+  String get authErrorEmailAlreadyTaken {
+    return Intl.message(
+      'This email is already taken',
+      name: 'authErrorEmailAlreadyTaken',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh token is not in the whitelist`
+  String get authErrorRefreshTokenNotInWhitelist {
+    return Intl.message(
+      'Refresh token is not in the whitelist',
+      name: 'authErrorRefreshTokenNotInWhitelist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid refresh token`
+  String get authErrorInvalidRefreshToken {
+    return Intl.message(
+      'Invalid refresh token',
+      name: 'authErrorInvalidRefreshToken',
       desc: '',
       args: [],
     );

@@ -31,10 +31,9 @@ FutureOr<Response> _post(RequestContext context) async {
     final userTokenRefresh = context.read<UserTokenRefresh>();
 
     // execute token refresh use-case
-    final tokens =
-        await userTokenRefresh.call(refreshData) as UserTokenRefreshOutputDto;
-
-    return ResponseHelper.success(body: tokens.toJson());
+    final result = await userTokenRefresh.call(refreshData);
+    return ResponseHelper.success(
+        body: UserTokenRefreshOutputDto.toJson(result));
   } on MissingRequestBody {
     return ResponseHelper.badRequest(
         detail: context.texts.requestErrorMissingBody);
@@ -47,11 +46,9 @@ FutureOr<Response> _post(RequestContext context) async {
     return ResponseHelper.badRequest(detail: jsonEncode(invalidFields));
   } on RefreshTokenIsNotWhitelisted {
     return ResponseHelper.unAuthorized(
-      detail: 'Refresh token is not in the whitelist',
-    );
+        detail: context.texts.authErrorRefreshTokenNotInWhitelist);
   } on TokenExceptions {
     return ResponseHelper.unAuthorized(
-      detail: 'Invalid refresh token',
-    );
+        detail: context.texts.authErrorInvalidRefreshToken);
   }
 }

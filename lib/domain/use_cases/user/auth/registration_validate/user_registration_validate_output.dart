@@ -1,4 +1,4 @@
-base class UserRegistrationValidateOutput {
+final class UserRegistrationValidateOutput {
   const UserRegistrationValidateOutput({
     required this.access,
     required this.refresh,

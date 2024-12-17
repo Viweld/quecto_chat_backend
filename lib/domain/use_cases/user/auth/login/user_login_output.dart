@@ -1,4 +1,4 @@
-base class UserLoginOutput {
+final class UserLoginOutput {
   const UserLoginOutput({
     required this.access,
     required this.refresh,

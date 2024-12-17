@@ -53,16 +53,17 @@ extension PostgresExtension on Connection {
 
   // ---------------------------------------------------------------------------
   /// Query to update data in database with postgres package as a transactional process
-  Future<void> update({
+  Future<void> updateById({
     required String tableName,
     required Map<String, Object?> data,
+    required String id,
   }) async {
     // open the transaction
     await runTx((session) async {
       final query = '''
         UPDATE public.$tableName
         SET ${data.keys.map((key) => '$key = @$key').join(', ')}
-        WHERE id = @id
+        WHERE id = $id
       ''';
 
       await session.execute(Sql.named(query), parameters: data);

@@ -1,4 +1,4 @@
-base class UserTokenRefreshOutput {
+final class UserTokenRefreshOutput {
   const UserTokenRefreshOutput({
     required this.access,
     required this.refresh,

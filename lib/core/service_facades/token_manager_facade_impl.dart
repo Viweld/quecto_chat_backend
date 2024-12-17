@@ -15,37 +15,29 @@ class TokenManagerFacadeImpl implements TokenManagerFacade {
 
   @override
   String generateAccessToken(String userId) =>
-      _tokenService.generateAccessToken(userId).userId;
+      _tokenService.generateAccessToken(userId).value;
 
   @override
   Future<String> generateRefreshToken(String userId) async {
-    // Generate refresh-token using the service
     final token = _tokenService.generateRefreshToken(userId);
-    // Add the generated refresh token to the whitelist
     await _tokenRepository.addRefreshTokenToWhitelist(token);
-    // Return user ID
-    return token.userId;
+    return token.value;
   }
 
   @override
   String validateAccessToken(String tokenValue) {
-    // Validate the token using the service
     final token = _tokenService.validateAccessToken(tokenValue);
-    // Return user ID
     return token.userId;
   }
 
   @override
   Future<String> validateRefreshToken(String tokenValue) async {
-    // Validate the token using the service
     final token = _tokenService.validateRefreshToken(tokenValue);
-    // Check if the token is in the whitelist
     final isWhitelisted =
         await _tokenRepository.isRefreshTokenInWhitelist(token);
     if (!isWhitelisted) {
       throw const RefreshTokenIsNotWhitelisted();
     }
-    // Return user ID
     return token.userId;
   }
 

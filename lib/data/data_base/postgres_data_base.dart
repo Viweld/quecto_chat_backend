@@ -94,9 +94,10 @@ final class PostgresDataBase implements DataBase {
   // ---------------------------------------------------------------------------
   @override
   Future<void> updateUser(User user) async {
-    await _connection.update(
+    await _connection.updateById(
       tableName: _Keys._tUsers,
       data: _Mapper._mapUser(src: user),
+      id: user.id,
     );
   }
 

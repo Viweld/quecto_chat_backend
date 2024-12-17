@@ -27,6 +27,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, dynamic> _notInlinedMessages(_) => {
         'authErrorAlreadyVerified': MessageLookupByLibrary.simpleMessage(
             'The user has already been verified'),
+        'authErrorEmailAlreadyTaken':
+            MessageLookupByLibrary.simpleMessage('This email is already taken'),
+        'authErrorInvalidRefreshToken':
+            MessageLookupByLibrary.simpleMessage('Invalid refresh token'),
+        'authErrorRefreshTokenNotInWhitelist':
+            MessageLookupByLibrary.simpleMessage(
+                'Refresh token is not in the whitelist'),
         'authErrorTooManyAttempts': MessageLookupByLibrary.simpleMessage(
             'You can get the code again in 60 seconds'),
         'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(

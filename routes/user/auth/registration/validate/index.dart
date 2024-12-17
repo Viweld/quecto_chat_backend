@@ -33,9 +33,10 @@ FutureOr<Response> _post(RequestContext context) async {
     final userRegistrationValidate = context.read<UserRegistrationValidate>();
 
     // execute validation
-    final tokens = await userRegistrationValidate(validationData)
-        as UserRegistrationValidateOutputDto;
-    return ResponseHelper.success(body: tokens.toJson());
+    final result = await userRegistrationValidate(validationData);
+    return ResponseHelper.success(
+      body: UserRegistrationValidateOutputDto.toJson(result),
+    );
   } on MissingRequestBody {
     return ResponseHelper.badRequest(
         detail: context.texts.requestErrorMissingBody);

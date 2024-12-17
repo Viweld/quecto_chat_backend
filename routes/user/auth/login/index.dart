@@ -32,8 +32,8 @@ FutureOr<Response> _post(RequestContext context) async {
     final userLogin = context.read<UserLogin>();
 
     // execute login
-    final tokens = await userLogin(credentials) as UserLoginOutputDto;
-    return ResponseHelper.success(body: tokens.toJson());
+    final result = await userLogin(credentials);
+    return ResponseHelper.success(body: UserLoginOutputDto.toJson(result));
   } on MissingRequestBody {
     return ResponseHelper.badRequest(
         detail: context.texts.requestErrorMissingBody);

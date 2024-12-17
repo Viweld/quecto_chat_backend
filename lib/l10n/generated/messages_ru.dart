@@ -27,6 +27,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, dynamic> _notInlinedMessages(_) => {
         'authErrorAlreadyVerified': MessageLookupByLibrary.simpleMessage(
             'Пользователь уже подтвержден'),
+        'authErrorEmailAlreadyTaken':
+            MessageLookupByLibrary.simpleMessage('Этот email уже занят'),
+        'authErrorInvalidRefreshToken': MessageLookupByLibrary.simpleMessage(
+            'Недействительный токен обновления'),
+        'authErrorRefreshTokenNotInWhitelist':
+            MessageLookupByLibrary.simpleMessage(
+                'Токен обновления отсутствует в белом списке'),
         'authErrorTooManyAttempts': MessageLookupByLibrary.simpleMessage(
             'Получить код повторно можно через 60 секунд'),
         'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(
