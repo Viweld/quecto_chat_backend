@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:intl/intl.dart';
+import 'package:quecto_chat_backend/core/extensions/context_extensions.dart';
 import 'package:quecto_chat_backend/core/helpers/response_helper.dart';
 import 'package:quecto_chat_backend/core/interfaces/token_manager_facade.dart';
 import 'package:quecto_chat_backend/domain/exceptions/app_exceptions.dart';
@@ -11,8 +12,8 @@ import 'package:quecto_chat_backend/l10n/generated/messages_all_locales.dart';
 Handler middleware(Handler handler) {
   return handler
       .use(requestLogger())
-      .use(_setRequestLanguage)
-      .use(_verifyTokenHandler);
+      .use(_verifyTokenHandler)
+      .use(_setRequestLanguage);
 }
 
 /// Set request language and provide Localization
@@ -63,7 +64,8 @@ Handler _verifyTokenHandler(Handler handler) {
     final authHeader = context.request.headers['Authorization'];
     final tokenValue = _getTokenFromAuthHeader(authHeader);
     if (tokenValue == null) {
-      return ResponseHelper.unAuthorized(detail: 'No token provided');
+      return ResponseHelper.unAuthorized(
+          detail: context.texts.authErrorTokenMissing);
     }
 
     // 3. Check for token validity:
@@ -84,7 +86,7 @@ Handler _verifyTokenHandler(Handler handler) {
 /// Returns the token from the header, or null if it can't be retrieved or the header is empty
 String? _getTokenFromAuthHeader(String? authHeader) {
   if (authHeader == null) return null;
-  if (authHeader.contains('Bearer ')) return null;
+  if (!authHeader.contains('Bearer ')) return null;
   final token = authHeader.substring(7);
   if (token.isEmpty) return null;
   return token;

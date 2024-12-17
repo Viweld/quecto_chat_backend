@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         'authErrorRefreshTokenNotInWhitelist':
             MessageLookupByLibrary.simpleMessage(
                 'Токен обновления отсутствует в белом списке'),
+        'authErrorTokenMissing': MessageLookupByLibrary.simpleMessage(
+            'Токен доступа не предоставлен'),
         'authErrorTooManyAttempts': MessageLookupByLibrary.simpleMessage(
             'Получить код повторно можно через 60 секунд'),
         'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(

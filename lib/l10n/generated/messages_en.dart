@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         'authErrorRefreshTokenNotInWhitelist':
             MessageLookupByLibrary.simpleMessage(
                 'Refresh token is not in the whitelist'),
+        'authErrorTokenMissing':
+            MessageLookupByLibrary.simpleMessage('No access-token provided'),
         'authErrorTooManyAttempts': MessageLookupByLibrary.simpleMessage(
             'You can get the code again in 60 seconds'),
         'authErrorUnknownUserEmail': MessageLookupByLibrary.simpleMessage(

@@ -17,6 +17,7 @@
   "authErrorTooManyAttempts": "Получить код повторно можно через 60 секунд",
   "authErrorEmailAlreadyTaken": "Этот email уже занят",
   "authErrorRefreshTokenNotInWhitelist": "Токен обновления отсутствует в белом списке",
-  "authErrorInvalidRefreshToken": "Недействительный токен обновления"
+  "authErrorInvalidRefreshToken": "Недействительный токен обновления",
+  "authErrorTokenMissing": "Токен доступа не предоставлен"
 }
 

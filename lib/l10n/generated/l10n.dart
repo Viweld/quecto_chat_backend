@@ -162,4 +162,14 @@ class Localization {
       args: [],
     );
   }
+
+  /// `No access-token provided`
+  String get authErrorTokenMissing {
+    return Intl.message(
+      'No access-token provided',
+      name: 'authErrorTokenMissing',
+      desc: '',
+      args: [],
+    );
+  }
 }

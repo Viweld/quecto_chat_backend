@@ -17,5 +17,6 @@
   "authErrorTooManyAttempts": "You can get the code again in 60 seconds",
   "authErrorEmailAlreadyTaken": "This email is already taken",
   "authErrorRefreshTokenNotInWhitelist": "Refresh token is not in the whitelist",
-  "authErrorInvalidRefreshToken": "Invalid refresh token"
+  "authErrorInvalidRefreshToken": "Invalid refresh token",
+  "authErrorTokenMissing": "No access-token provided"
 }
